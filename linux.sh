@@ -19,6 +19,26 @@ set -e
 
 # Jump to "BEGIN"...
 
+downloadRepos() {
+	cd ~
+	echo Installing git...
+	yum -y -q install git
+	echo
+	echo
+	echo
+	echo 'Cloning .codisms; enter bitbucket.org password for "codisms":'
+	echo Cloning dev-config...
+	git clone --quiet https://codisms@bitbucket.org/codisms/dev-config.git .codisms
+
+	echo Configuring security...
+	configureSecurity
+
+	echo Downloading submodules...
+	cd ~/.codisms
+	git submodule --quiet update --init --recursive
+	cd ~
+}
+
 #-----------------------------------------------------------------------------------------------------------
 # Configuration
 
@@ -29,6 +49,7 @@ configureSecurity() {
 	[ ! -d ~/.ssh ] && mkdir ~/.ssh
 	chmod 700 ~/.ssh
 	cd ~/.ssh
+	[ -f authorized_keys ] && mv authorized_keys.orig
 	find ../.codisms/ssh/ -type f -exec ln -s {} \;
 	chmod 600 *
 	cd ~
@@ -128,12 +149,12 @@ installNode() {
 	echo Installing node...
 	##read -p 'Press [Enter] to continue...'
 
-	curl -sL https://rpm.nodesource.com/setup | bash -
+	curl -sL https://rpm.nodesource.com/setup | bash - > /dev/null
 	#curl -sL https://rpm.nodesource.com/setup_4.x | bash -
 	#curl -sL https://rpm.nodesource.com/setup_5.x | bash -
 	yum install -q -y nodejs
-	npm install --quiet -g npm
-	npm install --quiet -g grunt-cli gulp-cli nodemon bower json http-server
+	npm install --quiet --loglevel warn -g npm
+	npm install --quiet --loglevel warn -g grunt-cli gulp-cli nodemon bower json http-server
 }
 
 installPostgres() {
@@ -163,7 +184,7 @@ installRuby() {
 	#gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
 	curl -#LO https://rvm.io/mpapis.asc && gpg --import mpapis.asc
 	[ -f mpapis.asc ] && rm -f mpapis.asc
-	curl -sSL https://get.rvm.io | bash -s stable --rails
+	curl -sSL https://get.rvm.io | bash -s stable --rails > /dev/null
 
 	source /usr/local/rvm/scripts/rvm
 	source /etc/profile
@@ -197,8 +218,8 @@ installVim() {
 				--enable-perlinterp \
 				--enable-luainterp \
 				--enable-gui=gtk2 --enable-cscope --prefix=/usr --quiet > /dev/null
-	make --quiet VIMRUNTIMEDIR=/usr/share/vim/vim74
-	make install --quiet
+	make --quiet VIMRUNTIMEDIR=/usr/share/vim/vim74 > /dev/null
+	make install --quiet > /dev/null
 	cd ..
 	rm -rf vim
 
@@ -232,7 +253,9 @@ installVimExtensions_YCM() {
 # 	cd YouCompleteMe
 # 	git submodule --quiet update --init --recursive
 	#./install.sh --clang-completer
+	cd ~/.codisms/repos/YouCompleteMe
 	./install.sh --clang-completer --system-libclang --gocode-completer > /dev/null
+	cd ~
 
 	#mkdir ycm_build
 	#cd ycm_build
@@ -321,8 +344,8 @@ installLibEvent() {
 	cd libevent
 	sh autogen.sh --quiet > /dev/null
 	./configure --prefix=/usr/local --quiet > /dev/null
-	make --quiet
-	make install --quiet
+	make --quiet > /dev/null
+	make install --quiet > /dev/null
 	cd ..
 	rm -rf libevent
 }
@@ -343,8 +366,8 @@ installTmux() {
 	cd tmux
 	sh autogen.sh --quiet > /dev/null
 	./configure --prefix=/usr/local --quiet > /dev/null
-	make --quiet
-	make install --quiet
+	make --quiet > /dev/null
+	make install --quiet > /dev/null
 	cd ..
 	rm -rf tmux
 
@@ -365,7 +388,7 @@ installGo() {
 	##read -p 'Press [Enter] to continue...'
 
 	if [ ! -f /usr/local/go1.5.1.linux-amd64.tar.gz ]; then
-		curl 'https://storage.googleapis.com/golang/go1.5.1.linux-amd64.tar.gz' -o /usr/local/go1.5.1.linux-amd64.tar.gz
+		curl -sSL 'https://storage.googleapis.com/golang/go1.5.1.linux-amd64.tar.gz' -o /usr/local/go1.5.1.linux-amd64.tar.gz
 		tar -C /usr/local -xzf /usr/local/go1.5.1.linux-amd64.tar.gz
 	fi
 
@@ -413,7 +436,7 @@ downloadCode() {
 	##read -p 'Press [Enter] to continue...'
 
 	cd ssh_helper
-	npm install --quiet
+	npm install --quiet --loglevel warn
 	cd ..
 	/root/.codisms/bin/ssh-get
 
@@ -423,7 +446,7 @@ downloadCode() {
 	##read -p 'Press [Enter] to continue...'
 
 	cd ~/Veritone/node/veritone-cli
-	npm install --quiet
+	npm install --quiet --loglevel warn
 	cd ~
 }
 
@@ -612,23 +635,7 @@ if [ "$1" != "" ]; then
 # 	exit
 fi
 
-cd ~
-echo Installing git...
-yum -y -q install git
-echo
-echo
-echo
-echo 'Cloning .codisms; enter bitbucket.org password for "codisms":'
-echo Cloning dev-config...
-git clone --quiet https://codisms@bitbucket.org/codisms/dev-config.git .codisms
-
-echo Configuring security...
-configureSecurity
-
-echo Downloading submodules...
-cd ~/.codisms
-git submodule --quiet update --init --recursive
-cd ~
+downloadRepos
 
 #-----------------------------------------------------------------------------------------------------------
 # Create a SSH key, if needed
