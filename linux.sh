@@ -1,5 +1,20 @@
 #!/bin/bash
 
+echo "Enter a new host name, or blank for no change:"
+read -p "? " HN
+
+if [ "$HN" != "" ]; then
+	setHostName $HN
+	HN=
+
+# 	echo
+# 	echo Rebooting machine for changes to take effect...
+# 	read -p 'Press [Enter] to continue...'
+# 	reboot
+# 	exit
+fi
+
+
 set -e
 
 # for new 6.6 install in parallels...
@@ -597,20 +612,6 @@ downloadCode_HomDna() {
 ############################################################################################################
 # BEGIN
 ############################################################################################################
-
-echo "Enter a new host name, or blank for no change:"
-read -p "? " HN
-
-if [ "$HN" != "" ]; then
-	setHostName $HN
-	HN=
-
-# 	echo
-# 	echo Rebooting machine for changes to take effect...
-# 	read -p 'Press [Enter] to continue...'
-# 	reboot
-# 	exit
-fi
 
 cd ~
 echo Installing git...
