@@ -49,7 +49,7 @@ configureSecurity() {
 	[ ! -d ~/.ssh ] && mkdir ~/.ssh
 	chmod 700 ~/.ssh
 	cd ~/.ssh
-	[ -f authorized_keys ] && mv authorized_keys.orig
+	[ -f authorized_keys ] && mv authorized_keys authorized_keys.orig
 	find ../.codisms/ssh/ -type f -exec ln -s {} \;
 	chmod 600 *
 	cd ~
