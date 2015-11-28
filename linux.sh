@@ -21,14 +21,14 @@ set -e
 
 printHeader() {
 	echo
-	echo -----------------------------------------------------------------------
+	echo -------------------------------------------------------------------------------------------------------------------------------------------
 	echo $1
 	echo
 }
 
 printSubHeader() {
 	echo
-	echo -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+	echo -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 	echo $1
 	echo
 }
@@ -48,17 +48,17 @@ downloadRepos() {
 
 	mkdir -p ~/.ssh
 	chmod 700 ~/.ssh
-	pushd ~/.ssh
+	cd ~/.ssh
 	[ -f authorized_keys ] && mv authorized_keys authorized_keys.orig
 	find ../.codisms/ssh/ -type f -exec ln -s {} \;
 	chmod 600 *
-	popd
+	cd ~
 
 	printSubHeader "Downloading submodules..."
 
-	pushd ~/.codisms
+	cd ~/.codisms
 	git submodule --quiet update --init --recursive
-	popd
+	cd ~
 }
 
 #-----------------------------------------------------------------------------------------------------------
@@ -144,9 +144,9 @@ installPackages() {
 installNode() {
 	printSubHeader "Installing node..."
 
-	curl -sL https://rpm.nodesource.com/setup | bash - > /dev/null
-	#curl -sL https://rpm.nodesource.com/setup_4.x | bash -
-	#curl -sL https://rpm.nodesource.com/setup_5.x | bash -
+	#curl -sL https://rpm.nodesource.com/setup | bash - > /dev/null
+	curl -sL https://rpm.nodesource.com/setup_4.x | bash - > /dev/null
+	#curl -sL https://rpm.nodesource.com/setup_5.x | bash - > /dev/null
 	yum install -q -y nodejs
 	npm install --quiet --loglevel warn -g npm
 	npm install --quiet --loglevel warn -g grunt-cli gulp-cli nodemon bower json http-server
@@ -183,9 +183,13 @@ installPostgres() {
 
 	yum install -y -q http://yum.postgresql.org/9.4/redhat/rhel-6-x86_64/pgdg-centos94-9.4-1.noarch.rpm
 	yum install -y -q postgresql94-odbc postgresql94-devel postgresql94 postgresql94-contrib postgresql94-server
+echo *1
 	service postgresql-9.4 initdb
+echo *2
 	service postgresql-9.4 start
+echo *3
 	chkconfig postgresql-9.4 on
+echo *4
 
 	ln -s ~/.codisms/psqlrc ~/.psqlrc
 }
@@ -193,9 +197,10 @@ installPostgres() {
 installVim() {
 	printSubHeader "Installing vim..."
 
+	cd ~
 	echo Cloning vim...
 	git clone --quiet https://github.com/vim/vim.git
-	pushd vim
+	cd vim
 	./configure --with-features=huge \
 				--enable-multibyte \
 				--enable-rubyinterp \
@@ -206,7 +211,7 @@ installVim() {
 				--enable-gui=gtk2 --enable-cscope --prefix=/usr --quiet > /dev/null
 	make --quiet VIMRUNTIMEDIR=/usr/share/vim/vim74 > /dev/null
 	make install --quiet > /dev/null
-	popd
+	cd ..
 	rm -rf vim
 
 	ln -s ~/.codisms/vim/vimrc ~/.vimrc
@@ -253,6 +258,7 @@ installVimExtensions() {
 
 	ln -s ~/.codisms/repos/solarized/vim-colors-solarized/colors/solarized.vim ~/.vim/colors/solarized.vim
 
+	[ -f ~/.vim/doc/dbext.txt] && rm -f ~/.vim/doc/dbext.txt
 	ln -s ~/.codisms/repos/dbext.vim/doc/dbext.txt ~/.vim/doc/dbext.txt
 
 	installVimExtensions_YCM
@@ -261,9 +267,9 @@ installVimExtensions() {
 installVimExtensions_YCM() {
 	printSubHeader "Installing ycm..."
 
-	pushd ~/.codisms/repos/YouCompleteMe
+	cd ~/.codisms/repos/YouCompleteMe
 	./install.sh --clang-completer --system-libclang --gocode-completer > /dev/null
-	popd
+	cd ~
 
 	ln -s ~/.codisms/repos/YouCompleteMe ~/.vim/bundle/YouCompleteMe
 }
@@ -271,14 +277,15 @@ installVimExtensions_YCM() {
 installLibEvent() {
 	printSubHeader "Installing libevent..."
 
+	cd ~
 	echo Cloning libevent...
 	git clone --quiet https://github.com/libevent/libevent.git
-	pushd libevent
+	cd libevent
 	sh autogen.sh --quiet > /dev/null
 	./configure --prefix=/usr/local --quiet > /dev/null
 	make --quiet > /dev/null
 	make install --quiet > /dev/null
-	popd
+	cd ..
 	rm -rf libevent
 }
 
@@ -287,14 +294,15 @@ installTmux() {
 
 	printSubHeader "Installing tmux..."
 
+	cd ~
 	echo Cloning tmux...
 	git clone --quiet https://github.com/tmux/tmux.git
-	pushd tmux
+	cd tmux
 	sh autogen.sh --quiet > /dev/null
 	./configure --prefix=/usr/local --quiet > /dev/null
 	make --quiet > /dev/null
 	make install --quiet > /dev/null
-	popd
+	cd ..
 	rm -rf tmux
 
  	PATH=$PATH:`find /usr/local/rvm/rubies/ruby-*/bin/ | head -n 1`
