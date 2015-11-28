@@ -1,2 +1,2 @@
 To install:
-`curl https://bitbucket.org/codisms/dev-setup/raw/master/linux.sh | bash -`
+`curl -sSL https://bitbucket.org/codisms/dev-setup/raw/master/linux.sh | bash -s`
