@@ -617,14 +617,13 @@ echo
 echo
 echo
 echo 'Cloning .codisms; enter bitbucket.org password for "codisms":'
-echo Cloning dev-config... && git clone --quiet https://codisms@bitbucket.org/codisms/dev-config.git .codisms
-if [ ! -d .codisms ]; then
+echo Cloning dev-config...
+git clone --quiet https://codisms@bitbucket.org/codisms/dev-config.git .codisms
 
-fi
-
-cd .codisms
+echo Downloading submodules...
+cd ~/.codisms
 git submodule --quiet update --init --recursive
-cd ..
+cd ~
 
 #-----------------------------------------------------------------------------------------------------------
 # Create a SSH key, if needed
