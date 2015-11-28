@@ -144,9 +144,18 @@ installPackages() {
 installNode() {
 	printSubHeader "Installing node..."
 
-	#curl -sL https://rpm.nodesource.com/setup | bash - > /dev/null
-	curl -sL https://rpm.nodesource.com/setup_4.x | bash - > /dev/null
-	#curl -sL https://rpm.nodesource.com/setup_5.x | bash - > /dev/null
+# 	git clone --quiet https://github.com/nodejs/node.git
+# 	cd node
+# 	git checkout --quiet 4.x
+# 	./configure --quiet > /dev/null
+# 	make --quiet > /dev/null
+# 	make install --quiet > /dev/null
+# 	cd ..
+# 	rm -rf node
+
+	curl -sSL https://rpm.nodesource.com/setup | bash - > /dev/null
+	#curl -sSL https://rpm.nodesource.com/setup_4.x | bash - > /dev/null
+	#curl -sSL https://rpm.nodesource.com/setup_5.x | bash - > /dev/null
 	yum install -q -y nodejs
 	npm install --quiet --loglevel warn -g npm
 	npm install --quiet --loglevel warn -g grunt-cli gulp-cli nodemon bower json http-server
@@ -157,7 +166,7 @@ installRuby() {
 
 	#rm -rf ~/.gnupg/
 	#gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
-	curl -#LO https://rvm.io/mpapis.asc && gpg --import mpapis.asc
+	curl -sSLO https://rvm.io/mpapis.asc && gpg --import mpapis.asc
 	[ -f mpapis.asc ] && rm -f mpapis.asc
 	curl -sSL https://get.rvm.io | bash -s stable --rails > /dev/null
 
