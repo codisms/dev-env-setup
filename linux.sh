@@ -22,7 +22,7 @@ set -e
 #-----------------------------------------------------------------------------------------------------------
 # Configuration
 
-configureEnvironment() {
+configureSecurity() {
 	ln -s ~/.codisms/netrc .netrc
 	chmod 600 ~/.netrc
 
@@ -32,10 +32,12 @@ configureEnvironment() {
 	find ../.codisms/ssh/ -type f -exec ln -s {} \;
 	chmod 600 *
 	cd ~
+}
 
-	[ ! -d ~/.codisms/repos ] && ~/.codisms/repos
-
-	cd ~/.codisms/repos
+configureEnvironment() {
+# 	[ ! -d ~/.codisms/repos ] && ~/.codisms/repos
+#
+# 	cd ~/.codisms/repos
 
 # 	echo Cloning antigen... && git clone --quiet https://github.com/zsh-users/antigen.git
 # 	echo Cloning dircolors-solarized... && git clone --quiet https://github.com/seebi/dircolors-solarized.git
@@ -619,6 +621,9 @@ echo
 echo 'Cloning .codisms; enter bitbucket.org password for "codisms":'
 echo Cloning dev-config...
 git clone --quiet https://codisms@bitbucket.org/codisms/dev-config.git .codisms
+
+echo Configuring security...
+configureSecurity
 
 echo Downloading submodules...
 cd ~/.codisms
