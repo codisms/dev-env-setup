@@ -1,20 +1,5 @@
 #!/bin/bash
 
-echo "Enter a new host name, or blank for no change:"
-read -p "? " HN
-
-if [ "$HN" != "" ]; then
-	setHostName $HN
-	HN=
-
-# 	echo
-# 	echo Rebooting machine for changes to take effect...
-# 	read -p 'Press [Enter] to continue...'
-# 	reboot
-# 	exit
-fi
-
-
 set -e
 
 # for new 6.6 install in parallels...
@@ -71,12 +56,14 @@ configureEnvironment() {
 }
 
 setHostName() {
+	echo Setting host name to "$1"...
 	[ -f  /etc/sysconfig/network ] && mv -f /etc/sysconfig/network /etc/sysconfig/network.orig
 
-	echo NETWORKING=yes> /etc/sysconfig/network
-	echo HOSTNAME=$1>> /etc/sysconfig/network
+	cat << EOF > /etc/sysconfig/network
+echo NETWORKING=yes
+echo HOSTNAME=$1
+EOF
 
-	echo >> /etc/hosts
 	echo 127.0.0.1 $1>> /etc/hosts
 }
 
@@ -612,6 +599,16 @@ downloadCode_HomDna() {
 ############################################################################################################
 # BEGIN
 ############################################################################################################
+
+if [ "$1" != "" ]; then
+	setHostName $1
+
+# 	echo
+# 	echo Rebooting machine for changes to take effect...
+# 	read -p 'Press [Enter] to continue...'
+# 	reboot
+# 	exit
+fi
 
 cd ~
 echo Installing git...
