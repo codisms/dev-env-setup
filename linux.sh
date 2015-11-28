@@ -598,7 +598,8 @@ downloadCode_HomDna() {
 # BEGIN
 ############################################################################################################
 
-read -p "Enter a new host name, or blank for no change: " HN
+echo "Enter a new host name, or blank for no change:"
+read -p "? " HN
 
 if [ "$HN" != "" ]; then
 	setHostName $HN
