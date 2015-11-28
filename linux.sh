@@ -192,13 +192,9 @@ installPostgres() {
 
 	yum install -y -q http://yum.postgresql.org/9.4/redhat/rhel-6-x86_64/pgdg-centos94-9.4-1.noarch.rpm
 	yum install -y -q postgresql94-odbc postgresql94-devel postgresql94 postgresql94-contrib postgresql94-server
-echo *1
 	service postgresql-9.4 initdb
-echo *2
 	service postgresql-9.4 start
-echo *3
 	chkconfig postgresql-9.4 on
-echo *4
 
 	ln -s ~/.codisms/psqlrc ~/.psqlrc
 }
@@ -267,7 +263,7 @@ installVimExtensions() {
 
 	ln -s ~/.codisms/repos/solarized/vim-colors-solarized/colors/solarized.vim ~/.vim/colors/solarized.vim
 
-	[ -f ~/.vim/doc/dbext.txt] && rm -f ~/.vim/doc/dbext.txt
+	[ -f ~/.vim/doc/dbext.txt ] && rm -f ~/.vim/doc/dbext.txt
 	ln -s ~/.codisms/repos/dbext.vim/doc/dbext.txt ~/.vim/doc/dbext.txt
 
 	installVimExtensions_YCM
