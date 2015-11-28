@@ -1,4 +1,6 @@
-#!/bin/sh
+#!/bin/bash
+
+set -e
 
 # for new 6.6 install in parallels...
 # > vi /boot/grub/grub.conf
@@ -82,8 +84,10 @@ installPackages() {
 
 	rpm -ivh http://dl.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
 	#yum install -y https://centos6.iuscommunity.org/ius-release.rpm
-	yum -y update
-	yum install -y git mercurial bzr \
+	echo Updating system...
+	yum -y -q update
+	echo Installing new modules...
+	yum install -y -q git mercurial bzr \
 		gcc gcc-c++ kernel-devel \
 		automake cmake make libtool \
 		ncurses-devel tcl-devel \
@@ -123,9 +127,9 @@ installNode() {
 	curl -sL https://rpm.nodesource.com/setup | bash -
 	#curl -sL https://rpm.nodesource.com/setup_4.x | bash -
 	#curl -sL https://rpm.nodesource.com/setup_5.x | bash -
-	yum install -y nodejs
-	npm install -g npm
-	npm install -g grunt-cli gulp-cli nodemon bower json http-server
+	yum install -q -y nodejs
+	npm install --quiet -g npm
+	npm install --quiet -g grunt-cli gulp-cli nodemon bower json http-server
 }
 
 installPostgres() {
@@ -136,7 +140,7 @@ installPostgres() {
 	##read -p 'Press [Enter] to continue...'
 
 	yum install -y -q http://yum.postgresql.org/9.4/redhat/rhel-6-x86_64/pgdg-centos94-9.4-1.noarch.rpm
-	yum -y install postgresql94-odbc postgresql94-devel postgresql94 postgresql94-contrib postgresql94-server
+	yum install -y -q postgresql94-odbc postgresql94-devel postgresql94 postgresql94-contrib postgresql94-server
 	service postgresql-9.4 initdb
 	service postgresql-9.4 start
 	chkconfig postgresql-9.4 on
@@ -178,7 +182,8 @@ installVim() {
 
 	cd ~
 
-	echo Cloning vim... && git clone --quiet https://github.com/vim/vim.git
+	echo Cloning vim...
+	git clone --quiet https://github.com/vim/vim.git
 	cd vim
 	./configure --with-features=huge \
 				--enable-multibyte \
@@ -187,7 +192,9 @@ installVim() {
 				--with-python-config-dir=/usr/lib/python2.6/config \
 				--enable-perlinterp \
 				--enable-luainterp \
-				--enable-gui=gtk2 --enable-cscope --prefix=/usr --quiet && make --quiet VIMRUNTIMEDIR=/usr/share/vim/vim74 && make install --quiet
+				--enable-gui=gtk2 --enable-cscope --prefix=/usr --quiet > /dev/null
+	make --quiet VIMRUNTIMEDIR=/usr/share/vim/vim74
+	make install --quiet
 	cd ..
 	rm -rf vim
 
@@ -221,7 +228,7 @@ installVimExtensions_YCM() {
 # 	cd YouCompleteMe
 # 	git submodule --quiet update --init --recursive
 	#./install.sh --clang-completer
-	./install.sh --clang-completer --system-libclang --gocode-completer
+	./install.sh --clang-completer --system-libclang --gocode-completer > /dev/null
 
 	#mkdir ycm_build
 	#cd ycm_build
@@ -305,9 +312,13 @@ installLibEvent() {
 
 	cd ~
 
-	echo Cloning libevent... && git clone --quiet https://github.com/libevent/libevent.git
+	echo Cloning libevent...
+	git clone --quiet https://github.com/libevent/libevent.git
 	cd libevent
-	sh autogen.sh --quiet && ./configure --prefix=/usr/local --quiet && make --quiet && make install --quiet
+	sh autogen.sh --quiet > /dev/null
+	./configure --prefix=/usr/local --quiet > /dev/null
+	make --quiet
+	make install --quiet
 	cd ..
 	rm -rf libevent
 }
@@ -323,16 +334,20 @@ installTmux() {
 	#sh <(wget -qO- http://s.minos.io/s) -x tmux-2.0f
 
 	cd ~
-	echo Cloning tmux... && git clone --quiet https://github.com/tmux/tmux.git
+	echo Cloning tmux...
+	git clone --quiet https://github.com/tmux/tmux.git
 	cd tmux
-	sh autogen.sh --quiet && ./configure --prefix=/usr/local --quiet && make --quiet && make install --quiet
+	sh autogen.sh --quiet > /dev/null
+	./configure --prefix=/usr/local --quiet > /dev/null
+	make --quiet
+	make install --quiet
 	cd ..
 	rm -rf tmux
 
  	PATH=$PATH:`find /usr/local/rvm/rubies/ruby-*/bin/ | head -n 1`
 
 # 	gem --update system
-	gem install tmuxinator
+	gem install --quiet tmuxinator
 
 	ln -s .codisms/tmuxinator .tmuxinator
 	ln -s ~/.codisms/tmux.conf ~/.tmux.conf
@@ -394,7 +409,7 @@ downloadCode() {
 	##read -p 'Press [Enter] to continue...'
 
 	cd ssh_helper
-	npm install
+	npm install --quiet
 	cd ..
 	/root/.codisms/bin/ssh-get
 
@@ -404,7 +419,7 @@ downloadCode() {
 	##read -p 'Press [Enter] to continue...'
 
 	cd ~/Veritone/node/veritone-cli
-	npm install
+	npm install --quiet
 	cd ~
 }
 
@@ -583,14 +598,17 @@ downloadCode_HomDna() {
 # BEGIN
 ############################################################################################################
 
-if [ "$1" != "" ]; then
-	setHostName $1
+read -p "Enter a new host name, or blank for no change: " HN
 
-	echo
-	echo Rebooting machine for changes to take effect...
-	read -p 'Press [Enter] to continue...'
-	reboot
-	exit
+if [ "$HN" != "" ]; then
+	setHostName $HN
+	HN=
+
+# 	echo
+# 	echo Rebooting machine for changes to take effect...
+# 	read -p 'Press [Enter] to continue...'
+# 	reboot
+# 	exit
 fi
 
 cd ~
@@ -600,7 +618,14 @@ echo
 echo
 echo
 echo 'Cloning .codisms; enter bitbucket.org password for "codisms":'
-echo Cloning dev-config... && git clone --quiet https://codisms@bitbucket.org/codisms/dev-config.git .codisms && cd .codisms && git submodule --quiet update --init --recursive
+echo Cloning dev-config... && git clone --quiet https://codisms@bitbucket.org/codisms/dev-config.git .codisms
+if [ ! -d .codisms ]; then
+
+fi
+
+cd .codisms
+git submodule --quiet update --init --recursive
+cd ..
 
 #-----------------------------------------------------------------------------------------------------------
 # Create a SSH key, if needed
