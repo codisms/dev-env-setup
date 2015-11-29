@@ -131,6 +131,9 @@ installVimExtensions_YCM() {
 installTmux() {
 # 	installLibEvent
 
+	echo Installing libevent 2.x...
+	yum install -y libevent-2* libevent-devel-2*
+
 	printSubHeader "Installing tmux..."
 
 	cd ~
