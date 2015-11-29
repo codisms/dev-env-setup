@@ -16,12 +16,12 @@ if [ "$INSTALL_DIR" == "" ]; then
 	echo "Unknown operating system: $OSTYPE"
 	return
 fi
-if [ ! -d ~/.setup/$INSTALL_DIR/setup.sh ]; then
+if [ ! -d ~/.setup/$INSTALL_DIR/step1.sh ]; then
 	echo "Setup script not found: $INSTALL_DIR"
 	return
 fi
 
-echo "Running installer (~/.setup/$INSTALL_DIR/setup.sh)..."
+echo "Running installer (~/.setup/$INSTALL_DIR/step1.sh)..."
 chmod +x ~/.setup/$INSTALL_DIR/*.sh
-~/.setup/$INSTALL_DIR/setup.sh $1
+~/.setup/$INSTALL_DIR/step1.sh $1
 

@@ -3,7 +3,7 @@
 set -e
 cd ~
 
-. ./functions
+. ~/.setup/linux/functions
 
 setHostName() {
 	echo Setting host name to "$1"...
