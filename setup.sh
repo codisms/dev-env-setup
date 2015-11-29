@@ -23,5 +23,5 @@ fi
 
 echo "Running installer (~/.setup/$INSTALL_DIR/setup.sh)..."
 chmod +x ~/.setup/$INSTALL_DIR/*.sh
-~/.setup/$INSTALL_DIR/setup.sh
+~/.setup/$INSTALL_DIR/setup.sh $1
 
