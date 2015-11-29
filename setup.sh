@@ -16,7 +16,7 @@ if [ "$INSTALL_DIR" == "" ]; then
 	echo "Unknown operating system: $OSTYPE"
 	exit
 fi
-if [ ! -d ~/.setup/$INSTALL_DIR/step1.sh ]; then
+if [ ! -f ~/.setup/$INSTALL_DIR/step1.sh ]; then
 	echo "Setup script not found: $INSTALL_DIR"
 	exit
 fi
