@@ -127,6 +127,7 @@ installPackages() {
 		httpd mod_ssl \
 		php php-mysql \
 		perl-DBD-ODBC freetds \
+		libevent libevent-devel \
 		openssh-clients openconnect
 		#postgresql94-odbc postgresql-odbc postgresql-devel postgresql94-devel
 		#tmux nodejs
@@ -278,9 +279,9 @@ installVimExtensions_YCM() {
 	ln -s ~/.codisms/repos/YouCompleteMe ~/.vim/bundle/YouCompleteMe
 }
 
-installLibEvent() {
-	printSubHeader "Installing libevent..."
-
+# installLibEvent() {
+# 	printSubHeader "Installing libevent..."
+#
 # 	cd ~
 # 	echo Cloning libevent...
 # 	git clone --quiet https://github.com/libevent/libevent.git
@@ -291,11 +292,12 @@ installLibEvent() {
 # 	make install --quiet > /dev/null
 # 	cd ..
 # 	rm -rf libevent
-	yum install -y -q libevent libevent-devel
-}
+#
+# 	yum install -y -q libevent libevent-devel
+# }
 
 installTmux() {
-	installLibEvent
+# 	installLibEvent
 
 	printSubHeader "Installing tmux..."
 
