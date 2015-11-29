@@ -293,7 +293,7 @@ installLibEvent() {
 # 	make install --quiet > /dev/null
 # 	cd ..
 # 	rm -rf libevent
-	yum install -y -q libevent
+	yum install -y -q libevent libevent-devel
 }
 
 installTmux() {
