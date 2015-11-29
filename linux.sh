@@ -39,7 +39,7 @@ downloadRepos() {
 	echo
 	echo 'Cloning .codisms; enter bitbucket.org password for "codisms":'
 	echo Cloning dev-config...
-	git clone --quiet https://bitbucket.org/codisms/dev-config.git ~/.codisms
+	git clone --quiet https://codisms@bitbucket.org/codisms/dev-config.git ~/.codisms
 
 	printSubHeader "Configuring security..."
 
@@ -54,6 +54,8 @@ downloadRepos() {
 	find ../.codisms/ssh/ -type f -exec ln -s {} \;
 	chmod 600 *
 	cd ~
+
+	sed s/codisms@// ~/.codisms/.git/config > ~/.codisms/.git/config
 
 	printSubHeader "Downloading submodules..."
 
