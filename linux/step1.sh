@@ -25,7 +25,7 @@ if [ "$1" != "" ]; then
 	printHeader "Setting host name..."
 	setHostName $1
 
-	scheduleForNextRun "~/.setup/linux/step2.sh"
+	scheduleForNextRun "$HOME/.setup/linux/step2.sh"
 
 	printHeader "Finished step 1.  Rebooting..."
 	# read -p 'Press [Enter] to continue...'

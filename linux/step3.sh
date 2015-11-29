@@ -178,7 +178,7 @@ startMySql() {
 printHeader "Installing packages..."
 installPackages
 
-scheduleForNextRun "~/.setup/linux/step4.sh"
+scheduleForNextRun "$HOME/.setup/linux/step4.sh"
 
 printHeader "Finished step 3.  Rebooting..."
 # read -p 'Press [Enter] to continue...'

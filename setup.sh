@@ -22,14 +22,17 @@ if [ ! -f ~/.setup/$INSTALL_DIR/step1.sh ]; then
 	exit
 fi
 
-cat < EOF >> ~/.bashrc
+cat <<EOF >> ~/.bashrc
+
+
 if [ -f ~/.onstart ]; then
-        CMD=`cat ~/.onstart`
-        rm ~/.onstart
-        echo "Executing command: $CMD"
-        $CMD
+        CMD=\`cat ~/.onstart\`
+        rm -f ~/.onstart
+        echo "Executing command: \$CMD"
+        \$CMD
         CMD=
 fi
+
 EOF
 
 echo "Running installer (~/.setup/$INSTALL_DIR/step1.sh)..."
