@@ -241,16 +241,13 @@ installVim() {
 installVimExtensions() {
 	printSubHeader "Installing vim extensions..."
 
-	[ -d ~/.vim/autoload ] && rm -rf ~/.vim/autoload
 	mkdir -p ~/.vim/autoload
-	[ -d ~/.vim/bitmaps ] && rm -rf ~/.vim/bitmaps
 	mkdir -p ~/.vim/bitmaps
-	[ -d ~/.vim/bundle ] && rm -rf ~/.vim/bundle
 	mkdir -p ~/.vim/bundle
-	[ -d ~/.vim/colors ] && rm -rf ~/.vim/colors
 	mkdir -p ~/.vim/colors
+	mkdir -p ~/.vim/doc
 
-	ln -s ~/.codisms/repos/vim-pathogen/autoload/pathogen.vim ~/.vim/autoload/pathogen
+	ln -s ~/.codisms/repos/vim-pathogen/autoload/pathogen.vim ~/.vim/autoload/pathogen.vim
 	ln -s ~/.codisms/repos/solarized/vim-colors-solarized/autoload/togglebg.vim ~/.vim/autoload/togglebg.vim
 
 	ln -s ~/.codisms/repos/solarized/vim-colors-solarized/bitmaps/togglebg.png ~/.vim/bitmaps/togglebg.png
@@ -266,7 +263,6 @@ installVimExtensions() {
 
 	ln -s ~/.codisms/repos/solarized/vim-colors-solarized/colors/solarized.vim ~/.vim/colors/solarized.vim
 
-	[ -f ~/.vim/doc/dbext.txt ] && rm -f ~/.vim/doc/dbext.txt
 	ln -s ~/.codisms/repos/dbext.vim/doc/dbext.txt ~/.vim/doc/dbext.txt
 
 	installVimExtensions_YCM
