@@ -195,11 +195,9 @@ installPackages
 # echo
 # #read -p 'Press [Enter] to continue...'
 
-scheduleForNextRun "~/.setup/linux/setup_step2.sh"
+scheduleForNextRun "~/.setup/linux/step3.sh"
 
-printHeader "Finished step 1.  Rebooting..."
-# printHeader "Done.  Ready to reboot"
+printHeader "Finished step 2.  Rebooting..."
 # read -p 'Press [Enter] to continue...'
-# echo
 
 reboot

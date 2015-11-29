@@ -25,11 +25,11 @@ if [ "$1" != "" ]; then
 	printHeader "Setting host name..."
 	setHostName $1
 
-# 	echo
-# 	echo Rebooting machine for changes to take effect...
-# 	read -p 'Press [Enter] to continue...'
-# 	reboot
-# 	exit
-fi
+	scheduleForNextRun "~/.setup/linux/step2.sh"
 
-~/.setup/linux/setup_step1.sh
+	printHeader "Finished step 1.  Rebooting..."
+	# read -p 'Press [Enter] to continue...'
+	reboot
+else
+	~/.setup/linux/step2.sh
+fi
