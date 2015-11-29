@@ -39,7 +39,7 @@ downloadRepos() {
 	echo
 	echo 'Cloning .codisms; enter bitbucket.org password for "codisms":'
 	echo Cloning dev-config...
-	git clone --quiet https://codisms@bitbucket.org/codisms/dev-config.git ~/.codisms
+	git clone --quiet https://bitbucket.org/codisms/dev-config.git ~/.codisms
 
 	printSubHeader "Configuring security..."
 
@@ -203,35 +203,35 @@ installPostgres() {
 installVim() {
 	printSubHeader "Installing vim..."
 
-	cd ~
-	echo Cloning vim...
-	git clone --quiet https://github.com/vim/vim.git
-	cd vim
-	./configure --with-features=huge \
-				--enable-multibyte \
-				--enable-rubyinterp \
-				--enable-pythoninterp \
-				--with-python-config-dir=/usr/lib/python2.6/config \
-				--enable-perlinterp \
-				--enable-luainterp \
-				--enable-gui=gtk2 --enable-cscope --prefix=/usr --quiet > /dev/null
-	make --quiet VIMRUNTIMEDIR=/usr/share/vim/vim74 > /dev/null
-	make install --quiet > /dev/null
-	cd ..
-	rm -rf vim
+# 	cd ~
+# 	echo Cloning vim...
+# 	git clone --quiet https://github.com/vim/vim.git
+# 	cd vim
+# 	./configure --with-features=huge \
+# 				--enable-multibyte \
+# 				--enable-rubyinterp \
+# 				--enable-pythoninterp \
+# 				--with-python-config-dir=/usr/lib/python2.6/config \
+# 				--enable-perlinterp \
+# 				--enable-luainterp \
+# 				--enable-gui=gtk2 --enable-cscope --prefix=/usr --quiet > /dev/null
+# 	make --quiet VIMRUNTIMEDIR=/usr/share/vim/vim74 > /dev/null
+# 	make install --quiet > /dev/null
+# 	cd ..
+# 	rm -rf vim
 
 	ln -s ~/.codisms/vim/vimrc ~/.vimrc
 	ln -s ~/.codisms/vim ~/.vim
 
-	echo Removing existing version of vi/vim...
-	yum -y -q remove vim-common vim-enhanced vim-minimal
-
-	printSubHeader "Setting vim as default..."
-
-	update-alternatives --install /usr/bin/editor editor /usr/bin/vim 1
-	update-alternatives --set editor /usr/bin/vim
-	update-alternatives --install /usr/bin/vi vi /usr/bin/vim 1
-	update-alternatives --set vi /usr/bin/vim
+# 	echo Removing existing version of vi/vim...
+# 	yum -y -q remove vim-common vim-enhanced vim-minimal
+#
+# 	printSubHeader "Setting vim as default..."
+#
+# 	update-alternatives --install /usr/bin/editor editor /usr/bin/vim 1
+# 	update-alternatives --set editor /usr/bin/vim
+# 	update-alternatives --install /usr/bin/vi vi /usr/bin/vim 1
+# 	update-alternatives --set vi /usr/bin/vim
 
 	installVimExtensions
 }
