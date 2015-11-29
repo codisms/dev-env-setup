@@ -48,6 +48,7 @@ downloadRepos() {
 
 	mkdir -p ~/.ssh
 	chmod 700 ~/.ssh
+	mkdir -p ~/.ssh/controlmasters
 	cd ~/.ssh
 	[ -f authorized_keys ] && mv authorized_keys authorized_keys.orig
 	find ../.codisms/ssh/ -type f -exec ln -s {} \;
@@ -65,7 +66,7 @@ downloadRepos() {
 # Configuration
 
 configureEnvironment() {
-	ln -s ~/.codisms/repos/dircolors-solarized/dircolors.ansi-dark ~/.dircolors
+	ln -s ~/.codisms/repos/dircolors-solarized/dircolors.256dark ~/.dircolors
 	ln -s ~/.codisms/zshrc ~/.zshrc
 	ln -s ~/.codisms/gitconfig ~/.gitconfig
 	ln -s ~/.codisms/elinks ~/.elinks
@@ -282,16 +283,17 @@ installVimExtensions_YCM() {
 installLibEvent() {
 	printSubHeader "Installing libevent..."
 
-	cd ~
-	echo Cloning libevent...
-	git clone --quiet https://github.com/libevent/libevent.git
-	cd libevent
-	sh autogen.sh --quiet > /dev/null
-	./configure --prefix=/usr/local --quiet > /dev/null
-	make --quiet > /dev/null
-	make install --quiet > /dev/null
-	cd ..
-	rm -rf libevent
+# 	cd ~
+# 	echo Cloning libevent...
+# 	git clone --quiet https://github.com/libevent/libevent.git
+# 	cd libevent
+# 	sh autogen.sh --quiet > /dev/null
+# 	./configure --prefix=/usr/local --quiet > /dev/null
+# 	make --quiet > /dev/null
+# 	make install --quiet > /dev/null
+# 	cd ..
+# 	rm -rf libevent
+	yum install -y -q libevent
 }
 
 installTmux() {
@@ -304,7 +306,8 @@ installTmux() {
 	git clone --quiet https://github.com/tmux/tmux.git
 	cd tmux
 	sh autogen.sh --quiet > /dev/null
-	./configure --prefix=/usr/local --quiet > /dev/null
+	#./configure --prefix=/usr/local --quiet > /dev/null
+	./configure --quiet > /dev/null
 	make --quiet > /dev/null
 	make install --quiet > /dev/null
 	cd ..
@@ -313,7 +316,7 @@ installTmux() {
  	PATH=$PATH:`find /usr/local/rvm/rubies/ruby-*/bin/ | head -n 1`
 
 # 	gem --update system
-	gem install --quiet tmuxinator
+	gem install --quiet tmuxinator > /dev/null
 
 	ln -s .codisms/tmuxinator .tmuxinator
 	ln -s ~/.codisms/tmux.conf ~/.tmux.conf
@@ -396,8 +399,9 @@ downloadCode
 # echo
 # #read -p 'Press [Enter] to continue...'
 
-printHeader "Done.  Ready to reboot"
-read -p 'Press [Enter] to continue...'
-echo
+printHeader "Done.  Rebooting..."
+# printHeader "Done.  Ready to reboot"
+# read -p 'Press [Enter] to continue...'
+# echo
 
 reboot
