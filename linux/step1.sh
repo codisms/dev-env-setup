@@ -17,6 +17,18 @@ EOF
 	echo 127.0.0.1 $1>> /etc/hosts
 }
 
+#-----------------------------------------------------------------------------------------------------------
+# Installations
+
+updateSystem() {
+	echo Configuration EPEL repository...
+	rpm -ivh --quiet http://dl.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
+	#yum install -y https://centos6.iuscommunity.org/ius-release.rpm
+
+	echo Updating system...
+	yum -y update
+}
+
 ############################################################################################################
 # BEGIN
 ############################################################################################################
@@ -24,12 +36,13 @@ EOF
 if [ "$1" != "" ]; then
 	printHeader "Setting host name..."
 	setHostName $1
-
-	scheduleForNextRun "$HOME/.setup/linux/step2.sh"
-
-	printHeader "Finished step 1.  Rebooting..."
-	# read -p 'Press [Enter] to continue...'
-	reboot
-else
-	~/.setup/linux/step2.sh
 fi
+
+printHeader "Updating system..."
+updateSystem
+
+scheduleForNextRun "$HOME/.setup/linux/step2.sh"
+
+printHeader "Finished step 1.  Rebooting..."
+# read -p 'Press [Enter] to continue...'
+reboot

@@ -74,15 +74,7 @@ EOF
 # Installations
 
 installPackages() {
-	echo Configuration EPEL repository...
-	rpm -ivh --quiet http://dl.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
-	#yum install -y https://centos6.iuscommunity.org/ius-release.rpm
-
-	echo Updating system...
-	yum -y -q update
-
-	echo Installing new modules...
-	yum install -y -q git mercurial bzr \
+	yum install -y git mercurial bzr \
 		gcc gcc-c++ kernel-devel \
 		automake cmake make libtool \
 		ncurses-devel tcl-devel \
@@ -102,7 +94,9 @@ installPackages() {
 		#ruby ruby-devel rubygems
 		#lua lua-devel luajit luajit-devel
 		#python3 python3-devel \
+}
 
+installLanguages() {
 	installNode
 	installRuby
 	installGo
@@ -123,9 +117,9 @@ installNode() {
 	curl -sSL https://rpm.nodesource.com/setup | bash - > /dev/null
 	#curl -sSL https://rpm.nodesource.com/setup_4.x | bash - > /dev/null
 	#curl -sSL https://rpm.nodesource.com/setup_5.x | bash - > /dev/null
-	yum install -q -y nodejs
-	npm install --quiet --loglevel warn -g npm
-	npm install --quiet --loglevel warn -g grunt-cli gulp-cli nodemon bower json http-server
+	yum install -y nodejs
+	npm install --quiet --loglevel warn -g npm > /dev/null
+	npm install --quiet --loglevel warn -g grunt-cli gulp-cli nodemon bower json http-server > /dev/null
 }
 
 installRuby() {
@@ -137,17 +131,17 @@ installRuby() {
 	[ -f mpapis.asc ] && rm -f mpapis.asc
 	curl -sSL https://get.rvm.io | bash -s stable --rails > /dev/null
 
-	source /usr/local/rvm/scripts/rvm
-	source /etc/profile
+# 	source /usr/local/rvm/scripts/rvm
+# 	source /etc/profile
 }
 
 installGo() {
 	printSubHeader "Installing go..."
 
-	if [ ! -f /usr/local/go1.5.1.linux-amd64.tar.gz ]; then
-		curl -sSL 'https://storage.googleapis.com/golang/go1.5.1.linux-amd64.tar.gz' -o /usr/local/go1.5.1.linux-amd64.tar.gz
-		tar -C /usr/local -xzf /usr/local/go1.5.1.linux-amd64.tar.gz
-	fi
+	[ -f /usr/local/go1.5.1.linux-amd64.tar.gz ] && rm -f /usr/local/go1.5.1.linux-amd64.tar.gz
+	curl -sSL 'https://storage.googleapis.com/golang/go1.5.1.linux-amd64.tar.gz' -o /usr/local/go1.5.1.linux-amd64.tar.gz
+	[ -d /usr/local/go ] && rm -rf /usr/local/go
+	tar -C /usr/local -xzf /usr/local/go1.5.1.linux-amd64.tar.gz
 
 	mkdir -p ~/go/bin
 	mkdir -p ~/go/pkg
@@ -183,6 +177,9 @@ configureEnvironment
 
 printHeader "Installing packages..."
 installPackages
+
+printHeader "Installing languages..."
+installLanguages
 
 # echo
 # echo
