@@ -14,11 +14,11 @@ case "$OSTYPE" in
 esac
 if [ "$INSTALL_DIR" == "" ]; then
 	echo "Unknown operating system: $OSTYPE"
-	return
+	exit
 fi
 if [ ! -d ~/.setup/$INSTALL_DIR/step1.sh ]; then
 	echo "Setup script not found: $INSTALL_DIR"
-	return
+	exit
 fi
 
 echo "Running installer (~/.setup/$INSTALL_DIR/step1.sh)..."

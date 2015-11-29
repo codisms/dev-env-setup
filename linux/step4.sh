@@ -31,8 +31,6 @@ printHeader "Making final configuration changes..."
 finalConfigurations
 
 printHeader "Done.  Rebooting for the final time..."
-# printHeader "Done.  Ready to reboot"
 # read -p 'Press [Enter] to continue...'
-# echo
 
 reboot
