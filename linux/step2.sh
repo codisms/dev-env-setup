@@ -20,9 +20,6 @@ cd ~
 # > reboot
 
 downloadRepos() {
-	echo Installing git...
-	yum -y -q install git
-	echo
 	echo 'Cloning .codisms; enter bitbucket.org password for "codisms":'
 	echo Cloning dev-config...
 	git clone --quiet https://codisms@bitbucket.org/codisms/dev-config.git ~/.codisms
@@ -98,7 +95,7 @@ installPackages() {
 		httpd mod_ssl \
 		php php-mysql \
 		perl-DBD-ODBC freetds \
-		libevent libevent-devel \
+		libevent-2* libevent-devel-2* \
 		openssh-clients openconnect
 		#postgresql94-odbc postgresql-odbc postgresql-devel postgresql94-devel
 		#tmux nodejs
