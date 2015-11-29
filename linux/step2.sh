@@ -3,7 +3,7 @@
 set -e
 cd ~
 
-. ./functions
+. ~/.setup/linux/functions
 
 # for new 6.6 install in parallels...
 # > vi /boot/grub/grub.conf
