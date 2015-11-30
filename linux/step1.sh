@@ -7,18 +7,19 @@ cd ~
 
 setHostName() {
 	echo Setting host name to "$1"...
-	[ -f  /etc/sysconfig/network ] && mv -f /etc/sysconfig/network /etc/sysconfig/network.orig
+	[ ! -f  /etc/sysconfig/network.orig ] && cp -f /etc/sysconfig/network /etc/sysconfig/network.orig
+	sed "s|HOSTNAME=.\+\$|HOSTNAME=$1|" /etc/sysconfig/network.orig > /etc/sysconfig/network
 
-	cat << EOF > /etc/sysconfig/network
-echo NETWORKING=yes
-echo HOSTNAME=$1
-EOF
+	if [ -f /var/lib/dhclient/dhclient-eth0.leases ]; then
+		[ ! -f /var/lib/dhclient/dhclient-eth0.leases.orig ] && cp /var/lib/dhclient/dhclient-eth0.leases /var/lib/dhclient/dhclient-eth0.leases.orig
+		sed 's|option host-name "[a-f0-9-]\+"|option host-name "'$1'"|' /var/lib/dhclient/dhclient-eth0.leases.orig > /var/lib/dhclient/dhclient-eth0.leases
+	fi
 
 	echo 127.0.0.1 $1>> /etc/hosts
 }
 
 #-----------------------------------------------------------------------------------------------------------
-# Installations
+# Updates
 
 updateSystem() {
 	echo Configuration EPEL repository...
@@ -27,6 +28,16 @@ updateSystem() {
 
 	echo Updating system...
 	yum -y update
+}
+
+updateFileSystem() {
+	if grep -q "^/dev/vdb1 /data" "/etc/mtab"; then
+		[ ! -f /etc/fstab.orig ] && cp /etc/fstab /etc/fstab.orig
+		cp -R /root/* /data/
+		cp .* /data/
+		cp -R /root/.ssh /data/
+		sed 's|/data|/root|' /etc/fstab.orig > /etc/fstab
+	fi
 }
 
 ############################################################################################################
