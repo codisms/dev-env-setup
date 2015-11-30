@@ -36,6 +36,7 @@ updateFileSystem() {
 		cp -R /root/* /data/
 		cp .* /data/
 		cp -R /root/.ssh /data/
+		cp -R /root/.setup /data/
 		sed 's|/data|/root|' /etc/fstab.orig > /etc/fstab
 	fi
 }
@@ -48,6 +49,9 @@ if [ "$1" != "" ]; then
 	printHeader "Setting host name..."
 	setHostName $1
 fi
+
+printHeader "Updating file system..."
+updateFileSystem
 
 printHeader "Updating system..."
 updateSystem
