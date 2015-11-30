@@ -50,13 +50,13 @@ if [ "$1" != "" ]; then
 	setHostName $1
 fi
 
-printHeader "Updating file system..."
-updateFileSystem
-
 printHeader "Updating system..."
 updateSystem
 
 scheduleForNextRun "$HOME/.setup/linux/step2.sh"
+
+printHeader "Updating file system..."
+updateFileSystem
 
 printHeader "Finished step 1.  Rebooting..."
 # read -p 'Press [Enter] to continue...'
