@@ -17,6 +17,7 @@ finalConfigurations() {
 	[ -f /etc/motd ] && mv /etc/motd /etc/motd.orig
 	ln -s ~/.codisms/motd /etc/motd
 
+	[ -f /etc/ptmp ] && rm -f /etc/ptmp
 	chsh -s `which zsh`
 }
 
