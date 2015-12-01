@@ -165,6 +165,8 @@ startServices() {
 	ln -s ~/.codisms/bin/tunnels /etc/init.d/tunnels
 	chkconfig tunnels on
 	service tunnels start
+
+	ln -s ~/.codisms/bin/vpn-payoff /etc/init.d/vpn-payoff
 }
 
 startMySql() {
