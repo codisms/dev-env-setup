@@ -56,6 +56,8 @@ configureEnvironment() {
 	ln -s ~/.codisms/gitconfig ~/.gitconfig
 	ln -s ~/.codisms/elinks ~/.elinks
 	ln -s ~/.codisms/ctags ~/.ctags
+	ln -s ~/.codisms/pgpass ~/.pgpass
+	chmod 600 ~/.codisms/.pgpass
 }
 
 setHostName() {
