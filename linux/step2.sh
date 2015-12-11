@@ -85,11 +85,12 @@ installPackages() {
 		perl perl-devel perl-ExtUtils-ParseXS perl-ExtUtils-CBuilder perl-ExtUtils-Embed \
 		bind-utils mutt elinks telnet \
 		man zsh \
-		mysql mysql-server \
+		mysql mysql-server redis \
 		httpd mod_ssl \
 		php php-mysql \
 		perl-DBD-ODBC freetds \
 		libevent-2* libevent-devel-2* \
+		postgres-devel yum-utils \
 		openssh-clients openconnect
 		#postgresql94-odbc postgresql-odbc postgresql-devel postgresql94-devel
 		#tmux nodejs
