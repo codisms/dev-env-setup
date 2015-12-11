@@ -134,6 +134,9 @@ installRuby() {
 	[ -f mpapis.asc ] && rm -f mpapis.asc
 	curl -sSL https://get.rvm.io | bash -s stable --rails > /dev/null
 
+	echo Installing v2.2.3...
+	rvm install ruby-2.2.3 > /dev/null
+
 # 	source /usr/local/rvm/scripts/rvm
 # 	source /etc/profile
 }
