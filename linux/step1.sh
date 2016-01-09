@@ -23,7 +23,8 @@ setHostName() {
 
 updateSystem() {
 	echo Configuration EPEL repository...
-	rpm -ivh --quiet http://dl.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
+	rpm -Uvh --quiet http://download.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+	rpm -Uvh --quiet http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
 	#yum install -y https://centos6.iuscommunity.org/ius-release.rpm
 
 	echo Updating system...
