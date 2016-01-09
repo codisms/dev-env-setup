@@ -91,7 +91,8 @@ installPackages() {
 		perl-DBD-ODBC freetds \
 		libevent-2* libevent-devel-2* \
 		postgres-devel yum-utils \
-		openssh-clients openconnect
+		openssh-clients openconnect \
+		sysstat iotop traceroute
 		#postgresql94-odbc postgresql-odbc postgresql-devel postgresql94-devel
 		#tmux nodejs
 		#ruby ruby-devel rubygems
