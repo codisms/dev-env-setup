@@ -57,7 +57,8 @@ configureEnvironment() {
 	ln -s ~/.codisms/elinks ~/.elinks
 	ln -s ~/.codisms/ctags ~/.ctags
 	ln -s ~/.codisms/pgpass ~/.pgpass
-	chmod 600 ~/.codisms/.pgpass
+	chmod 600 ~/.pgpass
+	chmod 600 ~/.codisms/pgpass
 }
 
 setHostName() {
