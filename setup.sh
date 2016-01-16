@@ -4,8 +4,7 @@ echo "Installing git..."
 yum install -y -q git
 
 echo "Getting setup scripts..."
-git clone --quiet https://bitbucket.org/codisms/dev-setup.git ~/.setup
-git checkout centos7
+git clone --quiet -b centos7 https://bitbucket.org/codisms/dev-setup.git ~/.setup
 
 INSTALL_DIR=
 case "$OSTYPE" in
