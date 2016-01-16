@@ -136,11 +136,18 @@ installRuby() {
 	[ -f mpapis.asc ] && rm -f mpapis.asc
 	curl -sSL https://get.rvm.io | bash -s stable --rails > /dev/null
 
-	echo Installing v2.2.3...
-	rvm install ruby-2.2.3 > /dev/null
-
 	source /usr/local/rvm/scripts/rvm
 # 	source /etc/profile
+
+	RVM=`which rvm`
+	if [ "$RVM" == "" ]; then
+		RVM=/usr/local/rvm/bin/rvm
+	fi
+	echo RVM=$RVM
+
+	echo Installing v2.2.3...
+	$RVM install ruby-2.2.3 > /dev/null
+
 }
 
 installGo() {
