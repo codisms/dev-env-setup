@@ -139,7 +139,7 @@ installRuby() {
 	echo Installing v2.2.3...
 	rvm install ruby-2.2.3 > /dev/null
 
-# 	source /usr/local/rvm/scripts/rvm
+	source /usr/local/rvm/scripts/rvm
 # 	source /etc/profile
 }
 
