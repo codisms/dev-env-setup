@@ -81,7 +81,7 @@ installPackages() {
 		gcc gcc-c++ kernel-devel \
 		automake cmake make libtool \
 		ncurses-devel tcl-devel \
-		curlpp libcurl-devel clang ctags wget \
+		libcurl-devel clang ctags wget \
 		python python-devel \
 		perl perl-devel perl-ExtUtils-ParseXS perl-ExtUtils-CBuilder perl-ExtUtils-Embed \
 		bind-utils mutt elinks telnet \
@@ -92,7 +92,7 @@ installPackages() {
 		php php-mysql \
 		perl-DBD-ODBC freetds \
 		libevent-2* libevent-devel-2* \
-		postgres-devel postgresql-devel yum-utils \
+		postgresql-devel yum-utils \
 		openssh-clients openconnect \
 		sysstat iotop traceroute
 		#postgresql94-odbc postgresql-odbc postgresql-devel postgresql94-devel
