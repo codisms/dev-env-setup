@@ -29,8 +29,8 @@ installPostgres() {
 	yum install -y -q http://yum.postgresql.org/9.4/redhat/rhel-6-x86_64/pgdg-centos94-9.4-1.noarch.rpm
 	yum install -y -q postgresql94-odbc postgresql94-devel postgresql94 postgresql94-contrib postgresql94-server
 	/usr/pgsql-9.4/bin/postgresql94-setup initdb
-	service postgresql-9.4 start # systemctl start  postgresql-9.4.service
-	chkconfig postgresql-9.4 on
+	service postgresql-9.4 start # systemctl start postgresql-9.4.service
+	chkconfig postgresql-9.4 on # systemctl enable postgresql-9.4.service
 
 	ln -s ~/.codisms/psqlrc ~/.psqlrc
 }
@@ -138,20 +138,21 @@ installTmux() {
 
 	cd ~
 	echo Cloning tmux...
-	git clone --quiet https://github.com/tmux/tmux.git
+	git clone #--quiet https://github.com/tmux/tmux.git
 	cd tmux
-	sh autogen.sh --quiet > /dev/null
-	#./configure --prefix=/usr/local --quiet > /dev/null
-	./configure --quiet > /dev/null
-	make --quiet > /dev/null
-	make install --quiet > /dev/null
+	sh autogen.sh #--quiet > /dev/null
+	#./configure --prefix=/usr/local #--quiet > /dev/null
+	./configure #--quiet > /dev/null
+	make #--quiet > /dev/null
+	make install #--quiet > /dev/null
 	cd ..
 	rm -rf tmux
 
 #  	PATH=$PATH:`find /usr/local/rvm/rubies/ruby-*/bin/ | head -n 1`
 
 # 	gem --update system
-	gem install --quiet tmuxinator > /dev/null
+	gem install tmuxinator > /dev/null
+	#gem install --quiet tmuxinator > /dev/null
 
 	ln -s .codisms/tmuxinator .tmuxinator
 	ln -s ~/.codisms/tmux.conf ~/.tmux.conf

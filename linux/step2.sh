@@ -86,12 +86,13 @@ installPackages() {
 		perl perl-devel perl-ExtUtils-ParseXS perl-ExtUtils-CBuilder perl-ExtUtils-Embed \
 		bind-utils mutt elinks telnet \
 		man zsh \
-		mysql mysql-server redis \
+		mysql-community-devel mysql-community-server mysql-community-client \
+		redis \
 		httpd mod_ssl \
 		php php-mysql \
 		perl-DBD-ODBC freetds \
 		libevent-2* libevent-devel-2* \
-		postgres-devel yum-utils \
+		postgres-devel postgresql-devel yum-utils \
 		openssh-clients openconnect \
 		sysstat iotop traceroute
 		#postgresql94-odbc postgresql-odbc postgresql-devel postgresql94-devel
@@ -119,9 +120,9 @@ installNode() {
 # 	cd ..
 # 	rm -rf node
 
-	curl -sSL https://rpm.nodesource.com/setup | bash - > /dev/null
+	#curl -sSL https://rpm.nodesource.com/setup | bash - > /dev/null
 	#curl -sSL https://rpm.nodesource.com/setup_4.x | bash - > /dev/null
-	#curl -sSL https://rpm.nodesource.com/setup_5.x | bash - > /dev/null
+	curl -sSL https://rpm.nodesource.com/setup_5.x | bash - > /dev/null
 	yum install -y nodejs
 	npm install --quiet --loglevel warn -g npm > /dev/null
 	npm install --quiet --loglevel warn -g grunt-cli gulp-cli nodemon bower json http-server > /dev/null
