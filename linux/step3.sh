@@ -29,8 +29,8 @@ installPostgres() {
 	yum install -y -q http://yum.postgresql.org/9.4/redhat/rhel-6-x86_64/pgdg-centos94-9.4-1.noarch.rpm
 	yum install -y -q postgresql94-odbc postgresql94-devel postgresql94 postgresql94-contrib postgresql94-server
 	/usr/pgsql-9.4/bin/postgresql94-setup initdb
-	service postgresql-9.4 start # systemctl start postgresql-9.4.service
-	chkconfig postgresql-9.4 on # systemctl enable postgresql-9.4.service
+	systemctl start postgresql-9.4.service
+	systemctl enable postgresql-9.4.service
 
 	ln -s ~/.codisms/psqlrc ~/.psqlrc
 }
