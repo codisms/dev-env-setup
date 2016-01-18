@@ -38,35 +38,35 @@ installPostgres() {
 installVim() {
 	printSubHeader "Installing vim..."
 
-# 	cd ~
-# 	echo Cloning vim...
-# 	git clone --quiet https://github.com/vim/vim.git
-# 	cd vim
-# 	./configure --with-features=huge \
-# 				--enable-multibyte \
-# 				--enable-rubyinterp \
-# 				--enable-pythoninterp \
+ 	cd ~
+ 	echo Cloning vim...
+ 	git clone --quiet https://github.com/vim/vim.git
+ 	cd vim
+ 	./configure --with-features=huge \
+ 				--enable-multibyte \
+ 				--enable-rubyinterp \
+ 				--enable-pythoninterp \
+ 				--enable-perlinterp \
+ 				--enable-luainterp \
+ 				--enable-gui=gtk2 --enable-cscope --prefix=/usr --quiet > /dev/null
 # 				--with-python-config-dir=/usr/lib/python2.6/config \
-# 				--enable-perlinterp \
-# 				--enable-luainterp \
-# 				--enable-gui=gtk2 --enable-cscope --prefix=/usr --quiet > /dev/null
-# 	make --quiet VIMRUNTIMEDIR=/usr/share/vim/vim74 > /dev/null
-# 	make install --quiet > /dev/null
-# 	cd ..
-# 	rm -rf vim
+ 	make --quiet VIMRUNTIMEDIR=/usr/share/vim/vim74 > /dev/null
+ 	make install --quiet > /dev/null
+ 	cd ..
+ 	rm -rf vim
 
 	ln -s ~/.codisms/vim/vimrc ~/.vimrc
 	ln -s ~/.codisms/vim ~/.vim
 
-# 	echo Removing existing version of vi/vim...
-# 	yum -y -q remove vim-common vim-enhanced vim-minimal
-#
-# 	printSubHeader "Setting vim as default..."
-#
-# 	update-alternatives --install /usr/bin/editor editor /usr/bin/vim 1
-# 	update-alternatives --set editor /usr/bin/vim
-# 	update-alternatives --install /usr/bin/vi vi /usr/bin/vim 1
-# 	update-alternatives --set vi /usr/bin/vim
+ 	echo Removing existing version of vi/vim...
+ 	yum -y -q remove vim-common vim-enhanced vim-minimal
+
+ 	printSubHeader "Setting vim as default..."
+
+ 	update-alternatives --install /usr/bin/editor editor /usr/bin/vim 1
+ 	update-alternatives --set editor /usr/bin/vim
+ 	update-alternatives --install /usr/bin/vi vi /usr/bin/vim 1
+ 	update-alternatives --set vi /usr/bin/vim
 
 	installVimExtensions
 }
@@ -105,7 +105,7 @@ installVimExtensions_YCM() {
 	printSubHeader "Installing ycm..."
 
 	cd ~/.codisms/repos/YouCompleteMe
-	./install.sh --clang-completer --system-libclang --gocode-completer > /dev/null
+	./install.py --clang-completer --system-libclang --gocode-completer > /dev/null
 	cd ~
 
 	ln -s ~/.codisms/repos/YouCompleteMe ~/.vim/bundle/YouCompleteMe
@@ -138,7 +138,7 @@ installTmux() {
 
 	cd ~
 	echo Cloning tmux...
-	git clone #--quiet https://github.com/tmux/tmux.git
+	git clone --quiet https://github.com/tmux/tmux.git
 	#git clone https://github.com/tmux/tmux.git
 	cd tmux
 	sh autogen.sh --quiet > /dev/null
