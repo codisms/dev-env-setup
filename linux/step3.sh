@@ -168,7 +168,7 @@ startServices() {
 	systemctl start tunnels.service
 	systemctl enable tunnels.service
 
-	ln -s ~/.codisms/bin/vpn-payoff.service /etc/init.d/vpn-payoff.service
+	ln -s ~/.codisms/bin/vpn-payoff.service /etc/systemd/user/vpn-payoff.service
 }
 
 startMySql() {
