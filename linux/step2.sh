@@ -148,7 +148,7 @@ installRuby() {
 
 	echo Installing v2.2.3...
 	$RVM install ruby-2.2.3 > /dev/null
-
+	$RVM --default use 2.2.3
 }
 
 installGo() {
