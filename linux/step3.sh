@@ -162,7 +162,7 @@ installTmux() {
 startServices() {
 	printSubHeader "Starting services..."
 
-	startMySql
+	#startMySql
 
 	ln -s ~/.codisms/bin/tunnels.service /etc/systemd/system/tunnels.service
 	systemctl start tunnels.service
@@ -172,8 +172,8 @@ startServices() {
 }
 
 startMySql() {
-	systemctl start mysqld.service
-	systemctl enable mysqld.service
+	#systemctl start mysqld.service
+	#systemctl enable mysqld.service
 }
 
 

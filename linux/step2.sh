@@ -86,7 +86,6 @@ installPackages() {
 		perl perl-devel perl-ExtUtils-ParseXS perl-ExtUtils-CBuilder perl-ExtUtils-Embed \
 		bind-utils mutt elinks telnet \
 		man zsh \
-		mysql-community-devel mysql-community-server mysql-community-client \
 		redis \
 		httpd mod_ssl \
 		php php-mysql \
@@ -95,6 +94,7 @@ installPackages() {
 		postgresql-devel yum-utils \
 		openssh-clients openconnect \
 		sysstat iotop traceroute
+		#mysql-community-devel mysql-community-server mysql-community-client \
 		#postgresql94-odbc postgresql-odbc postgresql-devel postgresql94-devel
 		#tmux nodejs
 		#ruby ruby-devel rubygems
