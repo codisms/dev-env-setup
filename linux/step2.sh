@@ -135,7 +135,7 @@ installRuby() {
 	#gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
 	curl -sSLO https://rvm.io/mpapis.asc && gpg --import mpapis.asc
 	[ -f mpapis.asc ] && rm -f mpapis.asc
-	curl -sSL https://get.rvm.io | bash -s -- --version 2.2.3 --rails #> /dev/null
+	curl -sSL https://get.rvm.io | bash -s --rails #> /dev/null
 
 	source /usr/local/rvm/scripts/rvm
 # 	source /etc/profile
@@ -146,8 +146,8 @@ installRuby() {
 	fi
 	echo RVM=$RVM
 
-#	echo Installing v2.2.3...
-#	$RVM install ruby-2.2.3 > /dev/null
+	echo Installing v2.2.3...
+	$RVM install ruby-2.2.3 > /dev/null
 	$RVM use 2.2.3 --default
 }
 
