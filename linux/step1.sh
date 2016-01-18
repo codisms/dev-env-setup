@@ -32,6 +32,9 @@ updateSystem() {
 	#rpm -Uvh --quiet http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm
 	#yum install -y https://centos6.iuscommunity.org/ius-release.rpm
 
+	echo Installing deltarpm...
+	yum install -y deltarpm
+
 	echo Updating system...
 	yum -y update
 }
