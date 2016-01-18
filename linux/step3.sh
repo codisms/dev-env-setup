@@ -138,7 +138,8 @@ installTmux() {
 
 	cd ~
 	echo Cloning tmux...
-	git clone #--quiet https://github.com/tmux/tmux.git
+	#git clone #--quiet https://github.com/tmux/tmux.git
+	git clone https://github.com/tmux/tmux.git
 	cd tmux
 	sh autogen.sh #--quiet > /dev/null
 	#./configure --prefix=/usr/local #--quiet > /dev/null
