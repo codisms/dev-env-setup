@@ -138,14 +138,14 @@ installTmux() {
 
 	cd ~
 	echo Cloning tmux...
-	#git clone #--quiet https://github.com/tmux/tmux.git
-	git clone https://github.com/tmux/tmux.git
+	git clone #--quiet https://github.com/tmux/tmux.git
+	#git clone https://github.com/tmux/tmux.git
 	cd tmux
-	sh autogen.sh #--quiet > /dev/null
+	sh autogen.sh --quiet > /dev/null
 	#./configure --prefix=/usr/local #--quiet > /dev/null
-	./configure #--quiet > /dev/null
-	make #--quiet > /dev/null
-	make install #--quiet > /dev/null
+	./configure --quiet > /dev/null
+	make --quiet > /dev/null
+	make install --quiet > /dev/null
 	cd ..
 	rm -rf tmux
 
@@ -164,11 +164,11 @@ startServices() {
 
 	startMySql
 
-	ln -s ~/.codisms/bin/tunnels.service /etc/systemd/user/tunnels.service
+	ln -s ~/.codisms/bin/tunnels.service /etc/systemd/system/tunnels.service
 	systemctl start tunnels.service
 	systemctl enable tunnels.service
 
-	ln -s ~/.codisms/bin/vpn-payoff.service /etc/systemd/user/vpn-payoff.service
+	ln -s ~/.codisms/bin/vpn-payoff.service /etc/systemd/system/vpn-payoff.service
 }
 
 startMySql() {
