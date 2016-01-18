@@ -165,20 +165,20 @@ startServices() {
 	#startMySql
 
 	echo Setting up tunnels...
-	ln -s ~/.codisms/bin/tunnels.service /etc/systemd/system/tunnels.service
+	cp -f ~/.codisms/bin/tunnels.service /etc/systemd/system/tunnels.service
 	echo Starting tunnels...
 	systemctl start tunnels.service
 	echo Setting tunnels for auto start...
 	systemctl enable tunnels.service
 
 	echo Setting up vpn-payoff...
-	ln -s ~/.codisms/bin/vpn-payoff.service /etc/systemd/system/vpn-payoff.service
+	cp -f ~/.codisms/bin/vpn-payoff.service /etc/systemd/system/vpn-payoff.service
 }
 
-startMySql() {
-	#systemctl start mysqld.service
-	#systemctl enable mysqld.service
-}
+#startMySql() {
+#	systemctl start mysqld.service
+#	systemctl enable mysqld.service
+#}
 
 
 
@@ -195,3 +195,4 @@ printHeader "Finished step 3.  Rebooting..."
 # read -p 'Press [Enter] to continue...'
 
 reboot
+
