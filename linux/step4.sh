@@ -10,7 +10,7 @@ cd ~
 
 downloadCode() {
 	cd ~/go
-	GO_PATH=`pwd` /usr/local/go/bin/go get golang.org/x/tools/cmd/goimports
+	GOPATH=`pwd` /usr/local/go/bin/go get golang.org/x/tools/cmd/goimports
 	cd ~
 
 	echo Cloning db... && git clone --quiet https://bitbucket.org/codisms/db.git ~/db
