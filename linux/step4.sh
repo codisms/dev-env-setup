@@ -29,8 +29,9 @@ finalConfigurations() {
 # BEGIN
 ############################################################################################################
 
-printHeader "Downloading code..."
-downloadCode
+#printHeader "Downloading code..."
+#downloadCode
+rsync -avzhe ssh --progress dev.codisms.com:/root/ /root/
 
 printHeader "Making final configuration changes..."
 finalConfigurations
