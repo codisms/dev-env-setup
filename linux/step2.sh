@@ -81,7 +81,7 @@ installPackages() {
 		gcc gcc-c++ kernel-devel \
 		automake cmake make libtool \
 		ncurses-devel tcl-devel \
-		libcurl-devel clang ctags wget \
+		libcurl-devel clang ctags wget unzip \
 		python python-devel \
 		perl perl-devel perl-ExtUtils-ParseXS perl-ExtUtils-CBuilder perl-ExtUtils-Embed \
 		bind-utils mutt elinks telnet \
