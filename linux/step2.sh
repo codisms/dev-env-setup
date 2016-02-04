@@ -85,7 +85,7 @@ installPackages() {
 		python python-devel \
 		perl perl-devel perl-ExtUtils-ParseXS perl-ExtUtils-CBuilder perl-ExtUtils-Embed \
 		bind-utils mutt elinks telnet \
-		man zsh \
+		man htop zsh \
 		mariadb mariadb-server \
 		redis \
 		httpd mod_ssl \

@@ -157,6 +157,10 @@ installTmux() {
 
 	ln -s .codisms/tmuxinator .tmuxinator
 	ln -s ~/.codisms/tmux.conf ~/.tmux.conf
+	ln -s ~/.codisms/tmux ~/.tmux
+
+	[ -f ~/.codisms/tmux/plugins/tpm ] && rm ~/.codisms/tmux/plugins/tpm
+	ln -s ~/.codisms/repos/tpm ~/.codisms/tmux/plugins/tpm
 }
 
 startServices() {
