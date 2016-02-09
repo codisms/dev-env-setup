@@ -156,10 +156,11 @@ installTmux() {
 	#gem install --quiet tmuxinator > /dev/null
 
 	ln -s .codisms/tmuxinator .tmuxinator
-	ln -s ~/.codisms/tmux.conf ~/.tmux.conf
+	ln -s ~/.codisms/tmux/tmux.conf ~/.tmux.conf
 	ln -s ~/.codisms/tmux ~/.tmux
 
-	[ -f ~/.codisms/tmux/plugins/tpm ] && rm ~/.codisms/tmux/plugins/tpm
+	[ -d ~/.codisms/tmux/plugins ] && rm -f ~/.codisms/tmux/plugins
+	mkdir ~/.codisms/tmux/plugins
 	ln -s ~/.codisms/repos/tpm ~/.codisms/tmux/plugins/tpm
 }
 
