@@ -179,6 +179,9 @@ startServices() {
 
 	echo Setting up vpn-payoff...
 	cp -f ~/.codisms/bin/vpn-payoff.service /etc/systemd/system/vpn-payoff.service
+
+	echo Disabling firewalld...
+	systemctl disable firewalld
 }
 
 #startMySql() {
