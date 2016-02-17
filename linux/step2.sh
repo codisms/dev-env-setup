@@ -77,6 +77,8 @@ EOF
 # Installations
 
 installPackages() {
+	#yum remove postgresql postgresql-devel postgresql-libs postgresql-contrib
+
 	yum install -y git mercurial bzr \
 		gcc gcc-c++ kernel-devel \
 		automake cmake make libtool \
@@ -89,10 +91,10 @@ installPackages() {
 		mariadb mariadb-server \
 		redis \
 		httpd mod_ssl \
-		php php-mysql \
+		php php-mysql java-1.8.0-openjdk \
 		perl-DBD-ODBC freetds \
 		libevent-2* libevent-devel-2* \
-		postgresql-devel yum-utils \
+		yum-utils \
 		openssh-clients openconnect \
 		sysstat iotop traceroute
 		#mysql-community-devel mysql-community-server mysql-community-client \
