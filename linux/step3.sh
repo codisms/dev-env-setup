@@ -56,6 +56,7 @@ installVim() {
  	rm -rf vim
 
 	ln -s ~/.codisms/vim/vimrc ~/.vimrc
+	ln -s ~/.codisms/vim/vimrc.dbext ~/.vimrc.dbext
 	ln -s ~/.codisms/vim ~/.vim
 
  	echo Removing existing version of vi/vim...
