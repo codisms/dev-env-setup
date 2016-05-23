@@ -167,6 +167,8 @@ installTmux() {
 	[ -d ~/.codisms/tmux/plugins ] && rm -f ~/.codisms/tmux/plugins
 	mkdir ~/.codisms/tmux/plugins
 	ln -s ~/.codisms/repos/tpm ~/.codisms/tmux/plugins/tpm
+	ln -s ~/.codisms/repos/tmux-resurrect ~/.codisms/tmux/plugins/tmux-resurrect
+	ln -s ~/.codisms/repos/tmux-continuum ~/.codisms/tmux/plugins/tmux-continuum
 }
 
 startServices() {
