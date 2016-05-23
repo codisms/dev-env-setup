@@ -97,6 +97,7 @@ installVimExtensions() {
 	ln -s ~/.codisms/repos/vim-obsession ~/.vim/bundle/vim-obsession
 	ln -s ~/.codisms/repos/vim-javascript ~/.vim/bundle/vim-javascript
 	ln -s ~/.codisms/repos/typescript-vim ~/.vim/bundle/typescript-vim
+	ln -s ~/.codisms/repos/syntastic ~/.vim/bundle/syntastic
 
 	ln -s ~/.codisms/repos/solarized/vim-colors-solarized/colors/solarized.vim ~/.vim/colors/solarized.vim
 
