@@ -96,6 +96,7 @@ installPackages() {
 		libevent-2* libevent-devel-2* \
 		yum-utils \
 		openssh-clients openconnect \
+		docker \
 		sysstat iotop traceroute
 		#mysql-community-devel mysql-community-server mysql-community-client \
 		#postgresql94-odbc postgresql-odbc postgresql-devel postgresql94-devel
