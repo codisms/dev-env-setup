@@ -26,11 +26,17 @@ installPackages() {
 installPostgres() {
 	printSubHeader "Installing postgresql..."
 
-	yum install -y -q http://yum.postgresql.org/9.4/redhat/rhel-6-x86_64/pgdg-centos94-9.4-1.noarch.rpm
-	yum install -y -q postgresql94-odbc postgresql94-devel postgresql94 postgresql94-contrib postgresql94-server
-	/usr/pgsql-9.4/bin/postgresql94-setup initdb
-	systemctl start postgresql-9.4.service
-	systemctl enable postgresql-9.4.service
+	#yum install -y -q http://yum.postgresql.org/9.4/redhat/rhel-6-x86_64/pgdg-centos94-9.4-1.noarch.rpm
+	#yum install -y -q postgresql94-odbc postgresql94-devel postgresql94 postgresql94-contrib postgresql94-server
+	#/usr/pgsql-9.4/bin/postgresql94-setup initdb
+	#systemctl start postgresql-9.4.service
+	#systemctl enable postgresql-9.4.service
+
+	yum install -y -q https://download.postgresql.org/pub/repos/yum/9.5/redhat/rhel-7-x86_64/pgdg-centos95-9.5-2.noarch.rpm
+	yum install -y -q postgresql95-odbc postgresql95-devel postgresql95 postgresql95-contrib postgresql95-server
+	/usr/pgsql-9.5/bin/postgresql95-setup initdb
+	systemctl start postgresql-9.5.service
+	systemctl enable postgresql-9.5.service
 
 	ln -s ~/.codisms/psqlrc ~/.psqlrc
 }
