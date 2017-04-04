@@ -16,3 +16,6 @@ printSubHeader() {
 scheduleForNextRun() {
 	echo $1 > ~/.onstart
 }
+
+SUDO=$(which sudo 2> /dev/null)
+
