@@ -34,7 +34,7 @@ if [ -f ~/.onstart ]; then
 	SUDO=\$(which sudo 2> /dev/null)
         rm -f ~/.onstart
         echo "Executing command: \$SUDO \$CMD \$HOME"
-	pause
+	read -p 'Press [Enter] key to continue...'
         \$SUDO \$CMD \$HOME
         CMD=
 	SUDO=

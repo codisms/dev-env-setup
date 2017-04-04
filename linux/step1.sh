@@ -8,11 +8,11 @@ cd "$( dirname "${BASH_SOURCE[0]}" )"
 setHostName() {
 	echo Setting host name to "$1"...
 	[ ! -f  /etc/sysconfig/network.orig ] && cp -f /etc/sysconfig/network /etc/sysconfig/network.orig
-	sed "s|HOSTNAME=.\+\$|HOSTNAME=$1|" /etc/sysconfig/network.orig > /etc/sysconfig/network
+	sed -i "s|HOSTNAME=.\+\$|HOSTNAME=$1|" /etc/sysconfig/network
 
 	if [ -f /var/lib/dhclient/dhclient-eth0.leases ]; then
 		[ ! -f /var/lib/dhclient/dhclient-eth0.leases.orig ] && cp /var/lib/dhclient/dhclient-eth0.leases /var/lib/dhclient/dhclient-eth0.leases.orig
-		sed 's|option host-name "[a-f0-9-]\+"|option host-name "'$1'"|' /var/lib/dhclient/dhclient-eth0.leases.orig > /var/lib/dhclient/dhclient-eth0.leases
+		sed -i 's|option host-name "[a-f0-9-]\+"|option host-name "'$1'"|' /var/lib/dhclient/dhclient-eth0.leases
 	fi
 
 	echo 127.0.0.1 $1>> /etc/hosts
