@@ -28,7 +28,8 @@ setHostName() {
 
 updateSystem() {
 	echo Configuration EPEL repository...
-	rpm -Uvh --quiet http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm
+	#rpm -Uvh --quiet http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm
+	yum install -y epel-release
 	rpm -Uvh --quiet http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
 	#rpm -Uvh --quiet http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm
 	#rpm -Uvh --quiet http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm
