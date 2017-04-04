@@ -1,4 +1,7 @@
 
+MY_HOME=$1
+shift
+
 printHeader() {
 	echo
 	echo -------------------------------------------------------------------------------------------------------------------------------------------
@@ -14,5 +17,5 @@ printSubHeader() {
 }
 
 scheduleForNextRun() {
-	echo $1 > ~/.onstart
+	echo $1 > ${MY_HOME}/.onstart
 }

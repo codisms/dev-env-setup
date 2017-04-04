@@ -1,25 +1,25 @@
 #!/bin/bash
 
 set -e
-cd ~
+cd "$( dirname "${BASH_SOURCE[0]}" )"
 
-. ~/.setup/linux/functions
+. ./functions
 
 #-----------------------------------------------------------------------------------------------------------
 # Download code
 
 downloadCode() {
-	cd ~/go
+	cd ${MY_HOME}/go
 	GOPATH=`pwd` /usr/local/go/bin/go get golang.org/x/tools/cmd/goimports
 	cd ~
 
-	echo Cloning db... && git clone --quiet https://bitbucket.org/codisms/db.git ~/db
-	~/.codisms/get-code.sh
+	echo Cloning db... && git clone --quiet https://bitbucket.org/codisms/db.git ${MY_HOME}/db
+	${MY_HOME}/.codisms/get-code.sh
 }
 
 finalConfigurations() {
 	[ -f /etc/motd ] && mv /etc/motd /etc/motd.orig
-	ln -s ~/.codisms/motd /etc/motd
+	ln -s ${MY_HOME}/.codisms/motd /etc/motd
 
 	[ -f /etc/ptmp ] && rm -f /etc/ptmp
 	chsh -s `which zsh`
@@ -31,7 +31,7 @@ finalConfigurations() {
 
 #printHeader "Downloading code..."
 #downloadCode
-rsync -avzhe ssh --progress dev.codisms.com:/root/ /root/
+#rsync -avzhe ssh --progress dev.codisms.com:/root/ /root/
 
 printHeader "Making final configuration changes..."
 finalConfigurations

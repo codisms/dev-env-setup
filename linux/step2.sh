@@ -1,9 +1,9 @@
 #!/bin/bash
 
 set -e
-cd ~
+cd "$( dirname "${BASH_SOURCE[0]}" )"
 
-. ~/.setup/linux/functions
+. ./functions
 
 # for new 6.6 install in parallels...
 # > vi /boot/grub/grub.conf
@@ -22,27 +22,27 @@ cd ~
 downloadRepos() {
 	echo 'Cloning .codisms; enter bitbucket.org password for "codisms":'
 	echo Cloning dev-config...
-	git clone --quiet https://codisms@bitbucket.org/codisms/dev-config.git ~/.codisms
+	git clone --quiet https://codisms@bitbucket.org/codisms/dev-config.git ${MY_HOME}/.codisms
 
 	printSubHeader "Configuring security..."
 
-	ln -s ~/.codisms/netrc .netrc
-	chmod 600 ~/.netrc
+	ln -s ${MY_HOME}/.codisms/netrc .netrc
+	chmod 600 ${MY_HOME}/.netrc
 
-	mkdir -p ~/.ssh
-	chmod 700 ~/.ssh
-	mkdir -p ~/.ssh/controlmasters
-	cd ~/.ssh
+	mkdir -p ${MY_HOME}/.ssh
+	chmod 700 ${MY_HOME}/.ssh
+	mkdir -p ${MY_HOME}/.ssh/controlmasters
+	cd ${MY_HOME}/.ssh
 	[ -f authorized_keys ] && mv authorized_keys authorized_keys.orig
 	find ../.codisms/ssh/ -type f -exec ln -s {} \;
 	chmod 600 *
 	cd ~
 
-	sed s/codisms@// ~/.codisms/.git/config > ~/.codisms/.git/config
+	sed s/codisms@// ${MY_HOME}/.codisms/.git/config > ${MY_HOME}/.codisms/.git/config
 
 	printSubHeader "Downloading submodules..."
 
-	cd ~/.codisms
+	cd ${MY_HOME}/.codisms
 	git submodule --quiet update --init --recursive
 	cd ~
 }
@@ -51,14 +51,14 @@ downloadRepos() {
 # Configuration
 
 configureEnvironment() {
-	ln -s ~/.codisms/repos/dircolors-solarized/dircolors.256dark ~/.dircolors
-	ln -s ~/.codisms/zshrc ~/.zshrc
-	ln -s ~/.codisms/gitconfig ~/.gitconfig
-	ln -s ~/.codisms/elinks ~/.elinks
-	ln -s ~/.codisms/ctags ~/.ctags
-	ln -s ~/.codisms/pgpass ~/.pgpass
-	chmod 600 ~/.pgpass
-	chmod 600 ~/.codisms/pgpass
+	ln -s ${MY_HOME}/.codisms/repos/dircolors-solarized/dircolors.256dark ${MY_HOME}/.dircolors
+	ln -s ${MY_HOME}/.codisms/zshrc ${MY_HOME}/.zshrc
+	ln -s ${MY_HOME}/.codisms/gitconfig ${MY_HOME}/.gitconfig
+	ln -s ${MY_HOME}/.codisms/elinks ${MY_HOME}/.elinks
+	ln -s ${MY_HOME}/.codisms/ctags ${MY_HOME}/.ctags
+	ln -s ${MY_HOME}/.codisms/pgpass ${MY_HOME}/.pgpass
+	chmod 600 ${MY_HOME}/.pgpass
+	chmod 600 ${MY_HOME}/.codisms/pgpass
 }
 
 setHostName() {
@@ -108,7 +108,7 @@ installPackages() {
 
 installLanguages() {
 	installNode
-	installRuby
+	#installRuby
 	installGo
 }
 
@@ -137,7 +137,7 @@ installNode() {
 installRuby() {
 	printSubHeader "Installing ruby..."
 
-	#rm -rf ~/.gnupg/
+	#rm -rf ${MY_HOME}/.gnupg/
 	#gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
 	curl -sSLO https://rvm.io/mpapis.asc && gpg --import mpapis.asc
 	[ -f mpapis.asc ] && rm -f mpapis.asc
@@ -165,9 +165,9 @@ installGo() {
 	[ -d /usr/local/go ] && rm -rf /usr/local/go
 	tar -C /usr/local -xzf /usr/local/go1.5.1.linux-amd64.tar.gz
 
-	mkdir -p ~/go/bin
-	mkdir -p ~/go/pkg
-	mkdir -p ~/go/src/github.com
+	mkdir -p ${MY_HOME}/go/bin
+	mkdir -p ${MY_HOME}/go/pkg
+	mkdir -p ${MY_HOME}/go/src/github.com
 }
 
 ############################################################################################################
@@ -180,7 +180,7 @@ downloadRepos
 #-----------------------------------------------------------------------------------------------------------
 # Create a SSH key, if needed
 
-# if [ ! -f ~/.ssh/id_rsa ]; then
+# if [ ! -f ${MY_HOME}/.ssh/id_rsa ]; then
 #
 # 	echo
 # 	echo -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -188,7 +188,7 @@ downloadRepos
 # 	##read -p 'Press [Enter] to continue...'
 #
 # 	echo
-# 	ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa
+# 	ssh-keygen -t rsa -N "" -f ${MY_HOME}/.ssh/id_rsa
 # fi
 
 #-----------------------------------------------------------------------------------------------------------
@@ -207,7 +207,7 @@ installLanguages
 # echo
 # echo Generated public key:
 # echo
-# cat ~/.ssh/id_rsa.pub
+# cat ${MY_HOME}/.ssh/id_rsa.pub
 # echo
 # #read -p 'Press [Enter] to continue...'
 
