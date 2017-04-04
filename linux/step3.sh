@@ -211,7 +211,7 @@ startServices() {
 printHeader "Installing packages..."
 installPackages
 
-scheduleForNextRun "$HOME/.setup/linux/step4.sh"
+scheduleForNextRun "${MY_HOME}/.setup/linux/step4.sh"
 
 printHeader "Finished step 3.  Rebooting..."
 # read -p 'Press [Enter] to continue...'
