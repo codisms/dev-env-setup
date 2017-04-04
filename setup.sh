@@ -1,7 +1,11 @@
 #!/bin/bash
 
-echo "Installing git..."
-yum install -y -q git
+SUDO=$(which sudo 2> /dev/null)
+
+if [ "$(which git 2> /dev/null)" == "" ]; then
+	echo "Installing git..."
+	$SUDO yum install -y -q git
+fi
 
 echo "Getting setup scripts..."
 git clone --quiet -b centos7 https://bitbucket.org/codisms/dev-setup.git ~/.setup
@@ -30,15 +34,15 @@ if [ -f ~/.onstart ]; then
 	SUDO=\$(which sudo 2> /dev/null)
         rm -f ~/.onstart
         echo "Executing command: \$SUDO \$CMD \$HOME"
-        #\$SUDO \$CMD
-        #CMD=
-	#SUDO=
+	pause
+        \$SUDO \$CMD \$HOME
+        CMD=
+	SUDO=
 fi
 
 EOF
 
 echo "Running installer (~/.setup/$INSTALL_DIR/step1.sh)..."
 #find ~/.setup -name \*.sh -exec chmod +x {} \;
-SUDO=$(which sudo 2> /dev/null)
 $SUDO ~/.setup/$INSTALL_DIR/step1.sh $HOME $1
 

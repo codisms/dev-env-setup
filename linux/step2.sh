@@ -211,7 +211,7 @@ installLanguages
 # echo
 # #read -p 'Press [Enter] to continue...'
 
-scheduleForNextRun "$HOME/.setup/linux/step3.sh"
+scheduleForNextRun "${MY_HOME}/.setup/linux/step3.sh"
 
 printHeader "Finished step 2.  Rebooting..."
 # read -p 'Press [Enter] to continue...'
