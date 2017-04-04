@@ -1,16 +1,16 @@
 #!/bin/bash
 
 set -e
-cd ~
+cd "$( dirname "${BASH_SOURCE[0]}" )"
 
-. ~/.setup/linux/functions
+. ./functions
 
 #-----------------------------------------------------------------------------------------------------------
 # Installations
 
 postInstall() {
 	chmod 755 /root
-	[ -d ~/web ] && chown -R apache:apache ~/web
+	[ -d ${MY_HOME}/web ] && chown -R apache:apache ${MY_HOME}/web
 
 	startServices
 }
@@ -38,7 +38,7 @@ installPostgres() {
 	systemctl start postgresql-9.5.service
 	systemctl enable postgresql-9.5.service
 
-	ln -s ~/.codisms/psqlrc ~/.psqlrc
+	ln -s ${MY_HOME}/.codisms/psqlrc ${MY_HOME}/.psqlrc
 }
 
 installVim() {
@@ -61,9 +61,9 @@ installVim() {
  	cd ..
  	rm -rf vim
 
-	ln -s ~/.codisms/vim/vimrc ~/.vimrc
-	ln -s ~/.codisms/vim/vimrc.dbext ~/.vimrc.dbext
-	ln -s ~/.codisms/vim ~/.vim
+	ln -s ${MY_HOME}/.codisms/vim/vimrc ${MY_HOME}/.vimrc
+	ln -s ${MY_HOME}/.codisms/vim/vimrc.dbext ${MY_HOME}/.vimrc.dbext
+	ln -s ${MY_HOME}/.codisms/vim ${MY_HOME}/.vim
 
  	echo Removing existing version of vi/vim...
  	yum -y -q remove vim-common vim-enhanced vim-minimal
@@ -81,33 +81,33 @@ installVim() {
 installVimExtensions() {
 	printSubHeader "Installing vim extensions..."
 
-	mkdir -p ~/.vim/autoload
-	mkdir -p ~/.vim/bitmaps
-	mkdir -p ~/.vim/bundle
-	mkdir -p ~/.vim/colors
-	mkdir -p ~/.vim/doc
+	mkdir -p ${MY_HOME}/.vim/autoload
+	mkdir -p ${MY_HOME}/.vim/bitmaps
+	mkdir -p ${MY_HOME}/.vim/bundle
+	mkdir -p ${MY_HOME}/.vim/colors
+	mkdir -p ${MY_HOME}/.vim/doc
 
-	ln -s ~/.codisms/repos/vim-pathogen/autoload/pathogen.vim ~/.vim/autoload/pathogen.vim
-	ln -s ~/.codisms/repos/solarized/vim-colors-solarized/autoload/togglebg.vim ~/.vim/autoload/togglebg.vim
+	ln -s ${MY_HOME}/.codisms/repos/vim-pathogen/autoload/pathogen.vim ${MY_HOME}/.vim/autoload/pathogen.vim
+	ln -s ${MY_HOME}/.codisms/repos/solarized/vim-colors-solarized/autoload/togglebg.vim ${MY_HOME}/.vim/autoload/togglebg.vim
 
-	ln -s ~/.codisms/repos/solarized/vim-colors-solarized/bitmaps/togglebg.png ~/.vim/bitmaps/togglebg.png
+	ln -s ${MY_HOME}/.codisms/repos/solarized/vim-colors-solarized/bitmaps/togglebg.png ${MY_HOME}/.vim/bitmaps/togglebg.png
 
-	ln -s ~/.codisms/repos/vim-colors-solarized ~/.vim/bundle/vim-colors-solarized
-	#ln -s ~/.codisms/repos/tslime.vim ~/.vim/bundle/tslime.vim
-	ln -s ~/.codisms/repos/pgsql.vim ~/.vim/bundle/pgsql.vim
-	ln -s ~/.codisms/repos/dbext.vim ~/.vim/bundle/dbext.vim
-	#ln -s ~/.vim/repos/vim-neatstatus ~/.vim/bundle/vim-neatstatus
-	ln -s ~/.codisms/repos/taboo.vim ~/.vim/bundle/taboo.vim
-	ln -s ~/.codisms/repos/vim-go ~/.vim/bundle/vim-go
-	ln -s ~/.codisms/repos/vim-ruby ~/.vim/bundle/vim-ruby
-	ln -s ~/.codisms/repos/vim-obsession ~/.vim/bundle/vim-obsession
-	ln -s ~/.codisms/repos/vim-javascript ~/.vim/bundle/vim-javascript
-	ln -s ~/.codisms/repos/typescript-vim ~/.vim/bundle/typescript-vim
-	ln -s ~/.codisms/repos/syntastic ~/.vim/bundle/syntastic
+	ln -s ${MY_HOME}/.codisms/repos/vim-colors-solarized ${MY_HOME}/.vim/bundle/vim-colors-solarized
+	#ln -s ${MY_HOME}/.codisms/repos/tslime.vim ${MY_HOME}/.vim/bundle/tslime.vim
+	ln -s ${MY_HOME}/.codisms/repos/pgsql.vim ${MY_HOME}/.vim/bundle/pgsql.vim
+	ln -s ${MY_HOME}/.codisms/repos/dbext.vim ${MY_HOME}/.vim/bundle/dbext.vim
+	#ln -s ${MY_HOME}/.vim/repos/vim-neatstatus ${MY_HOME}/.vim/bundle/vim-neatstatus
+	ln -s ${MY_HOME}/.codisms/repos/taboo.vim ${MY_HOME}/.vim/bundle/taboo.vim
+	ln -s ${MY_HOME}/.codisms/repos/vim-go ${MY_HOME}/.vim/bundle/vim-go
+	ln -s ${MY_HOME}/.codisms/repos/vim-ruby ${MY_HOME}/.vim/bundle/vim-ruby
+	ln -s ${MY_HOME}/.codisms/repos/vim-obsession ${MY_HOME}/.vim/bundle/vim-obsession
+	ln -s ${MY_HOME}/.codisms/repos/vim-javascript ${MY_HOME}/.vim/bundle/vim-javascript
+	ln -s ${MY_HOME}/.codisms/repos/typescript-vim ${MY_HOME}/.vim/bundle/typescript-vim
+	ln -s ${MY_HOME}/.codisms/repos/syntastic ${MY_HOME}/.vim/bundle/syntastic
 
-	ln -s ~/.codisms/repos/solarized/vim-colors-solarized/colors/solarized.vim ~/.vim/colors/solarized.vim
+	ln -s ${MY_HOME}/.codisms/repos/solarized/vim-colors-solarized/colors/solarized.vim ${MY_HOME}/.vim/colors/solarized.vim
 
-	ln -s ~/.codisms/repos/dbext.vim/doc/dbext.txt ~/.vim/doc/dbext.txt
+	ln -s ${MY_HOME}/.codisms/repos/dbext.vim/doc/dbext.txt ${MY_HOME}/.vim/doc/dbext.txt
 
 	installVimExtensions_YCM
 }
@@ -115,11 +115,11 @@ installVimExtensions() {
 installVimExtensions_YCM() {
 	printSubHeader "Installing ycm..."
 
-	cd ~/.codisms/repos/YouCompleteMe
+	cd ${MY_HOME}/.codisms/repos/YouCompleteMe
 	./install.py --clang-completer --system-libclang --gocode-completer > /dev/null
 	cd ~
 
-	ln -s ~/.codisms/repos/YouCompleteMe ~/.vim/bundle/YouCompleteMe
+	ln -s ${MY_HOME}/.codisms/repos/YouCompleteMe ${MY_HOME}/.vim/bundle/YouCompleteMe
 }
 
 # installLibEvent() {
@@ -167,14 +167,14 @@ installTmux() {
 	#gem install --quiet tmuxinator > /dev/null
 
 	ln -s .codisms/tmuxinator .tmuxinator
-	ln -s ~/.codisms/tmux/tmux.conf ~/.tmux.conf
-	ln -s ~/.codisms/tmux ~/.tmux
+	ln -s ${MY_HOME}/.codisms/tmux/tmux.conf ${MY_HOME}/.tmux.conf
+	ln -s ${MY_HOME}/.codisms/tmux ${MY_HOME}/.tmux
 
-	[ -d ~/.codisms/tmux/plugins ] && rm -f ~/.codisms/tmux/plugins
-	mkdir ~/.codisms/tmux/plugins
-	ln -s ~/.codisms/repos/tpm ~/.codisms/tmux/plugins/tpm
-	ln -s ~/.codisms/repos/tmux-resurrect ~/.codisms/tmux/plugins/tmux-resurrect
-	ln -s ~/.codisms/repos/tmux-continuum ~/.codisms/tmux/plugins/tmux-continuum
+	[ -d ${MY_HOME}/.codisms/tmux/plugins ] && rm -f ${MY_HOME}/.codisms/tmux/plugins
+	mkdir ${MY_HOME}/.codisms/tmux/plugins
+	ln -s ${MY_HOME}/.codisms/repos/tpm ${MY_HOME}/.codisms/tmux/plugins/tpm
+	ln -s ${MY_HOME}/.codisms/repos/tmux-resurrect ${MY_HOME}/.codisms/tmux/plugins/tmux-resurrect
+	ln -s ${MY_HOME}/.codisms/repos/tmux-continuum ${MY_HOME}/.codisms/tmux/plugins/tmux-continuum
 }
 
 startServices() {
@@ -182,15 +182,15 @@ startServices() {
 
 	#startMySql
 
-	echo Setting up vpn-veritone...
-	cp -f ~/.codisms/bin/vpn-veritone.service /etc/systemd/system/vpn-veritone.service
-	echo Starting vpn-veritone...
-	systemctl start vpn-veritone.service
-	echo Setting vpn-veritone for auto start...
-	systemctl enable vpn-veritone.service
+	#echo Setting up vpn-veritone...
+	#cp -f ${MY_HOME}/.codisms/bin/vpn-veritone.service /etc/systemd/system/vpn-veritone.service
+	#echo Starting vpn-veritone...
+	#systemctl start vpn-veritone.service
+	#echo Setting vpn-veritone for auto start...
+	#systemctl enable vpn-veritone.service
 
-	echo Setting up vpn-payoff...
-	cp -f ~/.codisms/bin/vpn-payoff.service /etc/systemd/system/vpn-payoff.service
+	#echo Setting up vpn-payoff...
+	#cp -f ${MY_HOME}/.codisms/bin/vpn-payoff.service /etc/systemd/system/vpn-payoff.service
 
 	echo Disabling firewalld...
 	systemctl drop firewalld.service

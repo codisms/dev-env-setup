@@ -1,9 +1,9 @@
 #!/bin/bash
 
 set -e
-cd ~
+cd "$( dirname "${BASH_SOURCE[0]}" )"
 
-. ~/.setup/linux/functions
+. ./functions
 
 setHostName() {
 	echo Setting host name to "$1"...
