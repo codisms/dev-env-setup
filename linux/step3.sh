@@ -44,7 +44,7 @@ installPostgres() {
 installVim() {
 	printSubHeader "Installing vim..."
 
- 	cd ~
+ 	cd ${MY_HOME}
  	echo Cloning vim...
  	git clone --quiet https://github.com/vim/vim.git
  	cd vim
@@ -117,7 +117,7 @@ installVimExtensions_YCM() {
 
 	cd ${MY_HOME}/.codisms/repos/YouCompleteMe
 	./install.py --clang-completer --system-libclang --gocode-completer > /dev/null
-	cd ~
+	cd ${MY_HOME}
 
 	ln -s ${MY_HOME}/.codisms/repos/YouCompleteMe ${MY_HOME}/.vim/bundle/YouCompleteMe
 }
@@ -125,7 +125,7 @@ installVimExtensions_YCM() {
 # installLibEvent() {
 # 	printSubHeader "Installing libevent..."
 #
-# 	cd ~
+# 	cd ${MY_HOME}
 # 	echo Cloning libevent...
 # 	git clone --quiet https://github.com/libevent/libevent.git
 # 	cd libevent
@@ -147,7 +147,7 @@ installTmux() {
 
 	printSubHeader "Installing tmux..."
 
-	cd ~
+	cd ${MY_HOME}
 	echo Cloning tmux...
 	git clone --quiet https://github.com/tmux/tmux.git
 	#git clone https://github.com/tmux/tmux.git
