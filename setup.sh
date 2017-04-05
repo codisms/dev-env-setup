@@ -7,7 +7,7 @@ if [ "$(which git 2> /dev/null)" == "" ]; then
 	$SUDO yum install -y -q git
 fi
 
-echo "Getting setup scripts..."
+echo "Downloading setup scripts..."
 git clone --quiet -b centos7 https://bitbucket.org/codisms/dev-setup.git ~/.setup
 chown -R `whoami`:`whoami` .setup
 
