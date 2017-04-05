@@ -71,10 +71,13 @@ installVim() {
  	update-alternatives --install /usr/bin/vi vi /usr/bin/vim 1
  	update-alternatives --set vi /usr/bin/vim
 
-	installVimExtensions
+	configureVim
+	installVimExtensions_YCM
+
+	cd ${MY_HOME}
 }
 
-installVimExtensions() {
+configureVim() {
 	printSubHeader "Configurating vim..."
 
 	cd ${MY_HOME}
@@ -84,10 +87,6 @@ installVimExtensions() {
 	git submodule update --init --recursive
 	ln -s .vim/vimrc .vimrc
 	ln -s .codisms/vimrc.dbext .vim/vimrc.dbext
-
-	installVimExtensions_YCM
-
-	cd ${MY_HOME}
 }
 
 installVimExtensions_YCM() {
