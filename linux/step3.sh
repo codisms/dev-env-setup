@@ -79,15 +79,18 @@ installVim() {
 }
 
 configureVim() {
-	printSubHeader "Configurating vim..."
-
+	printSubHeader "Downloading vim configuration..."
 	cd ${MY_HOME}
 	git clone https://github.com/codisms/vim-config.git .vim
-	cd .vim
+
+	echo "Downloading submodules..."
+	cd ${MY_HOME}/.vim
 	git submodule init
 	git submodule update --init --recursive
-	ln -s .vim/vimrc .vimrc
-	ln -s .codisms/vimrc.dbext .vim/vimrc.dbext
+
+	printSubHeader "Configuring vim..."
+	ln -s ${MY_HOME}/.vim/vimrc ${MY_HOME}/.vimrc
+	ln -s ${MY_HOME}/.codisms/vimrc.dbext ${MY_HOME}/.vim/vimrc.dbext
 }
 
 installVimExtensions_YCM() {
@@ -126,12 +129,17 @@ installTmux() {
 # 	gem --update system
 	gem install tmuxinator > /dev/null
 
+	printSubHeader "Downloading tmux configuration..."
 	cd ${MY_HOME}
 	git clone https://github.com/codisms/tmux-config.git .tmux
+
+	echo "Downloading submodules..."
 	cd .tmux
 	git submodule init
 	git submodule update --init --recursive
 	cd ..
+
+	printSubHeader "Configuring tmux..."
 	ln -s .tmux/tmux.conf .tmux.conf
 }
 
