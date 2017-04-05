@@ -8,7 +8,7 @@ if [ "$(which git 2> /dev/null)" == "" ]; then
 fi
 
 echo "Downloading setup scripts..."
-git clone --quiet -b centos7 https://bitbucket.org/codisms/dev-setup.git ~/.setup
+git clone --depth=1 -b centos7 https://bitbucket.org/codisms/dev-setup.git ~/.setup
 chown -R `whoami`:`whoami` .setup
 
 INSTALL_DIR=
