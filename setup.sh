@@ -9,6 +9,7 @@ fi
 
 echo "Getting setup scripts..."
 git clone --quiet -b centos7 https://bitbucket.org/codisms/dev-setup.git ~/.setup
+chown -R `whoami`:`whoami` .setup
 
 INSTALL_DIR=
 case "$OSTYPE" in
@@ -33,9 +34,9 @@ if [ -f ~/.onstart ]; then
         CMD=\`cat ~/.onstart\`
 	SUDO=\$(which sudo 2> /dev/null)
         rm -f ~/.onstart
-        echo "Executing command: \$SUDO \$CMD \$HOME"
+        echo "Executing command: \$SUDO \$CMD \$HOME `whoami`"
 	read -p 'Press [Enter] key to continue...'
-        \$SUDO \$CMD \$HOME
+        \$SUDO \$CMD \$HOME `whoami`
         CMD=
 	SUDO=
 fi
@@ -44,5 +45,5 @@ EOF
 
 echo "Running installer (~/.setup/$INSTALL_DIR/step1.sh)..."
 #find ~/.setup -name \*.sh -exec chmod +x {} \;
-$SUDO ~/.setup/$INSTALL_DIR/step1.sh $HOME $1
+$SUDO ~/.setup/$INSTALL_DIR/step1.sh $HOME `whoami` $1
 

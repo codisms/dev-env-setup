@@ -36,6 +36,9 @@ finalConfigurations() {
 printHeader "Making final configuration changes..."
 finalConfigurations
 
+printHeader "Resetting home directory owner..."
+resetPermissions
+
 printHeader "Done.  Rebooting for the final time..."
 # read -p 'Press [Enter] to continue...'
 

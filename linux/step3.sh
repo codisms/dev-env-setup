@@ -9,7 +9,7 @@ cd "$( dirname "${BASH_SOURCE[0]}" )"
 # Installations
 
 postInstall() {
-	chmod 755 /root
+	chmod 755 ${MY_HOME}
 	[ -d ${MY_HOME}/web ] && chown -R apache:apache ${MY_HOME}/web
 
 	startServices
@@ -47,6 +47,8 @@ installVim() {
  	cd ${MY_HOME}
  	echo Cloning vim...
  	git clone https://github.com/vim/vim.git
+
+	echo Building vim...
  	cd vim
  	./configure --with-features=huge \
  				--enable-multibyte \
@@ -65,7 +67,6 @@ installVim() {
  	yum -y -q remove vim-common vim-enhanced vim-minimal
 
  	printSubHeader "Setting vim as default..."
-
  	update-alternatives --install /usr/bin/editor editor /usr/bin/vim 1
  	update-alternatives --set editor /usr/bin/vim
  	update-alternatives --install /usr/bin/vi vi /usr/bin/vim 1
@@ -107,11 +108,15 @@ installTmux() {
 	cd ${MY_HOME}
 	echo Cloning tmux...
 	git clone https://github.com/tmux/tmux.git
+
+	echo Compiling tmux...
 	cd tmux
 	sh autogen.sh --quiet > /dev/null
 	#./configure --prefix=/usr/local #--quiet > /dev/null
 	./configure --quiet > /dev/null
 	make --quiet > /dev/null
+
+	echo Installing tmux...
 	make install --quiet > /dev/null
 	cd ..
 	rm -rf tmux
@@ -153,6 +158,9 @@ startMySql() {
 
 printHeader "Installing packages..."
 installPackages
+
+printHeader "Resetting home directory owner..."
+resetPermissions
 
 scheduleForNextRun "${MY_HOME}/.setup/linux/step4.sh"
 
