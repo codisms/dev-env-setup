@@ -118,8 +118,8 @@ installNode() {
 	#curl -sSL https://rpm.nodesource.com/setup_7.x | bash - > /dev/null
 	yum install -y nodejs
 
-	echo "Updating npm..."
-	npm install --quiet --loglevel warn -g npm > /dev/null
+	#echo "Updating npm..."
+	#npm install --quiet --loglevel warn -g npm > /dev/null
 
 	echo "Installing tools..."
 	npm install --quiet --loglevel warn -g grunt-cli gulp-cli nodemon bower json http-server nodemon jshint eslint @angular/cli typescript > /dev/null
