@@ -61,9 +61,19 @@ installVim() {
  	cd ..
  	rm -rf vim
 
-	ln -s ${MY_HOME}/.codisms/vim/vimrc ${MY_HOME}/.vimrc
-	ln -s ${MY_HOME}/.codisms/vim/vimrc.dbext ${MY_HOME}/.vimrc.dbext
-	ln -s ${MY_HOME}/.codisms/vim ${MY_HOME}/.vim
+	#ln -s ${MY_HOME}/.codisms/vim/vimrc ${MY_HOME}/.vimrc
+	#ln -s ${MY_HOME}/.codisms/vim/vimrc.dbext ${MY_HOME}/.vimrc.dbext
+	#ln -s ${MY_HOME}/.codisms/vim ${MY_HOME}/.vim
+	cd ${MY_HOME}
+	git clone https://github.com/codisms/vim-config.git .vim
+	cd .vim
+	git submodule init
+	git submodule update --init --recursive
+	cd bundle/YouCompleteMe
+	./install.py
+	cd ${MY_HOME}
+	ln -s .vim/vimrc .vimrc
+	ln -s .codisms/vim/vimrc.dbext .vim/vimrc.dbext
 
  	echo Removing existing version of vi/vim...
  	yum -y -q remove vim-common vim-enhanced vim-minimal
@@ -166,15 +176,22 @@ installTmux() {
 	gem install tmuxinator > /dev/null
 	#gem install --quiet tmuxinator > /dev/null
 
-	ln -s .codisms/tmuxinator .tmuxinator
-	ln -s ${MY_HOME}/.codisms/tmux/tmux.conf ${MY_HOME}/.tmux.conf
-	ln -s ${MY_HOME}/.codisms/tmux ${MY_HOME}/.tmux
+	#ln -s .codisms/tmuxinator .tmuxinator
+	#ln -s ${MY_HOME}/.codisms/tmux/tmux.conf ${MY_HOME}/.tmux.conf
+	#ln -s ${MY_HOME}/.codisms/tmux ${MY_HOME}/.tmux
 
-	[ -d ${MY_HOME}/.codisms/tmux/plugins ] && rm -f ${MY_HOME}/.codisms/tmux/plugins
-	mkdir ${MY_HOME}/.codisms/tmux/plugins
-	ln -s ${MY_HOME}/.codisms/repos/tpm ${MY_HOME}/.codisms/tmux/plugins/tpm
-	ln -s ${MY_HOME}/.codisms/repos/tmux-resurrect ${MY_HOME}/.codisms/tmux/plugins/tmux-resurrect
-	ln -s ${MY_HOME}/.codisms/repos/tmux-continuum ${MY_HOME}/.codisms/tmux/plugins/tmux-continuum
+	#[ -d ${MY_HOME}/.codisms/tmux/plugins ] && rm -f ${MY_HOME}/.codisms/tmux/plugins
+	#mkdir ${MY_HOME}/.codisms/tmux/plugins
+	#ln -s ${MY_HOME}/.codisms/repos/tpm ${MY_HOME}/.codisms/tmux/plugins/tpm
+	#ln -s ${MY_HOME}/.codisms/repos/tmux-resurrect ${MY_HOME}/.codisms/tmux/plugins/tmux-resurrect
+	#ln -s ${MY_HOME}/.codisms/repos/tmux-continuum ${MY_HOME}/.codisms/tmux/plugins/tmux-continuum
+	cd ${MY_HOME}
+	git clone https://github.com/codisms/tmux-config.git .tmux
+	cd .tmux
+	git submodule init
+	git submodule update --init --recursive
+	cd ..
+	ln -s .tmux/tmux.conf .tmux.conf
 }
 
 startServices() {
