@@ -86,7 +86,7 @@ installPackages() {
 		automake cmake make libtool \
 		ncurses-devel tcl-devel \
 		libcurl-devel clang ctags wget unzip \
-		python python-devel golang rh-ruby23 \
+		python python-devel golang ruby \
 		perl perl-devel perl-ExtUtils-ParseXS perl-ExtUtils-CBuilder perl-ExtUtils-Embed \
 		bind-utils mutt elinks telnet \
 		man htop zsh \

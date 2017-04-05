@@ -28,7 +28,7 @@ setHostName() {
 
 updateSystem() {
 	echo Configuration deltarpm and extra repositories...
-	yum install -y epel-release ius-release centos-release-scl deltarpm
+	yum install -y epel-release ius-release deltarpm
 
 	echo Updating system...
 	yum -y update
