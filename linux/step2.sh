@@ -42,7 +42,8 @@ downloadRepos() {
 	printSubHeader "Downloading submodules..."
 
 	cd ${MY_HOME}/.codisms
-	git submodule --quiet update --init --recursive
+	#git submodule --quiet update --init --recursive
+	git submodule update --init --recursive
 }
 
 #-----------------------------------------------------------------------------------------------------------
