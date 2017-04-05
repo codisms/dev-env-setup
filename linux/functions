@@ -1,6 +1,12 @@
 
 MY_HOME=$1
 shift
+MY_USER=$1
+shift
+
+resetPermissions() {
+	chown -R `whoami`:`whoami` ${MY_HOME}
+}
 
 printHeader() {
 	echo
@@ -19,3 +25,5 @@ printSubHeader() {
 scheduleForNextRun() {
 	echo $1 > ${MY_HOME}/.onstart
 }
+
+resetPermissions

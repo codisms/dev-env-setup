@@ -202,6 +202,9 @@ installLanguages
 # echo
 # #read -p 'Press [Enter] to continue...'
 
+printHeader "Resetting home directory owner..."
+resetPermissions
+
 scheduleForNextRun "${MY_HOME}/.setup/linux/step3.sh"
 
 printHeader "Finished step 2.  Rebooting..."
