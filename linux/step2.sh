@@ -35,6 +35,7 @@ downloadRepos() {
 	cd ${MY_HOME}/.ssh
 	[ -f authorized_keys ] && mv authorized_keys authorized_keys.orig
 	find ../.codisms/ssh/ -type f -exec ln -s {} \;
+	#chown ${MY_USER}:${MY_USER} *
 	chmod 600 *
 
 	sed -i s/codisms@// ${MY_HOME}/.codisms/.git/config
@@ -43,6 +44,9 @@ downloadRepos() {
 
 	cd ${MY_HOME}/.codisms
 	git submodule update --init --recursive
+
+	printSubHeader "Resetting permissions..."
+	resetPermissions
 }
 
 #-----------------------------------------------------------------------------------------------------------
