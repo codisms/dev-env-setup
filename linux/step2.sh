@@ -22,7 +22,7 @@ cd "$( dirname "${BASH_SOURCE[0]}" )"
 downloadRepos() {
 	echo 'Cloning .codisms; enter bitbucket.org password for "codisms":'
 	echo Cloning dev-config...
-	git clone https://codisms@bitbucket.org/codisms/dev-config.git ${MY_HOME}/.codisms
+	git clone --depth=1 https://codisms@bitbucket.org/codisms/dev-config.git ${MY_HOME}/.codisms
 
 	printSubHeader "Configuring security..."
 
