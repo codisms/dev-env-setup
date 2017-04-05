@@ -46,7 +46,7 @@ installVim() {
 
  	cd ${MY_HOME}
  	echo Cloning vim...
- 	git clone --quiet https://github.com/vim/vim.git
+ 	git clone https://github.com/vim/vim.git
  	cd vim
  	./configure --with-features=huge \
  				--enable-multibyte \
@@ -106,7 +106,7 @@ installTmux() {
 
 	cd ${MY_HOME}
 	echo Cloning tmux...
-	git clone --quiet https://github.com/tmux/tmux.git
+	git clone https://github.com/tmux/tmux.git
 	cd tmux
 	sh autogen.sh --quiet > /dev/null
 	#./configure --prefix=/usr/local #--quiet > /dev/null
@@ -120,7 +120,6 @@ installTmux() {
 
 # 	gem --update system
 	gem install tmuxinator > /dev/null
-	#gem install --quiet tmuxinator > /dev/null
 
 	cd ${MY_HOME}
 	git clone https://github.com/codisms/tmux-config.git .tmux
