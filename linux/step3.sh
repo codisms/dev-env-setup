@@ -40,7 +40,7 @@ installVim() {
 
  	cd ${MY_HOME}
  	echo Cloning vim...
- 	git clone https://github.com/vim/vim.git
+ 	git clone --depth=1 https://github.com/vim/vim.git
 
 	echo Building vim...
  	cd vim
@@ -105,7 +105,7 @@ installTmux() {
 
 	cd ${MY_HOME}
 	echo Cloning tmux...
-	git clone https://github.com/tmux/tmux.git
+	git clone --depth=1 https://github.com/tmux/tmux.git
 
 	echo Compiling tmux...
 	cd tmux
