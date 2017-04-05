@@ -115,31 +115,26 @@ installLanguages() {
 }
 
 installNode() {
-	printSubHeader "Installing node..."
+	printSubHeader "Installing Node.js..."
 
-	#curl -sSL https://rpm.nodesource.com/setup | bash - > /dev/null
-	#curl -sSL https://rpm.nodesource.com/setup_0.12 | bash - > /dev/null
-	#curl -sSL https://rpm.nodesource.com/setup_4.x | bash - > /dev/null
-	#curl -sSL https://rpm.nodesource.com/setup_5.x | bash - > /dev/null
-	#curl -sSL https://rpm.nodesource.com/setup_6.x | bash - > /dev/null
-	curl -sSL https://rpm.nodesource.com/setup_7.x | bash - > /dev/null
-	yum install --nogpgcheck -y nodejs
+	#curl -sSL https://rpm.nodesource.com/setup_7.x | bash - > /dev/null
+	yum install -y nodejs
+
+	echo "Updating npm..."
 	npm install --quiet --loglevel warn -g npm > /dev/null
-	npm install --quiet --loglevel warn -g grunt-cli gulp-cli nodemon bower json http-server nodemon jshint eslint > /dev/null
+
+	echo "Installing tools..."
+	npm install --quiet --loglevel warn -g grunt-cli gulp-cli nodemon bower json http-server nodemon jshint eslint @angular/cli typescript > /dev/null
 }
 
 installRuby() {
 	printSubHeader "Installing ruby..."
-	yum install -y ruby
+	yum install -y rh-ruby23
 }
 
 installGo() {
 	printSubHeader "Installing go..."
-
-	[ -f /usr/local/go1.8.linux-amd64.tar.gz ] && rm -f /usr/local/go1.8.linux-amd64.tar.gz
-	curl -sSL 'https://storage.googleapis.com/golang/go1.8.linux-amd64.tar.gz' -o /usr/local/go1.8.linux-amd64.tar.gz
-	[ -d /usr/local/go ] && rm -rf /usr/local/go
-	tar -C /usr/local -xzf /usr/local/go1.8.linux-amd64.tar.gz
+	yum install -y golang
 
 	mkdir -p ${MY_HOME}/go/bin
 	mkdir -p ${MY_HOME}/go/pkg

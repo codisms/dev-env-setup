@@ -26,17 +26,11 @@ installPackages() {
 installPostgres() {
 	printSubHeader "Installing postgresql..."
 
-	#yum install -y -q http://yum.postgresql.org/9.4/redhat/rhel-6-x86_64/pgdg-centos94-9.4-1.noarch.rpm
-	#yum install -y -q postgresql94-odbc postgresql94-devel postgresql94 postgresql94-contrib postgresql94-server
-	#/usr/pgsql-9.4/bin/postgresql94-setup initdb
-	#systemctl start postgresql-9.4.service
-	#systemctl enable postgresql-9.4.service
-
-	yum install -y -q https://download.postgresql.org/pub/repos/yum/9.5/redhat/rhel-7-x86_64/pgdg-centos95-9.5-2.noarch.rpm
-	yum install -y -q postgresql95-odbc postgresql95-devel postgresql95 postgresql95-contrib postgresql95-server
-	/usr/pgsql-9.5/bin/postgresql95-setup initdb
-	systemctl start postgresql-9.5.service
-	systemctl enable postgresql-9.5.service
+	yum install -y -q https://download.postgresql.org/pub/repos/yum/9.6/redhat/rhel-7-x86_64/pgdg-centos96-9.6-3.noarch.rpm
+	yum install -y -q postgresql96-odbc postgresql96-devel postgresql96 postgresql96-contrib postgresql96-server
+	/usr/pgsql-9.6/bin/postgresql96-setup initdb
+	systemctl start postgresql-9.6.service
+	systemctl enable postgresql-9.6.service
 
 	ln -s ${MY_HOME}/.codisms/psqlrc ${MY_HOME}/.psqlrc
 }
@@ -98,7 +92,8 @@ installVimExtensions_YCM() {
 
 	cd ${MY_HOME}/.vim/bundle/YouCompleteMe
 	#./install.py
-	./install.py --clang-completer --system-libclang --gocode-completer > /dev/null
+	./install.py --clang-completer --gocode-completer --tern-completer > /dev/null
+	#./install.py --clang-completer --system-libclang --gocode-completer > /dev/null
 	cd ${MY_HOME}
 }
 
