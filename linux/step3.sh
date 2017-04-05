@@ -97,6 +97,7 @@ installVimExtensions_YCM() {
 	printSubHeader "Installing ycm..."
 
 	cd ${MY_HOME}/.vim/bundle/YouCompleteMe
+	export PATH=${PATH}:/usr/local/go/bin
 	#./install.py
 	./install.py --clang-completer --system-libclang --gocode-completer > /dev/null
 	cd ${MY_HOME}
