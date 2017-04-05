@@ -1,4 +1,13 @@
 
+MY_HOME=$1
+shift
+MY_USER=$1
+shift
+
+resetPermissions() {
+	chown -R ${MY_USER}:${MY_USER} ${MY_HOME}
+}
+
 printHeader() {
 	echo
 	echo -------------------------------------------------------------------------------------------------------------------------------------------
@@ -14,8 +23,7 @@ printSubHeader() {
 }
 
 scheduleForNextRun() {
-	echo $1 > ~/.onstart
+	echo $1 > ${MY_HOME}/.onstart
 }
 
-SUDO=$(which sudo 2> /dev/null)
-
+resetPermissions
