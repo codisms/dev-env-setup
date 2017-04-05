@@ -28,7 +28,6 @@ if [ ! -f ~/.setup/$INSTALL_DIR/step1.sh ]; then
 fi
 
 cat <<EOF >> ~/.bashrc
-export PATH=\${PATH}:/usr/local/go/bin
 
 if [ -f ~/.onstart ]; then
         CMD=\`cat ~/.onstart\`
