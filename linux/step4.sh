@@ -13,7 +13,7 @@ downloadCode() {
 	GOPATH=`pwd` /usr/local/go/bin/go get golang.org/x/tools/cmd/goimports
 	cd ${MY_HOME}
 
-	echo Cloning db... && git clone --quiet https://bitbucket.org/codisms/db.git ${MY_HOME}/db
+	echo Cloning db... && git clone https://bitbucket.org/codisms/db.git ${MY_HOME}/db
 	${MY_HOME}/.codisms/get-code.sh
 }
 

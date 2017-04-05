@@ -22,7 +22,7 @@ cd "$( dirname "${BASH_SOURCE[0]}" )"
 downloadRepos() {
 	echo 'Cloning .codisms; enter bitbucket.org password for "codisms":'
 	echo Cloning dev-config...
-	git clone --quiet https://codisms@bitbucket.org/codisms/dev-config.git ${MY_HOME}/.codisms
+	git clone https://codisms@bitbucket.org/codisms/dev-config.git ${MY_HOME}/.codisms
 
 	printSubHeader "Configuring security..."
 
@@ -42,7 +42,6 @@ downloadRepos() {
 	printSubHeader "Downloading submodules..."
 
 	cd ${MY_HOME}/.codisms
-	#git submodule --quiet update --init --recursive
 	git submodule update --init --recursive
 }
 
@@ -113,15 +112,6 @@ installLanguages() {
 
 installNode() {
 	printSubHeader "Installing node..."
-
-# 	git clone --quiet https://github.com/nodejs/node.git
-# 	cd node
-# 	git checkout --quiet 4.x
-# 	./configure --quiet > /dev/null
-# 	make --quiet > /dev/null
-# 	make install --quiet > /dev/null
-# 	cd ..
-# 	rm -rf node
 
 	#curl -sSL https://rpm.nodesource.com/setup | bash - > /dev/null
 	#curl -sSL https://rpm.nodesource.com/setup_0.12 | bash - > /dev/null
