@@ -119,7 +119,7 @@ installNode() {
 	#curl -sSL https://rpm.nodesource.com/setup_5.x | bash - > /dev/null
 	#curl -sSL https://rpm.nodesource.com/setup_6.x | bash - > /dev/null
 	curl -sSL https://rpm.nodesource.com/setup_7.x | bash - > /dev/null
-	yum install -y nodejs
+	yum install --nogpgcheck -y nodejs
 	npm install --quiet --loglevel warn -g npm > /dev/null
 	npm install --quiet --loglevel warn -g grunt-cli gulp-cli nodemon bower json http-server nodemon jshint eslint > /dev/null
 }
