@@ -67,11 +67,15 @@ echo SUDO14=`which sudo`
  				--enable-luainterp \
  				--enable-gui=gtk2 --enable-cscope --prefix=/usr --quiet > /dev/null
 # 				--with-python-config-dir=/usr/lib/python2.6/config \
+echo SUDO14a=`which sudo`
  	make --quiet VIMRUNTIMEDIR=/usr/share/vim/vim74 > /dev/null
+echo SUDO14b=`which sudo`
  	make install --quiet > /dev/null
+echo SUDO14c=`which sudo`
  	cd ..
  	rm -rf vim
 
+echo SUDO14d=`which sudo`
  	echo Removing existing version of vi/vim...
  	yum -y -q remove vim-common vim-enhanced vim-minimal
 
