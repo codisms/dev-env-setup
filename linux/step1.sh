@@ -1,32 +1,35 @@
 #!/bin/bash
 
 set -e
-cd ~
+cd "$( dirname "${BASH_SOURCE[0]}" )"
 
-. ~/.setup/linux/functions
+. ./functions
 
 setHostName() {
 	echo SUDO=$SUDO
 	echo Setting host name to "$1"...
-	[ ! -f  /etc/sysconfig/network.orig ] && $SUDO cp -f /etc/sysconfig/network /etc/sysconfig/network.orig
-	$SUDO sed "s|HOSTNAME=.\+\$|HOSTNAME=$1|" /etc/sysconfig/network.orig > /etc/sysconfig/network
+	[ ! -f  /etc/sysconfig/network.orig ] && cp -f /etc/sysconfig/network /etc/sysconfig/network.orig
+	sed -i "s|HOSTNAME=.\+\$|HOSTNAME=$1|" /etc/sysconfig/network
 
 	if [ -f /var/lib/dhclient/dhclient-eth0.leases ]; then
-		[ ! -f /var/lib/dhclient/dhclient-eth0.leases.orig ] && $SUDO cp /var/lib/dhclient/dhclient-eth0.leases /var/lib/dhclient/dhclient-eth0.leases.orig
-		$SUDO sed 's|option host-name "[a-f0-9-]\+"|option host-name "'$1'"|' /var/lib/dhclient/dhclient-eth0.leases.orig > /var/lib/dhclient/dhclient-eth0.leases
+		[ ! -f /var/lib/dhclient/dhclient-eth0.leases.orig ] && cp /var/lib/dhclient/dhclient-eth0.leases /var/lib/dhclient/dhclient-eth0.leases.orig
+		sed -i 's|option host-name "[a-f0-9-]\+"|option host-name "'$1'"|' /var/lib/dhclient/dhclient-eth0.leases
 	fi
 
-	$SUDO echo 127.0.0.1 $1>> /etc/hosts
+	echo 127.0.0.1 $1>> /etc/hosts
+
+	echo nameserver 8.8.8.8 >>/etc/resolv.conf
+	echo nameserver 8.8.4.4 >>/etc/resolv.conf
+
+	hostnamectl set-hostname $1
 }
 
 #-----------------------------------------------------------------------------------------------------------
 # Updates
 
 updateSystem() {
-	echo Configuration EPEL repository...
-	$SUDO rpm -Uvh --quiet http://download.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
-	$SUDO rpm -Uvh --quiet http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
-	#$SUDO yum install -y https://centos6.iuscommunity.org/ius-release.rpm
+	echo Configuration deltarpm and extra repositories...
+	yum install -y epel-release ius-release deltarpm
 
 	echo Updating system...
 	$SUDO yum -y update
@@ -55,7 +58,7 @@ fi
 printHeader "Updating system..."
 updateSystem
 
-scheduleForNextRun "$HOME/.setup/linux/step2.sh"
+scheduleForNextRun "${MY_HOME}/.setup/linux/step2.sh"
 
 printHeader "Updating file system..."
 updateFileSystem

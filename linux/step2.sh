@@ -1,9 +1,9 @@
 #!/bin/bash
 
 set -e
-cd ~
+cd "$( dirname "${BASH_SOURCE[0]}" )"
 
-. ~/.setup/linux/functions
+. ./functions
 
 # for new 6.6 install in parallels...
 # > vi /boot/grub/grub.conf
@@ -22,43 +22,45 @@ cd ~
 downloadRepos() {
 	echo 'Cloning .codisms; enter bitbucket.org password for "codisms":'
 	echo Cloning dev-config...
-	git clone --quiet https://codisms@bitbucket.org/codisms/dev-config.git ~/.codisms
+	git clone https://codisms@bitbucket.org/codisms/dev-config.git ${MY_HOME}/.codisms
 
 	printSubHeader "Configuring security..."
 
-	ln -s ~/.codisms/netrc .netrc
-	chmod 600 ~/.netrc
+	ln -s ${MY_HOME}/.codisms/netrc ${MY_HOME}/.netrc
+	chmod 600 ${MY_HOME}/.netrc
 
-	mkdir -p ~/.ssh
-	chmod 700 ~/.ssh
-	mkdir -p ~/.ssh/controlmasters
-	cd ~/.ssh
+	mkdir -p ${MY_HOME}/.ssh
+	chmod 700 ${MY_HOME}/.ssh
+	mkdir -p ${MY_HOME}/.ssh/controlmasters
+	cd ${MY_HOME}/.ssh
 	[ -f authorized_keys ] && mv authorized_keys authorized_keys.orig
 	find ../.codisms/ssh/ -type f -exec ln -s {} \;
+	#chown ${MY_USER}:${MY_USER} *
 	chmod 600 *
-	cd ~
 
-	sed s/codisms@// ~/.codisms/.git/config > ~/.codisms/.git/config
+	sed -i s/codisms@// ${MY_HOME}/.codisms/.git/config
 
 	printSubHeader "Downloading submodules..."
 
-	cd ~/.codisms
-	git submodule --quiet update --init --recursive
-	cd ~
+	cd ${MY_HOME}/.codisms
+	git submodule update --init --recursive
+
+	printSubHeader "Resetting permissions..."
+	resetPermissions
 }
 
 #-----------------------------------------------------------------------------------------------------------
 # Configuration
 
 configureEnvironment() {
-	ln -s ~/.codisms/repos/dircolors-solarized/dircolors.256dark ~/.dircolors
-	ln -s ~/.codisms/zshrc ~/.zshrc
-	ln -s ~/.codisms/gitconfig ~/.gitconfig
-	ln -s ~/.codisms/elinks ~/.elinks
-	ln -s ~/.codisms/ctags ~/.ctags
-	ln -s ~/.codisms/pgpass ~/.pgpass
-	chmod 600 ~/.pgpass
-	chmod 600 ~/.codisms/pgpass
+	ln -s ${MY_HOME}/.codisms/repos/dircolors-solarized/dircolors.256dark ${MY_HOME}/.dircolors
+	ln -s ${MY_HOME}/.codisms/zshrc ${MY_HOME}/.zshrc
+	ln -s ${MY_HOME}/.codisms/gitconfig ${MY_HOME}/.gitconfig
+	ln -s ${MY_HOME}/.codisms/elinks ${MY_HOME}/.elinks
+	ln -s ${MY_HOME}/.codisms/ctags ${MY_HOME}/.ctags
+	ln -s ${MY_HOME}/.codisms/pgpass ${MY_HOME}/.pgpass
+	chmod 600 ${MY_HOME}/.pgpass
+	chmod 600 ${MY_HOME}/.codisms/pgpass
 }
 
 setHostName() {
@@ -77,23 +79,28 @@ EOF
 # Installations
 
 installPackages() {
+	#yum remove postgresql postgresql-devel postgresql-libs postgresql-contrib
+
 	yum install -y git mercurial bzr \
 		gcc gcc-c++ kernel-devel \
 		automake cmake make libtool \
 		ncurses-devel tcl-devel \
-		curlpp libcurl-devel clang ctags wget \
-		python python-devel \
+		libcurl-devel clang ctags wget unzip \
+		python python-devel golang ruby \
 		perl perl-devel perl-ExtUtils-ParseXS perl-ExtUtils-CBuilder perl-ExtUtils-Embed \
 		bind-utils mutt elinks telnet \
-		man zsh \
-		mysql mysql-server redis \
+		man htop zsh \
+		mariadb mariadb-server \
+		redis \
 		httpd mod_ssl \
-		php php-mysql \
+		php php-mysql java-1.8.0-openjdk \
 		perl-DBD-ODBC freetds \
 		libevent-2* libevent-devel-2* \
-		postgres-devel yum-utils \
+		yum-utils \
 		openssh-clients openconnect \
+		docker \
 		sysstat iotop traceroute
+		#mysql-community-devel mysql-community-server mysql-community-client \
 		#postgresql94-odbc postgresql-odbc postgresql-devel postgresql94-devel
 		#tmux nodejs
 		#ruby ruby-devel rubygems
@@ -103,57 +110,26 @@ installPackages() {
 
 installLanguages() {
 	installNode
-	installRuby
-	installGo
+	setUpGoDirectories
 }
 
 installNode() {
-	printSubHeader "Installing node..."
-
-# 	git clone --quiet https://github.com/nodejs/node.git
-# 	cd node
-# 	git checkout --quiet 4.x
-# 	./configure --quiet > /dev/null
-# 	make --quiet > /dev/null
-# 	make install --quiet > /dev/null
-# 	cd ..
-# 	rm -rf node
-
-	curl -sSL https://rpm.nodesource.com/setup | bash - > /dev/null
-	#curl -sSL https://rpm.nodesource.com/setup_4.x | bash - > /dev/null
-	#curl -sSL https://rpm.nodesource.com/setup_5.x | bash - > /dev/null
+	printSubHeader "Installing Node.js..."
+	#curl -sSL https://rpm.nodesource.com/setup_7.x | bash - > /dev/null
 	yum install -y nodejs
-	npm install --quiet --loglevel warn -g npm > /dev/null
-	npm install --quiet --loglevel warn -g grunt-cli gulp-cli nodemon bower json http-server > /dev/null
+
+	#echo "Updating npm..."
+	#npm install --quiet --loglevel warn -g npm > /dev/null
+
+	echo "Installing tools..."
+	npm install --quiet --loglevel warn -g grunt-cli gulp-cli nodemon bower json http-server nodemon jshint eslint @angular/cli typescript > /dev/null
 }
 
-installRuby() {
-	printSubHeader "Installing ruby..."
-
-	#rm -rf ~/.gnupg/
-	#gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
-	curl -sSLO https://rvm.io/mpapis.asc && gpg --import mpapis.asc
-	[ -f mpapis.asc ] && rm -f mpapis.asc
-	curl -sSL https://get.rvm.io | bash -s stable --rails > /dev/null
-
-	echo Installing v2.2.3...
-	rvm install ruby-2.2.3 > /dev/null
-
-# 	source /usr/local/rvm/scripts/rvm
-# 	source /etc/profile
-}
-
-installGo() {
-	printSubHeader "Installing go..."
-
-	[ -f /usr/local/go1.5.1.linux-amd64.tar.gz ] && rm -f /usr/local/go1.5.1.linux-amd64.tar.gz
-	curl -sSL 'https://storage.googleapis.com/golang/go1.5.1.linux-amd64.tar.gz' -o /usr/local/go1.5.1.linux-amd64.tar.gz
-	[ -d /usr/local/go ] && rm -rf /usr/local/go
-	tar -C /usr/local -xzf /usr/local/go1.5.1.linux-amd64.tar.gz
-
-	mkdir -p ~/go/bin
-	mkdir -p ~/go/pkg
-	mkdir -p ~/go/src/github.com
+setUpGoDirectories() {
+	printSubHeader "Setting up Go directory structure..."
+	mkdir -p ${MY_HOME}/go/bin
+	mkdir -p ${MY_HOME}/go/pkg
+	mkdir -p ${MY_HOME}/go/src/github.com
 }
 
 ############################################################################################################
@@ -166,7 +142,7 @@ downloadRepos
 #-----------------------------------------------------------------------------------------------------------
 # Create a SSH key, if needed
 
-# if [ ! -f ~/.ssh/id_rsa ]; then
+# if [ ! -f ${MY_HOME}/.ssh/id_rsa ]; then
 #
 # 	echo
 # 	echo -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -174,7 +150,7 @@ downloadRepos
 # 	##read -p 'Press [Enter] to continue...'
 #
 # 	echo
-# 	ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa
+# 	ssh-keygen -t rsa -N "" -f ${MY_HOME}/.ssh/id_rsa
 # fi
 
 #-----------------------------------------------------------------------------------------------------------
@@ -193,11 +169,14 @@ installLanguages
 # echo
 # echo Generated public key:
 # echo
-# cat ~/.ssh/id_rsa.pub
+# cat ${MY_HOME}/.ssh/id_rsa.pub
 # echo
 # #read -p 'Press [Enter] to continue...'
 
-scheduleForNextRun "$HOME/.setup/linux/step3.sh"
+printHeader "Resetting home directory owner..."
+resetPermissions
+
+scheduleForNextRun "${MY_HOME}/.setup/linux/step3.sh"
 
 printHeader "Finished step 2.  Rebooting..."
 # read -p 'Press [Enter] to continue...'

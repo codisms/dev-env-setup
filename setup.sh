@@ -1,10 +1,15 @@
 #!/bin/bash
 
-echo "Installing git..."
-yum install -y -q git
+SUDO=$(which sudo 2> /dev/null)
 
-echo "Getting setup scripts..."
-git clone --quiet https://bitbucket.org/codisms/dev-setup.git ~/.setup
+if [ "$(which git 2> /dev/null)" == "" ]; then
+	echo "Installing git..."
+	$SUDO yum install -y -q git
+fi
+
+echo "Downloading setup scripts..."
+git clone -b centos7 https://bitbucket.org/codisms/dev-setup.git ~/.setup
+chown -R `whoami`:`whoami` .setup
 
 INSTALL_DIR=
 case "$OSTYPE" in
@@ -24,18 +29,22 @@ fi
 
 cat <<EOF >> ~/.bashrc
 
-
 if [ -f ~/.onstart ]; then
         CMD=\`cat ~/.onstart\`
+	SUDO=\$(which sudo 2> /dev/null)
         rm -f ~/.onstart
-        echo "Executing command: \$CMD"
-        \$CMD
+        echo "Executing command: \$SUDO \$CMD \$HOME `whoami`"
+	if [ "\$SUDO" == "" ]; then
+		read -p 'Press [Enter] key to continue...'
+	fi
+        \$SUDO \$CMD \$HOME `whoami`
         CMD=
+	SUDO=
 fi
 
 EOF
 
 echo "Running installer (~/.setup/$INSTALL_DIR/step1.sh)..."
-chmod +x ~/.setup/$INSTALL_DIR/*.sh
-~/.setup/$INSTALL_DIR/step1.sh $1
+#find ~/.setup -name \*.sh -exec chmod +x {} \;
+$SUDO ~/.setup/$INSTALL_DIR/step1.sh $HOME `whoami` $1
 
