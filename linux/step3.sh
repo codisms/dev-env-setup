@@ -119,7 +119,7 @@ installTmux() {
 	cd ..
 	rm -rf tmux
 
-#  	PATH=$PATH:`find /usr/local/rvm/rubies/ruby-*/bin/ | head -n 1`
+  	PATH=$PATH:`find /opt/rh/rh-ruby*/root/usr/bin | head -n 1`
 
 # 	gem --update system
 	gem install tmuxinator > /dev/null
