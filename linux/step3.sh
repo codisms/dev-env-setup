@@ -80,7 +80,7 @@ configureVim() {
 	echo "Downloading submodules..."
 	cd ${MY_HOME}/.vim
 	#git submodule init
-	git submodule update --init --recursive --depth=1
+	git submodule update --init --recursive
 
 	printSubHeader "Configuring vim..."
 	ln -s ${MY_HOME}/.vim/vimrc ${MY_HOME}/.vimrc
@@ -131,7 +131,7 @@ installTmux() {
 	echo "Downloading submodules..."
 	cd .tmux
 	#git submodule init
-	git submodule update --init --recursive --depth=1
+	git submodule update --init --recursive
 	cd ..
 
 	printSubHeader "Configuring tmux..."

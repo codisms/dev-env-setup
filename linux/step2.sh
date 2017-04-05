@@ -43,7 +43,7 @@ downloadRepos() {
 	printSubHeader "Downloading submodules..."
 
 	cd ${MY_HOME}/.codisms
-	git submodule update --init --recursive --depth=1
+	git submodule update --init --recursive
 
 	printSubHeader "Resetting permissions..."
 	resetPermissions
