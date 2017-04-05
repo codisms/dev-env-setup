@@ -151,10 +151,10 @@ installRuby() {
 installGo() {
 	printSubHeader "Installing go..."
 
-	[ -f /usr/local/go1.5.1.linux-amd64.tar.gz ] && rm -f /usr/local/go1.5.1.linux-amd64.tar.gz
-	curl -sSL 'https://storage.googleapis.com/golang/go1.5.1.linux-amd64.tar.gz' -o /usr/local/go1.5.1.linux-amd64.tar.gz
+	[ -f /usr/local/go1.8.linux-amd64.tar.gz ] && rm -f /usr/local/go1.8.linux-amd64.tar.gz
+	curl -sSL 'https://storage.googleapis.com/golang/go1.8.linux-amd64.tar.gz' -o /usr/local/go1.8.linux-amd64.tar.gz
 	[ -d /usr/local/go ] && rm -rf /usr/local/go
-	tar -C /usr/local -xzf /usr/local/go1.5.1.linux-amd64.tar.gz
+	tar -C /usr/local -xzf /usr/local/go1.8.linux-amd64.tar.gz
 
 	mkdir -p ${MY_HOME}/go/bin
 	mkdir -p ${MY_HOME}/go/pkg
