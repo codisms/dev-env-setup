@@ -86,7 +86,7 @@ installPackages() {
 		automake cmake make libtool \
 		ncurses-devel tcl-devel \
 		libcurl-devel clang ctags wget unzip \
-		python python-devel \
+		python python-devel golang rh-ruby23 \
 		perl perl-devel perl-ExtUtils-ParseXS perl-ExtUtils-CBuilder perl-ExtUtils-Embed \
 		bind-utils mutt elinks telnet \
 		man htop zsh \
@@ -110,13 +110,11 @@ installPackages() {
 
 installLanguages() {
 	installNode
-	installRuby
-	installGo
+	setUpGoDirectories
 }
 
 installNode() {
 	printSubHeader "Installing Node.js..."
-
 	#curl -sSL https://rpm.nodesource.com/setup_7.x | bash - > /dev/null
 	yum install -y nodejs
 
@@ -127,15 +125,8 @@ installNode() {
 	npm install --quiet --loglevel warn -g grunt-cli gulp-cli nodemon bower json http-server nodemon jshint eslint @angular/cli typescript > /dev/null
 }
 
-installRuby() {
-	printSubHeader "Installing ruby..."
-	yum install -y rh-ruby23
-}
-
-installGo() {
-	printSubHeader "Installing go..."
-	yum install -y golang
-
+setUpGoDirectories() {
+	printSubHeader "Setting up Go directory structure..."
 	mkdir -p ${MY_HOME}/go/bin
 	mkdir -p ${MY_HOME}/go/pkg
 	mkdir -p ${MY_HOME}/go/src/github.com
