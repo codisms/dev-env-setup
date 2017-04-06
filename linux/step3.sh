@@ -96,7 +96,7 @@ installVimExtensions_YCM() {
 
 	cd ${MY_HOME}/.vim/bundle/YouCompleteMe
 	#./install.py
-	./install.py --clang-completer --gocode-completer --tern-completer > /dev/null
+	retry ./install.py --clang-completer --gocode-completer --tern-completer
 	#./install.py --clang-completer --system-libclang --gocode-completer > /dev/null
 	cd ${MY_HOME}
 }
