@@ -22,7 +22,7 @@ cd "$( dirname "${BASH_SOURCE[0]}" )"
 downloadRepos() {
 	echo 'Cloning .codisms; enter bitbucket.org password for "codisms":'
 	echo Cloning dev-config...
-	git clone https://codisms@bitbucket.org/codisms/dev-config.git ${MY_HOME}/.codisms
+	retry git clone https://codisms@bitbucket.org/codisms/dev-config.git ${MY_HOME}/.codisms
 
 	printSubHeader "Configuring security..."
 
@@ -43,7 +43,7 @@ downloadRepos() {
 	printSubHeader "Downloading submodules..."
 
 	cd ${MY_HOME}/.codisms
-	git submodule update --init --recursive
+	retry git submodule update --init --recursive
 
 	printSubHeader "Resetting permissions..."
 	resetPermissions
