@@ -77,6 +77,7 @@ echo SUDO14c=`which sudo`
 
 echo SUDO14d=`which sudo`
  	echo Removing existing version of vi/vim...
+	SUDO=$(which sudo 2> /dev/null)
  	yum -y remove vim-common vim-enhanced vim-minimal
 	if [ "$SUDO" != "" ] && [ "$(which sudo 2> /dev/null)" == "" ]; then
 		echo Reinstalling sudo...
