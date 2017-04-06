@@ -23,7 +23,7 @@ finalConfigurations() {
 	ln -s ${MY_HOME}/.codisms/motd /etc/motd
 
 	[ -f /etc/ptmp ] && rm -f /etc/ptmp
-	chsh -s `which zsh`
+	chsh -s `which zsh` ${MY_USER}
 }
 
 ############################################################################################################
