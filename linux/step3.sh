@@ -37,9 +37,9 @@ installPostgres() {
 	printSubHeader "Installing postgresql..."
 
 echo SUDO10=`which sudo`
-	yum install -y -q https://download.postgresql.org/pub/repos/yum/9.6/redhat/rhel-7-x86_64/pgdg-centos96-9.6-3.noarch.rpm
+	yum install -y https://download.postgresql.org/pub/repos/yum/9.6/redhat/rhel-7-x86_64/pgdg-centos96-9.6-3.noarch.rpm
 echo SUDO11=`which sudo`
-	yum install -y -q postgresql96-odbc postgresql96-devel postgresql96 postgresql96-contrib postgresql96-server
+	yum install -y postgresql96-odbc postgresql96-devel postgresql96 postgresql96-contrib postgresql96-server
 echo SUDO12=`which sudo`
 	/usr/pgsql-9.6/bin/postgresql96-setup initdb
 	systemctl start postgresql-9.6.service
@@ -77,7 +77,11 @@ echo SUDO14c=`which sudo`
 
 echo SUDO14d=`which sudo`
  	echo Removing existing version of vi/vim...
- 	yum -y -q remove vim-common vim-enhanced vim-minimal
+ 	yum -y remove vim-common vim-enhanced vim-minimal
+	if [ "$SUDO" != "" ] && [ "$(which sudo 2> /dev/null)" == "" ]; then
+		echo Reinstalling sudo...
+		yum -y install sudo
+	fi
 
 echo SUDO15=`which sudo`
  	printSubHeader "Setting vim as default..."
