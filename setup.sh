@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 SUDO=$(which sudo 2> /dev/null)
 
 if [ "$(which git 2> /dev/null)" == "" ]; then
