@@ -52,18 +52,20 @@ installVim() {
  				--enable-luainterp \
  				--enable-gui=gtk2 --enable-cscope --prefix=/usr --quiet > /dev/null
 # 				--with-python-config-dir=/usr/lib/python2.6/config \
- 	make --quiet VIMRUNTIMEDIR=/usr/share/vim/vim74 > /dev/null
- 	make install --quiet > /dev/null
- 	cd ..
- 	rm -rf vim
+ 	make --quiet > /dev/null
 
  	echo Removing existing version of vi/vim...
 	SUDO=$(which sudo 2> /dev/null)
- 	yum -y remove vim-common vim-enhanced vim-minimal
+ 	#yum -y remove vim-common vim-enhanced vim-minimal
+ 	yum -y remove vim-common vim-enhanced
 	if [ "$SUDO" != "" ] && [ "$(which sudo 2> /dev/null)" == "" ]; then
 		echo Reinstalling sudo...
 		yum -y install sudo
 	fi
+
+ 	make install
+ 	cd ..
+ 	rm -rf vim
 
  	printSubHeader "Setting vim as default..."
  	update-alternatives --install /usr/bin/editor editor /usr/bin/vim 1
@@ -109,7 +111,7 @@ installTmux() {
 
 	cd ${MY_HOME}
 	echo Cloning tmux...
-	retry git clone --depth=1 https://github.com/tmux/tmux.git
+	retry git clone --depth=1 -b 2.3 https://github.com/tmux/tmux.git
 
 	echo Compiling tmux...
 	cd tmux
