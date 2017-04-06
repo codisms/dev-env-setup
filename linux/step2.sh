@@ -90,7 +90,6 @@ installPackages() {
 		perl perl-devel perl-ExtUtils-ParseXS perl-ExtUtils-CBuilder perl-ExtUtils-Embed \
 		bind-utils mutt elinks telnet \
 		man htop zsh \
-		mariadb mariadb-server \
 		redis \
 		httpd mod_ssl \
 		php php-mysql java-1.8.0-openjdk \
@@ -100,6 +99,7 @@ installPackages() {
 		openssh-clients openconnect \
 		docker \
 		sysstat iotop traceroute
+		#mariadb mariadb-server \
 		#mysql-community-devel mysql-community-server mysql-community-client \
 		#postgresql94-odbc postgresql-odbc postgresql-devel postgresql94-devel
 		#tmux nodejs
@@ -122,7 +122,7 @@ installNode() {
 	#npm install --quiet --loglevel warn -g npm > /dev/null
 
 	echo "Installing tools..."
-	npm install --quiet --loglevel warn -g grunt-cli gulp-cli nodemon bower json http-server nodemon jshint eslint @angular/cli typescript > /dev/null
+	retry npm install --quiet --loglevel warn -g grunt-cli gulp-cli nodemon bower json http-server nodemon jshint eslint @angular/cli typescript > /dev/null
 }
 
 setUpGoDirectories() {
