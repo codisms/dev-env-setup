@@ -16,37 +16,43 @@ chown -R `whoami`:`whoami` .setup
 INSTALL_DIR=
 case "$OSTYPE" in
 	solaris*) INSTALL_DIR=solaris ;;
-	linux*) INSTALL_DIR=linux ;;
+	linux*)
+		[ -n "$(command -v apt-get)" ] && INSTALL_DIR=linux.apt
+		[ -n "$(command -v yum)" ] && INSTALL_DIR=linux.yum
+		if [ "${INSTALL_DIR}" == "" ]; then
+			echo "Unable to find yum or apt-get!"
+		fi
+		;;
 	darwin*) INSTALL_DIR=darwin ;;
 	bsd*) INSTALL_DIR=bsd ;;
 esac
-if [ "$INSTALL_DIR" == "" ]; then
+if [ "${INSTALL_DIR}" == "" ]; then
 	echo "Unknown operating system: $OSTYPE"
 	exit
 fi
-if [ ! -f ~/.setup/$INSTALL_DIR/step1.sh ]; then
-	echo "Setup script not found: $INSTALL_DIR"
+if [ ! -f ~/.setup/${INSTALL_DIR}/step1.sh ]; then
+	echo "Setup script not found: ${INSTALL_DIR}"
 	exit
 fi
 
 cat <<EOF >> ~/.bashrc
 
 if [ -f ~/.onstart ]; then
-        CMD=\`cat ~/.onstart\`
+	CMD=\`cat ~/.onstart\`
 	SUDO=\$(which sudo 2> /dev/null)
-        rm -f ~/.onstart
-        echo "Executing command: \$SUDO \$CMD \$HOME `whoami`"
+	rm -f ~/.onstart
+	echo "Executing command: \$SUDO \$CMD \$HOME `whoami`"
 	if [ "\$SUDO" == "" ]; then
 		read -p 'Press [Enter] key to continue...'
 	fi
-        \$SUDO \$CMD \$HOME `whoami`
-        CMD=
+	\$SUDO \$CMD \$HOME `whoami`
+	CMD=
 	SUDO=
 fi
 
 EOF
 
-echo "Running installer (~/.setup/$INSTALL_DIR/step1.sh)..."
+echo "Running installer (~/.setup/${INSTALL_DIR}/step1.sh)..."
 #find ~/.setup -name \*.sh -exec chmod +x {} \;
-$SUDO ~/.setup/$INSTALL_DIR/step1.sh $HOME `whoami` $1
+$SUDO ~/.setup/${INSTALL_DIR}/step1.sh $HOME `whoami` $1
 

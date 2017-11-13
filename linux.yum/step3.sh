@@ -38,40 +38,40 @@ installPostgres() {
 installVim() {
 	printSubHeader "Installing vim..."
 
- 	cd ${MY_HOME}
- 	echo Cloning vim...
- 	retry git clone --depth=1 https://github.com/vim/vim.git
+	cd ${MY_HOME}
+	echo Cloning vim...
+	retry git clone --depth=1 https://github.com/vim/vim.git
 
 	echo Building vim...
- 	cd vim
- 	./configure --with-features=huge \
- 				--enable-multibyte \
- 				--enable-rubyinterp \
- 				--enable-pythoninterp \
- 				--enable-perlinterp \
- 				--enable-luainterp \
- 				--enable-gui=gtk2 --enable-cscope --prefix=/usr --quiet > /dev/null
+	cd vim
+	./configure --with-features=huge \
+				--enable-multibyte \
+				--enable-rubyinterp \
+				--enable-pythoninterp \
+				--enable-perlinterp \
+				--enable-luainterp \
+				--enable-gui=gtk2 --enable-cscope --prefix=/usr --quiet > /dev/null
 # 				--with-python-config-dir=/usr/lib/python2.6/config \
- 	make --quiet > /dev/null
+	make --quiet > /dev/null
 
- 	echo Removing existing version of vi/vim...
+	echo Removing existing version of vi/vim...
 	SUDO=$(which sudo 2> /dev/null)
- 	#yum -y remove vim-common vim-enhanced vim-minimal
- 	yum -y remove vim-common vim-enhanced
+	#yum -y remove vim-common vim-enhanced vim-minimal
+	yum -y remove vim-common vim-enhanced
 	if [ "$SUDO" != "" ] && [ "$(which sudo 2> /dev/null)" == "" ]; then
 		echo Reinstalling sudo...
 		yum -y install sudo
 	fi
 
- 	make install
- 	cd ..
- 	rm -rf vim
+	make install
+	cd ..
+	rm -rf vim
 
- 	printSubHeader "Setting vim as default..."
- 	update-alternatives --install /usr/bin/editor editor /usr/bin/vim 1
- 	update-alternatives --set editor /usr/bin/vim
- 	update-alternatives --install /usr/bin/vi vi /usr/bin/vim 1
- 	update-alternatives --set vi /usr/bin/vim
+	printSubHeader "Setting vim as default..."
+	update-alternatives --install /usr/bin/editor editor /usr/bin/vim 1
+	update-alternatives --set editor /usr/bin/vim
+	update-alternatives --install /usr/bin/vi vi /usr/bin/vim 1
+	update-alternatives --set vi /usr/bin/vim
 
 	configureVim
 	installVimExtensions_YCM
@@ -125,7 +125,7 @@ installTmux() {
 	cd ..
 	rm -rf tmux
 
- 	#gem --update system
+	#gem --update system
 	gem install tmuxinator > /dev/null
 
 	printSubHeader "Downloading tmux configuration..."

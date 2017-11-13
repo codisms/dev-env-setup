@@ -60,6 +60,7 @@ sudo apt install -y git mercurial bzr subversion \
 	perl libperl-dev perl-modules \
 	dnsutils mutt elinks telnet \
 	man htop zsh \
+	vim tmux \
 	redis-server \
 	apache2 \
 	php5-cli php5-mysql openjdk-8-jre \
@@ -110,3 +111,14 @@ Xauth password=<password>
 method=auto
 never-default=true
 ```
+
+
+
+```
+mkdir ~/.ssh
+vi .ssh/authorized_keys
+<paste in public key; exit>
+chmod 700 ~/.ssh
+chmod 600 ~/.ssh/authorized_keys
+```
+
