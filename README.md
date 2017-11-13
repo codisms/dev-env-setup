@@ -51,7 +51,7 @@ Installing Parallels tools:
 Ubuntu hints:
 
 ```
-sudo apt install -y git mercurial bzr \
+sudo apt install -y git mercurial bzr subversion \
 	gcc gpp linux-kernel-headers kernel-package \
 	automake cmake make libtool \
 	libncurses-dev tcl-dev \
@@ -62,13 +62,14 @@ sudo apt install -y git mercurial bzr \
 	man htop zsh \
 	redis-server \
 	apache2 \
-	php php-mysql openjdk-8-jre \
+	php5-cli php5-mysql openjdk-8-jre \
 	libdbd-odbc-perl freetds-bin freetds-common freetds-dev \
 	libevent-2* libevent-dev \
 	yum-utils \
 	openssh-client openconnect \
 	docker \
-	sysstat iotop traceroute
+	sysstat iotop traceroute \
+	network-manager-vpnc
 ```
 
 ```
@@ -77,3 +78,35 @@ sudo apt-get install -y nodejs
 ```
 
 `mv .dircolors .dir_colors`
+
+`sudo update-alternatives --config editor`
+`sudo add-apt-repository ppa:jonathonf/vim`
+
+VPN config at /etc/NetworkManager/system-connections/Zodiac:
+```
+[connection]
+id=Zodiac
+uuid=1c56a5af-58eb-4da2-850f-ae8c709c7ed9
+type=vpn
+permissions=user:jbailey:;
+autoconnect=false
+
+[vpn]
+service-type=org.freedesktop.NetworkManager.vpnc
+NAT Traversal Mode=natt
+Vendor=cisco
+Xauth username=<username>
+IPSec gateway=vpn.imsco-us.com
+IPSec ID=SVNVPN
+Perfect Forward Secrecy=server
+IKE DH Group=dh2
+Local Port=0
+
+[vpn-secrets]
+IPSec secret=$vNVpN14
+Xauth password=<password>
+
+[ipv4]
+method=auto
+never-default=true
+```
