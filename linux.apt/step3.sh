@@ -122,7 +122,7 @@ installPackages
 printHeader "Resetting home directory owner..."
 resetPermissions
 
-scheduleForNextRun "${MY_HOME}/.setup/linux/step4.sh"
+scheduleForNextRun "${MY_HOME}/.setup/linux.apt/step4.sh"
 
 printHeader "Finished step 3.  Rebooting..."
 # read -p 'Press [Enter] to continue...'
