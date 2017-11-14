@@ -53,7 +53,8 @@ configureEnvironment() {
 # Installations
 
 installPackages() {
-	retry_long $SUDO apt-get install -y git mercurial bzr subversion \
+	wait_for_apt
+	$SUDO apt-get install -y git mercurial bzr subversion \
 		gcc gpp linux-kernel-headers kernel-package \
 		automake cmake make libtool \
 		libncurses-dev tcl-dev \
@@ -64,7 +65,8 @@ installPackages() {
 		libdbd-odbc-perl freetds-bin freetds-common freetds-dev \
 		libevent-2* libevent-dev
 
-	retry_long $SUDO apt-get install -y man htop zsh wget unzip \
+	wait_for_apt
+	$SUDO apt-get install -y man htop zsh wget unzip \
 		dnsutils mutt elinks telnet \
 		redis-server apache2 docker \
 		openssh-client openconnect \
