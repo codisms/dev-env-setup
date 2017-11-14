@@ -87,7 +87,7 @@ installLanguages() {
 installNode() {
 	printSubHeader "Installing Node.js..."
 	curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
-	sudo apt-get install -y nodejs
+	$SUDO apt-get install -y nodejs
 
 	#echo "Updating npm..."
 	#npm install --quiet --loglevel warn -g npm > /dev/null
