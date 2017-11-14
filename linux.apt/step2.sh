@@ -52,11 +52,7 @@ installFonts() {
 }
 
 configureEnvironment() {
-	ln -s ${MY_HOME}/.codisms/repos/dircolors-solarized/dircolors.256dark ${MY_HOME}/.dir_colors
-	echo "" >> ~/.profile
-	echo 'eval `dircolors ~/.dir_colors`' >> ~/.profile
-	echo "" >> ~/.profile
-
+	ln -s ${MY_HOME}/.codisms/repos/dircolors-solarized/dircolors.256dark ${MY_HOME}/.dircolors
 	ln -s ${MY_HOME}/.codisms/zshrc ${MY_HOME}/.zshrc
 	ln -s ${MY_HOME}/.codisms/gitconfig ${MY_HOME}/.gitconfig
 	ln -s ${MY_HOME}/.codisms/elinks ${MY_HOME}/.elinks
