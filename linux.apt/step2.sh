@@ -38,6 +38,19 @@ downloadRepos() {
 #-----------------------------------------------------------------------------------------------------------
 # Configuration
 
+installFonts() {
+	pip install --user powerline-status
+
+	## https://gist.github.com/renshuki/3cf3de6e7f00fa7e744a
+	#mkdir -p ~/.fonts
+	#mkdir -p ~/.config/fontconfig/conf.d
+
+	#curl https://github.com/powerline/powerline/raw/develop/font/PowerlineSymbols.otf -o ~/.fonts/PowerlineSymbols.otf -L
+	#curl https://github.com/powerline/powerline/raw/develop/font/10-powerline-symbols.conf -o ~/.config/fontconfig/conf.d/10-powerline-symbols.conf -L
+
+	#fc-cache -vf ~/.fonts/
+}
+
 configureEnvironment() {
 	ln -s ${MY_HOME}/.codisms/repos/dircolors-solarized/dircolors.256dark ${MY_HOME}/.dir_colors
 	echo "" >> ~/.profile
@@ -51,6 +64,8 @@ configureEnvironment() {
 	ln -s ${MY_HOME}/.codisms/pgpass ${MY_HOME}/.pgpass
 	chmod 600 ${MY_HOME}/.pgpass
 	chmod 600 ${MY_HOME}/.codisms/pgpass
+
+	installFonts
 }
 
 #-----------------------------------------------------------------------------------------------------------
@@ -62,9 +77,11 @@ installPackages() {
 		automake cmake make libtool \
 		libncurses-dev tcl-dev \
 		curl libcurl4-openssl-dev clang ctags \
-		python python-dev golang ruby \
+		python python-dev python-pip python3 python3-dev python3-pip \
+		golang ruby \
 		perl libperl-dev perl-modules \
-		php-cli php-mysql openjdk-8-jre \
+		php-cli php-mysql \
+		openjdk-8-jre \
 		libdbd-odbc-perl freetds-bin freetds-common freetds-dev \
 		libevent-2* libevent-dev
 
@@ -86,6 +103,8 @@ installPackages() {
 installLanguages() {
 	installNode
 	setUpGoDirectories
+
+	pip install --upgrade pip
 }
 
 installNode() {
@@ -145,6 +164,9 @@ installPackages
 
 printHeader "Installing languages..."
 installLanguages
+
+printHeader "Installing fonts..."
+installFonts
 
 # echo
 # echo
