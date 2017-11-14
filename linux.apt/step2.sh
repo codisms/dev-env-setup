@@ -95,8 +95,14 @@ installNode() {
 	#npm install --quiet --loglevel warn -g npm > /dev/null
 
 	echo "Installing tools..."
-	retry $SUDO npm install --quiet --loglevel warn -g grunt-cli gulp-cli nodemon bower json http-server nodemon jshint eslint > /dev/null
-	retry $SUDO npm install --quiet --loglevel warn -g @angular/cli typescript ionic > /dev/null
+	if [ -d /usr/lib/node_modules ]; then
+		chmod -R g+w /usr/lib/node_modules
+	fi
+	npm install --quiet --loglevel warn -g grunt-cli gulp-cli nodemon bower json http-server nodemon jshint eslint typescript > /dev/null
+	chmod -R g+w /usr/lib/node_modules
+	npm install --quiet --loglevel warn -g @angular/cli > /dev/null
+	chmod -R g+w /usr/lib/node_modules
+	npm install --quiet --loglevel warn -g ionic > /dev/null
 }
 
 setUpGoDirectories() {
