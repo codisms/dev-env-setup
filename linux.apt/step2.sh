@@ -87,32 +87,17 @@ installLanguages() {
 installNode() {
 	printSubHeader "Installing Node.js..."
 	curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
-	apt_get_install nodejs
+	apt_get_install nodejs build-essential
 
 	#echo "Updating npm..."
 	#npm install --quiet --loglevel warn -g npm > /dev/null
 
+	mkdir -p ~/.node-gyp/8.9.1
+
 	echo "Installing tools..."
-	if [ -d /usr/lib/node_modules ]; then
-		# https://stackoverflow.com/questions/16151018/npm-throws-error-without-sudo
-		sudo chown -R $USER:$(id -gn $USER) /home/jbailey/.config
-		sudo chown -R $USER:$(id -gn $USER) /usr/lib/node_modules
-	fi
-
 	npm install --quiet --loglevel warn -g grunt-cli gulp-cli nodemon bower json http-server nodemon jshint eslint typescript > /dev/null
-
-	$SUDO chown -R $USER:$(id -gn $USER) /home/jbailey/.config
-	$SUDO chown -R $USER:$(id -gn $USER) /usr/lib/node_modules
-
-	$SUDO npm install --quiet --loglevel warn -g @angular/cli > /dev/null
-
-	$SUDO chown -R $USER:$(id -gn $USER) /home/jbailey/.config
-	$SUDO chown -R $USER:$(id -gn $USER) /usr/lib/node_modules
-
-	$SUDO npm install --quiet --loglevel warn -g ionic > /dev/null
-
-	$SUDO chown -R $USER:$(id -gn $USER) /home/jbailey/.config
-	$SUDO chown -R $USER:$(id -gn $USER) /usr/lib/node_modules
+	npm install --quiet --loglevel warn -g @angular/cli > /dev/null
+	npm install --quiet --loglevel warn -g ionic > /dev/null
 }
 
 setUpGoDirectories() {
