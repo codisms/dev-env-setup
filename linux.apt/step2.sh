@@ -94,14 +94,25 @@ installNode() {
 
 	echo "Installing tools..."
 	if [ -d /usr/lib/node_modules ]; then
-		# https://github.com/angular/angular-cli/issues/8402
-		chmod -R g+w /usr/lib/node_modules
+		# https://stackoverflow.com/questions/16151018/npm-throws-error-without-sudo
+		sudo chown -R $USER:$(id -gn $USER) /home/jbailey/.config
+		sudo chown -R $USER:$(id -gn $USER) /usr/lib/node_modules
 	fi
+
 	npm install --quiet --loglevel warn -g grunt-cli gulp-cli nodemon bower json http-server nodemon jshint eslint typescript > /dev/null
-	chmod -R g+w /usr/lib/node_modules
+
+	sudo chown -R $USER:$(id -gn $USER) /home/jbailey/.config
+	sudo chown -R $USER:$(id -gn $USER) /usr/lib/node_modules
+
 	npm install --quiet --loglevel warn -g @angular/cli > /dev/null
-	chmod -R g+w /usr/lib/node_modules
+
+	sudo chown -R $USER:$(id -gn $USER) /home/jbailey/.config
+	sudo chown -R $USER:$(id -gn $USER) /usr/lib/node_modules
+
 	npm install --quiet --loglevel warn -g ionic > /dev/null
+
+	sudo chown -R $USER:$(id -gn $USER) /home/jbailey/.config
+	sudo chown -R $USER:$(id -gn $USER) /usr/lib/node_modules
 }
 
 setUpGoDirectories() {
