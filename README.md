@@ -47,13 +47,6 @@ chmod 600 ~/.ssh/authorized_keys
 
 ----
 
-Execute sudo without password (Ubuntu 16.04):
-
-1. `sudo visudo`
-2. Add line `jbailey ALL=(ALL) NOPASSWD: ALL`
-
-----
-
 Installing Parallels tools:
 
 ```
@@ -62,35 +55,3 @@ mount -o exec /dev/cdrom /media/cdrom
 cd /media/cdrom
 ./install
 ```
-
-----
-
-VPN config at /etc/NetworkManager/system-connections/Zodiac:
-```
-[connection]
-id=Zodiac
-uuid=1c56a5af-58eb-4da2-850f-ae8c709c7ed9
-type=vpn
-permissions=user:jbailey:;
-autoconnect=false
-
-[vpn]
-service-type=org.freedesktop.NetworkManager.vpnc
-NAT Traversal Mode=natt
-Vendor=cisco
-Xauth username=<username>
-IPSec gateway=vpn.imsco-us.com
-IPSec ID=<group>
-Perfect Forward Secrecy=server
-IKE DH Group=dh2
-Local Port=0
-
-[vpn-secrets]
-IPSec secret=<password>
-Xauth password=<password>
-
-[ipv4]
-method=auto
-never-default=true
-```
-
