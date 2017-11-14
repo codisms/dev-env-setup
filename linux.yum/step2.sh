@@ -125,6 +125,8 @@ installLanguages() {
 	installNode
 	setUpGoDirectories
 
+	printSubHeader "Updating pip..."
+
 	if [ ! -d ~/.cache/pip ]; then
 		mkdir -p ~/.cache/pip
 		chmod 775 ~/.cache/pip
