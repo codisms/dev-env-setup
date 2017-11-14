@@ -22,8 +22,7 @@ setHostName() {
 
 updateSystem() {
 	echo Updating system...
-	$SUDO apt-get -y update
-	$SUDO apt-get -y upgrade
+	apt_get_update
 }
 
 #updateFileSystem() {

@@ -1,0 +1,70 @@
+
+MY_HOME=$1
+shift
+MY_USER=$1
+shift
+
+resetPermissions() {
+	chown -R ${MY_USER}:${MY_USER} ${MY_HOME}
+}
+
+printHeader() {
+	echo
+	echo -------------------------------------------------------------------------------------------------------------------------------------------
+	echo $1
+	echo
+}
+
+printSubHeader() {
+	echo
+	echo -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+	echo $1
+	echo
+}
+
+scheduleForNextRun() {
+	echo $1 > ${MY_HOME}/.onstart
+}
+
+failRetry() {
+	echo $1 >&2
+	exit 1
+}
+
+retry() {
+	local n=1
+	# retry for 10 seconds at 2-second intervals
+	local max=5
+	local delay=2
+	while true; do
+		"$@" && break || {
+			if [[ $n -lt $max ]]; then
+				((n++))
+				echo "!!! Command failed. Attempt $n/$max; sleeping for ${delay}s !!!"
+				sleep $delay;
+			else
+				fail "!!! The command has failed after $n attempts !!!"
+			fi
+		}
+	done
+}
+
+retry_long() {
+	local n=1
+	# retry for 5 minutes at 5-second intervals
+	local max=60
+	local delay=5
+	while true; do
+		"$@" && break || {
+			if [[ $n -lt $max ]]; then
+				((n++))
+				echo "!!! Command failed. Attempt $n/$max; sleeping for ${delay}s !!!"
+				sleep $delay;
+			else
+				fail "!!! The command has failed after $n attempts !!!"
+			fi
+		}
+	done
+}
+
+resetPermissions

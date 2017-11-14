@@ -1,52 +1,5 @@
 
-MY_HOME=$1
-shift
-MY_USER=$1
-shift
-
-resetPermissions() {
-	chown -R ${MY_USER}:${MY_USER} ${MY_HOME}
-}
-
-printHeader() {
-	echo
-	echo -------------------------------------------------------------------------------------------------------------------------------------------
-	echo $1
-	echo
-}
-
-printSubHeader() {
-	echo
-	echo -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-	echo $1
-	echo
-}
-
-scheduleForNextRun() {
-	echo $1 > ${MY_HOME}/.onstart
-}
-
-failRetry() {
-	echo $1 >&2
-	exit 1
-}
-
-retry() {
-	local n=1
-	local max=5
-	local delay=2
-	while true; do
-		"$@" && break || {
-			if [[ $n -lt $max ]]; then
-				((n++))
-				echo "!!! Command failed. Attempt $n/$max; sleeping for ${delay}s !!!"
-				sleep $delay;
-			else
-				fail "!!! The command has failed after $n attempts !!!"
-			fi
-		}
-	done
-}
+source ../functions
 
 wait_for_apt() {
 	local n=1
@@ -69,4 +22,14 @@ wait_for_apt() {
 	done
 }
 
-resetPermissions
+apt_get_install() {
+	wait_for_apt
+	$SUDO apt-get install -y "$@"
+}
+
+apt_get_update() {
+	wait_for_apt
+	$SUDO apt-get update
+	$SUDO apt-get upgrade
+}
+

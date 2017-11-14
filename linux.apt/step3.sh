@@ -38,7 +38,7 @@ installPostgres() {
 installVim() {
 	printSubHeader "Installing vim..."
 
-	$SUDO apt-get install -y vim
+	apt_get_install vim
 
 	printSubHeader "Setting vim as default..."
 	update-alternatives --install /usr/bin/editor editor /usr/bin/vim 1
@@ -78,7 +78,7 @@ installVimExtensions_YCM() {
 
 installTmux() {
 	printSubHeader "Installing tmux..."
-	$SUDO apt-get install -y libevent-2* libevent-dev tmux
+	apt_get_install libevent-2* libevent-dev tmux
 
 	#gem --update system
 	gem install tmuxinator > /dev/null
