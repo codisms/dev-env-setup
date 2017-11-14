@@ -56,19 +56,14 @@ Execute sudo without password (Ubuntu 16.04):
 
 Installing Parallels tools:
 
-1. `mkdir -p /media/cdrom`
-2. `mount -o exec /dev/cdrom /media/cdrom`
-3. `cd /media/cdrom`
-4. `./install`
+```
+mkdir -p /media/cdrom
+mount -o exec /dev/cdrom /media/cdrom
+cd /media/cdrom
+./install
+```
 
 ----
-
-Ubuntu hints:
-
-`mv .dircolors .dir_colors`
-
-`sudo update-alternatives --config editor`
-`sudo add-apt-repository ppa:jonathonf/vim`
 
 VPN config at /etc/NetworkManager/system-connections/Zodiac:
 ```
