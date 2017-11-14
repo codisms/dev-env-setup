@@ -104,7 +104,7 @@ installLanguages() {
 	installNode
 	setUpGoDirectories
 
-	pip install --upgrade pip
+	$SUDO pip install --upgrade pip
 }
 
 installNode() {
