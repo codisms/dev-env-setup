@@ -26,6 +26,7 @@ installPackages() {
 installPostgres() {
 	printSubHeader "Installing postgresql..."
 
+	apt_get_install postgresql-9.5 postgresql-client-9.5 postgresql-common postgresql-contrib-9.5 postgresql-doc-9.5 postgresql-server-dev-9.5
 	yum install -y https://download.postgresql.org/pub/repos/yum/9.6/redhat/rhel-7-x86_64/pgdg-centos96-9.6-3.noarch.rpm
 	yum install -y postgresql96-odbc postgresql96-devel postgresql96 postgresql96-contrib postgresql96-server
 	/usr/pgsql-9.6/bin/postgresql96-setup initdb

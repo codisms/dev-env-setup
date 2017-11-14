@@ -59,6 +59,11 @@ fi
 
 EOF
 
+if grep -q $(whoami) /etc/sudoers; then
+	echo Adding user to /etc/sudoers...
+	echo "$(whoami) ALL=(ALL:ALL) ALL" | sudo EDITOR='tee -a' visudo > /dev/null
+fi
+
 echo "Running installer (~/.setup/${INSTALL_DIR}/step1.sh)..."
 #find ~/.setup -name \*.sh -exec chmod +x {} \;
 $SUDO ~/.setup/${INSTALL_DIR}/step1.sh $HOME `whoami` $1
