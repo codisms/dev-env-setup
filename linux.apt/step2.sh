@@ -64,8 +64,6 @@ configureEnvironment() {
 	ln -s ${MY_HOME}/.codisms/pgpass ${MY_HOME}/.pgpass
 	chmod 600 ${MY_HOME}/.pgpass
 	chmod 600 ${MY_HOME}/.codisms/pgpass
-
-	installFonts
 }
 
 #-----------------------------------------------------------------------------------------------------------
