@@ -176,7 +176,7 @@ installLanguages
 printHeader "Resetting home directory owner..."
 resetPermissions
 
-scheduleForNextRun "${MY_HOME}/.setup/linux/step3.sh"
+scheduleForNextRun "${MY_HOME}/.setup/linux.yum/step3.sh"
 
 printHeader "Finished step 2.  Rebooting..."
 # read -p 'Press [Enter] to continue...'

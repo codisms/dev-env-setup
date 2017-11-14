@@ -58,7 +58,7 @@ fi
 printHeader "Updating system..."
 updateSystem
 
-scheduleForNextRun "${MY_HOME}/.setup/linux/step2.sh"
+scheduleForNextRun "${MY_HOME}/.setup/linux.yum/step2.sh"
 
 printHeader "Updating file system..."
 updateFileSystem
