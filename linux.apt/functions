@@ -50,8 +50,8 @@ retry() {
 
 wait_for_apt() {
 	local n=1
-	local max=20
-	local delay=30
+	local max=60
+	local delay=2
 	while true; do
 		[ -f /var/lib/dpkg/lock ] && break || {
 			if [[ $n -lt $max ]]; then
@@ -59,7 +59,11 @@ wait_for_apt() {
 				echo "!!! dpkg is locked! Attempt $n/$max; sleeping for ${delay}s !!!"
 				sleep $delay;
 			else
-				fail "!!! dpkg locked after $n attempts !!!"
+				echo "!!! Focing dpkg to unlock !!!"
+				$SUDO killall apt-get
+				$SUDO killall apt
+				$SUDO dkpg --configure -a
+				[ -f /var/lib/dpkg/lock ] && fail "!!! dpkg locked after $n attempts !!!"
 			fi
 		}
 	done
