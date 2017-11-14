@@ -53,8 +53,7 @@ configureEnvironment() {
 # Installations
 
 installPackages() {
-	wait_for_apt
-	$SUDO apt-get install -y git mercurial bzr subversion \
+	apt_get_install git mercurial bzr subversion \
 		gcc gpp linux-kernel-headers kernel-package \
 		automake cmake make libtool \
 		libncurses-dev tcl-dev \
@@ -65,8 +64,7 @@ installPackages() {
 		libdbd-odbc-perl freetds-bin freetds-common freetds-dev \
 		libevent-2* libevent-dev
 
-	wait_for_apt
-	$SUDO apt-get install -y man htop zsh wget unzip \
+	apt_get_install man htop zsh wget unzip \
 		dnsutils mutt elinks telnet \
 		redis-server apache2 docker \
 		openssh-client openconnect \
@@ -89,7 +87,7 @@ installLanguages() {
 installNode() {
 	printSubHeader "Installing Node.js..."
 	curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
-	$SUDO apt-get install -y nodejs
+	apt_get_install nodejs
 
 	#echo "Updating npm..."
 	#npm install --quiet --loglevel warn -g npm > /dev/null

@@ -3,14 +3,14 @@
 #set -e
 
 SUDO=$(which sudo 2> /dev/null)
-YUM=$(which yum 2> /dev/null)
-APTGET=$(which apt-get 2> /dev/null)
+#YUM=$(which yum 2> /dev/null)
+#APTGET=$(which apt-get 2> /dev/null)
 
-if [ "$(which git 2> /dev/null)" == "" ]; then
-	echo "Installing git..."
-	[ "${YUM}" != "" ] && $SUDO yum install -y -q git
-	[ "${APTGET}" != "" ] && $SUDO apt-get install -y -q git
-fi
+#if [ "$(which git 2> /dev/null)" == "" ]; then
+#	echo "Installing git..."
+#	[ "${YUM}" != "" ] && $SUDO yum install -y -q git
+#	[ "${APTGET}" != "" ] && $SUDO apt-get install -y -q git
+#fi
 if [ "$(which git 2> /dev/null)" == "" ]; then
 	echo "Could not find git!"
 	exit 1
