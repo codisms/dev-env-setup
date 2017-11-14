@@ -85,13 +85,13 @@ NAT Traversal Mode=natt
 Vendor=cisco
 Xauth username=<username>
 IPSec gateway=vpn.imsco-us.com
-IPSec ID=SVNVPN
+IPSec ID=<group>
 Perfect Forward Secrecy=server
 IKE DH Group=dh2
 Local Port=0
 
 [vpn-secrets]
-IPSec secret=$vNVpN14
+IPSec secret=<password>
 Xauth password=<password>
 
 [ipv4]
@@ -99,9 +99,3 @@ method=auto
 never-default=true
 ```
 
-
-
-```
-```
-
-`sudo apt-get install curl`
