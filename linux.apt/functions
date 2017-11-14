@@ -39,7 +39,24 @@ retry() {
 		"$@" && break || {
 			if [[ $n -lt $max ]]; then
 				((n++))
-				echo "!!! Command failed. Attempt $n/$max: !!!"
+				echo "!!! Command failed. Attempt $n/$max; sleeping for ${delay}s !!!"
+				sleep $delay;
+			else
+				fail "!!! The command has failed after $n attempts !!!"
+			fi
+		}
+	done
+}
+
+retry_long() {
+	local n=1
+	local max=20
+	local delay=30
+	while true; do
+		"$@" && break || {
+			if [[ $n -lt $max ]]; then
+				((n++))
+				echo "!!! Command failed. Attempt $n/$max; sleeping for ${delay}s !!!"
 				sleep $delay;
 			else
 				fail "!!! The command has failed after $n attempts !!!"
