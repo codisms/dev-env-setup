@@ -64,10 +64,9 @@ installPackages() {
 		man htop zsh \
 		redis-server \
 		apache2 \
-		php5-cli php5-mysql openjdk-8-jre \
+		php-cli php-mysql openjdk-8-jre \
 		libdbd-odbc-perl freetds-bin freetds-common freetds-dev \
 		libevent-2* libevent-dev \
-		yum-utils \
 		openssh-client openconnect \
 		docker \
 		sysstat iotop traceroute \
