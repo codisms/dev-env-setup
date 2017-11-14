@@ -98,7 +98,7 @@ installLanguages() {
 	installNode
 	setUpGoDirectories
 
-	$SUDO pip install --upgrade pip
+	pip install --upgrade pip
 }
 
 installNode() {
@@ -178,4 +178,4 @@ scheduleForNextRun "${MY_HOME}/.setup/linux.apt/step3.sh"
 printHeader "Finished step 2.  Rebooting..."
 # read -p 'Press [Enter] to continue...'
 
-reboot
+r$SUDOieboot
