@@ -92,7 +92,9 @@ installNode() {
 	#echo "Updating npm..."
 	#npm install --quiet --loglevel warn -g npm > /dev/null
 
+	# workarounds...
 	mkdir -p ~/.node-gyp/8.9.1
+	mkdir -p /usr/lib/node_modules/@angular/cli/node_modules/node-sass/vendor
 
 	echo "Installing tools..."
 	npm install --quiet --loglevel warn -g grunt-cli gulp-cli nodemon bower json http-server nodemon jshint eslint typescript > /dev/null

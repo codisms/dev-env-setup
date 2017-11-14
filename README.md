@@ -33,9 +33,17 @@ Setting console to 1024x768 in CentOS 7:
 
 Enable SSH (Ubuntu 16.04):
 
-1. `sudo apt-get install openssh-server`
-2. `sudo service ssh status`
+```
+sudo apt-get install openssh-server
+sudo service ssh status
+mkdir ~/.ssh
+vi .ssh/authorized_keys
 
+<paste in public key; exit>
+
+chmod 700 ~/.ssh
+chmod 600 ~/.ssh/authorized_keys
+```
 
 ----
 
@@ -56,34 +64,6 @@ Installing Parallels tools:
 ----
 
 Ubuntu hints:
-
-```
-sudo apt install -y git mercurial bzr subversion \
-	gcc gpp linux-kernel-headers kernel-package \
-	automake cmake make libtool \
-	libncurses-dev tcl-dev \
-	curl libcurl4-openssl-dev clang ctags wget unzip \
-	python python-dev golang ruby \
-	perl libperl-dev perl-modules \
-	dnsutils mutt elinks telnet \
-	man htop zsh \
-	vim tmux \
-	redis-server \
-	apache2 \
-	php5-cli php5-mysql openjdk-8-jre \
-	libdbd-odbc-perl freetds-bin freetds-common freetds-dev \
-	libevent-2* libevent-dev \
-	yum-utils \
-	openssh-client openconnect \
-	docker \
-	sysstat iotop traceroute \
-	network-manager-vpnc
-```
-
-```
-curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
-sudo apt-get install -y nodejs
-```
 
 `mv .dircolors .dir_colors`
 
@@ -122,11 +102,6 @@ never-default=true
 
 
 ```
-mkdir ~/.ssh
-vi .ssh/authorized_keys
-<paste in public key; exit>
-chmod 700 ~/.ssh
-chmod 600 ~/.ssh/authorized_keys
 ```
 
 `sudo apt-get install curl`

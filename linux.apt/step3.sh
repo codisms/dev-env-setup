@@ -38,13 +38,14 @@ installPostgres() {
 installVim() {
 	printSubHeader "Installing vim..."
 
+	$SUDO add-apt-repository ppa:jonathonf/vim
 	apt_get_install vim
 
 	printSubHeader "Setting vim as default..."
-	update-alternatives --install /usr/bin/editor editor /usr/bin/vim 1
-	update-alternatives --set editor /usr/bin/vim
-	update-alternatives --install /usr/bin/vi vi /usr/bin/vim 1
-	update-alternatives --set vi /usr/bin/vim
+	$SUDO update-alternatives --install /usr/bin/editor editor /usr/bin/vim 1
+	$SUDO update-alternatives --set editor /usr/bin/vim
+	$SUDO update-alternatives --install /usr/bin/vi vi /usr/bin/vim 1
+	$SUDO update-alternatives --set vi /usr/bin/vim
 
 	configureVim
 	installVimExtensions_YCM
