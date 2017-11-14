@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+#set -e
 
 SUDO=$(which sudo 2> /dev/null)
 YUM=$(which yum 2> /dev/null)
