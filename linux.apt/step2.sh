@@ -39,10 +39,9 @@ downloadRepos() {
 # Configuration
 
 configureEnvironment() {
-	#ln -s ${MY_HOME}/.codisms/repos/dircolors-solarized/dircolors.256dark ${MY_HOME}/.dir_colors
+	ln -s ${MY_HOME}/.codisms/repos/dircolors-solarized/dircolors.256dark ${MY_HOME}/.dir_colors
 	echo "" >> ~/.profile
-	echo "# LS_COLORS" >> ~/.profile
-	dircolors ${MY_HOME}/.codisms/repos/dircolors-solarized/dircolors.256dark >> ~/.profile
+	echo 'eval `dircolors ~/.dir_colors`' >> ~/.profile
 	echo "" >> ~/.profile
 
 	ln -s ${MY_HOME}/.codisms/zshrc ${MY_HOME}/.zshrc

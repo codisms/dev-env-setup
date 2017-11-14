@@ -42,3 +42,9 @@ apt_get_update() {
 	$SUDO apt-get upgrade
 }
 
+apt_add_repository() {
+	wait_for_apt
+	$SUDO add-apt-repository -y "$1"
+	$SUDO apt-get update
+}
+

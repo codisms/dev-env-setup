@@ -37,9 +37,7 @@ installPostgres() {
 
 installVim() {
 	printSubHeader "Installing vim..."
-
-	wait_for_apt
-	$SUDO add-apt-repository -y ppa:jonathonf/vim
+	apt_add_repository ppa:jonathonf/vim
 	apt_get_install vim
 
 	printSubHeader "Setting vim as default..."
