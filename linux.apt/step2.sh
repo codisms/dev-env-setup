@@ -57,19 +57,18 @@ installPackages() {
 		gcc gpp linux-kernel-headers kernel-package \
 		automake cmake make libtool \
 		libncurses-dev tcl-dev \
-		curl libcurl4-openssl-dev clang ctags wget unzip \
+		curl libcurl4-openssl-dev clang ctags \
 		python python-dev golang ruby \
 		perl libperl-dev perl-modules \
-		dnsutils mutt elinks telnet \
-		man htop zsh \
-		redis-server \
-		apache2 \
 		php-cli php-mysql openjdk-8-jre \
 		libdbd-odbc-perl freetds-bin freetds-common freetds-dev \
-		libevent-2* libevent-dev \
+		libevent-2* libevent-dev
+
+	$SUDO apt-get install -y man htop zsh wget unzip \
+		dnsutils mutt elinks telnet \
+		redis-server apache2 docker \
 		openssh-client openconnect \
-		docker \
-		sysstat iotop traceroute \
+		sysstat iotop traceroute iftop \
 		network-manager-vpnc
 		#mariadb mariadb-server \
 		#mysql-community-devel mysql-community-server mysql-community-client \
