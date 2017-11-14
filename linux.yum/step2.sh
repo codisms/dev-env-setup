@@ -116,7 +116,7 @@ installLanguages() {
 installNode() {
 	printSubHeader "Installing Node.js..."
 	#curl -sSL https://rpm.nodesource.com/setup_7.x | bash - > /dev/null
-	yum install -y nodejs
+	$SUDO yum install -y nodejs
 
 	#echo "Updating npm..."
 	#npm install --quiet --loglevel warn -g npm > /dev/null
