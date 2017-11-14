@@ -101,18 +101,18 @@ installNode() {
 
 	npm install --quiet --loglevel warn -g grunt-cli gulp-cli nodemon bower json http-server nodemon jshint eslint typescript > /dev/null
 
-	sudo chown -R $USER:$(id -gn $USER) /home/jbailey/.config
-	sudo chown -R $USER:$(id -gn $USER) /usr/lib/node_modules
+	$SUDO chown -R $USER:$(id -gn $USER) /home/jbailey/.config
+	$SUDO chown -R $USER:$(id -gn $USER) /usr/lib/node_modules
 
-	npm install --quiet --loglevel warn -g @angular/cli > /dev/null
+	$SUDO npm install --quiet --loglevel warn -g @angular/cli > /dev/null
 
-	sudo chown -R $USER:$(id -gn $USER) /home/jbailey/.config
-	sudo chown -R $USER:$(id -gn $USER) /usr/lib/node_modules
+	$SUDO chown -R $USER:$(id -gn $USER) /home/jbailey/.config
+	$SUDO chown -R $USER:$(id -gn $USER) /usr/lib/node_modules
 
-	npm install --quiet --loglevel warn -g ionic > /dev/null
+	$SUDO npm install --quiet --loglevel warn -g ionic > /dev/null
 
-	sudo chown -R $USER:$(id -gn $USER) /home/jbailey/.config
-	sudo chown -R $USER:$(id -gn $USER) /usr/lib/node_modules
+	$SUDO chown -R $USER:$(id -gn $USER) /home/jbailey/.config
+	$SUDO chown -R $USER:$(id -gn $USER) /usr/lib/node_modules
 }
 
 setUpGoDirectories() {

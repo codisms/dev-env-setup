@@ -10,6 +10,13 @@ To install without changing host name:
 
 `curl -sSL -H 'Cache-Control: no-cache' https://bitbucket.org/codisms/dev-setup/raw/master/setup.sh | bash -s`
 
+For this script to work, you must have `curl` and `git` installed:
+
+```
+sudo apt-get install -y git curl
+sudo yum install -y git curl
+```
+
 ----
 
 Setting console to 1024x768 in CentOS 7:
