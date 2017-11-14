@@ -125,6 +125,13 @@ installLanguages() {
 	installNode
 	setUpGoDirectories
 
+	if [ ! -d ~/.cache/pip ]; then
+		mkdir -p ~/.cache/pip
+		chmod 775 ~/.cache/pip
+	else
+		chmod -R g+rw ~/.cache/pip
+		chmod -R o+r ~/.cache/pip
+	fi
 	pip install --upgrade pip
 }
 
