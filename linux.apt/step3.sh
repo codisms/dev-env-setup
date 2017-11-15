@@ -40,44 +40,47 @@ installPostgres() {
 
 installVim() {
 	printSubHeader "Installing vim..."
-	apt_add_repository ppa:jonathonf/vim
-	apt_get_install vim
 
-	printSubHeader "Setting vim as default..."
-	update-alternatives --install /usr/bin/editor editor /usr/bin/vim 1
-	update-alternatives --set editor /usr/bin/vim
-	update-alternatives --install /usr/bin/vi vi /usr/bin/vim 1
-	update-alternatives --set vi /usr/bin/vim
+	${MY_HOME}/.codisms/bin/install-vim
 
-	configureVim
-	installVimExtensions_YCM
-
-	cd ${MY_HOME}
+#	apt_add_repository ppa:jonathonf/vim
+#	apt_get_install vim
+#
+#	printSubHeader "Setting vim as default..."
+#	update-alternatives --install /usr/bin/editor editor /usr/bin/vim 1
+#	update-alternatives --set editor /usr/bin/vim
+#	update-alternatives --install /usr/bin/vi vi /usr/bin/vim 1
+#	update-alternatives --set vi /usr/bin/vim
+#
+#	configureVim
+#	installVimExtensions_YCM
+#
+#	cd ${MY_HOME}
 }
 
-configureVim() {
-	printSubHeader "Downloading vim configuration..."
-	cd ${MY_HOME}
-	retry git clone https://github.com/codisms/vim-config.git .vim
-
-	echo "Downloading submodules..."
-	cd ${MY_HOME}/.vim
-	retry git submodule update --init --recursive
-
-	printSubHeader "Configuring vim..."
-	ln -s ${MY_HOME}/.vim/vimrc ${MY_HOME}/.vimrc
-	ln -s ${MY_HOME}/.codisms/vimrc.dbext ${MY_HOME}/.vim/vimrc.dbext
-}
-
-installVimExtensions_YCM() {
-	printSubHeader "Installing ycm..."
-
-	cd ${MY_HOME}/.vim/bundle/YouCompleteMe
-	#./install.py
-	retry ./install.py --clang-completer --gocode-completer --tern-completer
-	#./install.py --clang-completer --system-libclang --gocode-completer > /dev/null
-	cd ${MY_HOME}
-}
+#configureVim() {
+#	printSubHeader "Downloading vim configuration..."
+#	cd ${MY_HOME}
+#	retry git clone https://github.com/codisms/vim-config.git .vim
+#
+#	echo "Downloading submodules..."
+#	cd ${MY_HOME}/.vim
+#	retry git submodule update --init --recursive
+#
+#	printSubHeader "Configuring vim..."
+#	ln -s ${MY_HOME}/.vim/vimrc ${MY_HOME}/.vimrc
+#	ln -s ${MY_HOME}/.codisms/vimrc.dbext ${MY_HOME}/.vim/vimrc.dbext
+#}
+#
+#installVimExtensions_YCM() {
+#	printSubHeader "Installing ycm..."
+#
+#	cd ${MY_HOME}/.vim/bundle/YouCompleteMe
+#	#./install.py
+#	retry ./install.py --clang-completer --gocode-completer --tern-completer
+#	#./install.py --clang-completer --system-libclang --gocode-completer > /dev/null
+#	cd ${MY_HOME}
+#}
 
 installTmux() {
 	printSubHeader "Installing libevent 2.x..."
