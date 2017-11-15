@@ -109,36 +109,37 @@ installTmux() {
 
 	printSubHeader "Installing tmux..."
 
-	cd ${MY_HOME}
-	echo Cloning tmux...
-	retry git clone --depth=1 -b 2.3 https://github.com/tmux/tmux.git
+	${MY_HOME}/.codisms/bin/install-tmux 2.3
+	#cd ${MY_HOME}
+	#echo Cloning tmux...
+	#retry git clone --depth=1 -b 2.3 https://github.com/tmux/tmux.git
 
-	echo Compiling tmux...
-	cd tmux
-	sh autogen.sh --quiet > /dev/null
-	#./configure --prefix=/usr/local #--quiet > /dev/null
-	./configure --quiet > /dev/null
-	make --quiet > /dev/null
+	#echo Compiling tmux...
+	#cd tmux
+	#sh autogen.sh --quiet > /dev/null
+	##./configure --prefix=/usr/local #--quiet > /dev/null
+	#./configure --quiet > /dev/null
+	#make --quiet > /dev/null
 
-	echo Installing tmux...
-	make install --quiet > /dev/null
-	cd ..
-	rm -rf tmux
+	#echo Installing tmux...
+	#make install --quiet > /dev/null
+	#cd ..
+	#rm -rf tmux
 
-	#gem --update system
-	gem install tmuxinator > /dev/null
+	##gem --update system
+	#gem install tmuxinator > /dev/null
 
-	printSubHeader "Downloading tmux configuration..."
-	cd ${MY_HOME}
-	retry git clone https://github.com/codisms/tmux-config.git .tmux
+	#printSubHeader "Downloading tmux configuration..."
+	#cd ${MY_HOME}
+	#retry git clone https://github.com/codisms/tmux-config.git .tmux
 
-	echo "Downloading submodules..."
-	cd .tmux
-	retry git submodule update --init --recursive
-	cd ..
+	#echo "Downloading submodules..."
+	#cd .tmux
+	#retry git submodule update --init --recursive
+	#cd ..
 
-	printSubHeader "Configuring tmux..."
-	ln -s .tmux/tmux.conf .tmux.conf
+	#printSubHeader "Configuring tmux..."
+	#ln -s .tmux/tmux.conf .tmux.conf
 }
 
 startServices() {
