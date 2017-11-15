@@ -38,70 +38,72 @@ installPostgres() {
 installVim() {
 	printSubHeader "Installing vim..."
 
-	cd ${MY_HOME}
-	echo Cloning vim...
-	retry git clone --depth=1 https://github.com/vim/vim.git
+	${MY_HOME}/.codisms/bin/install-vim
 
-	echo Building vim...
-	cd vim
-	./configure --with-features=huge \
-				--enable-multibyte \
-				--enable-rubyinterp \
-				--enable-pythoninterp \
-				--enable-perlinterp \
-				--enable-luainterp \
-				--enable-gui=gtk2 --enable-cscope --prefix=/usr --quiet > /dev/null
-# 				--with-python-config-dir=/usr/lib/python2.6/config \
-	make --quiet > /dev/null
-
-	echo Removing existing version of vi/vim...
-	SUDO=$(which sudo 2> /dev/null)
-	#yum -y remove vim-common vim-enhanced vim-minimal
-	yum -y remove vim-common vim-enhanced
-	if [ "$SUDO" != "" ] && [ "$(which sudo 2> /dev/null)" == "" ]; then
-		echo Reinstalling sudo...
-		yum -y install sudo
-	fi
-
-	make install
-	cd ..
-	rm -rf vim
-
-	printSubHeader "Setting vim as default..."
-	update-alternatives --install /usr/bin/editor editor /usr/bin/vim 1
-	update-alternatives --set editor /usr/bin/vim
-	update-alternatives --install /usr/bin/vi vi /usr/bin/vim 1
-	update-alternatives --set vi /usr/bin/vim
-
-	configureVim
-	installVimExtensions_YCM
-
-	cd ${MY_HOME}
+#	cd ${MY_HOME}
+#	echo Cloning vim...
+#	retry git clone --depth=1 https://github.com/vim/vim.git
+#
+#	echo Building vim...
+#	cd vim
+#	./configure --with-features=huge \
+#				--enable-multibyte \
+#				--enable-rubyinterp \
+#				--enable-pythoninterp \
+#				--enable-perlinterp \
+#				--enable-luainterp \
+#				--enable-gui=gtk2 --enable-cscope --prefix=/usr --quiet > /dev/null
+## 				--with-python-config-dir=/usr/lib/python2.6/config \
+#	make --quiet > /dev/null
+#
+#	echo Removing existing version of vi/vim...
+#	SUDO=$(which sudo 2> /dev/null)
+#	#yum -y remove vim-common vim-enhanced vim-minimal
+#	yum -y remove vim-common vim-enhanced
+#	if [ "$SUDO" != "" ] && [ "$(which sudo 2> /dev/null)" == "" ]; then
+#		echo Reinstalling sudo...
+#		yum -y install sudo
+#	fi
+#
+#	make install
+#	cd ..
+#	rm -rf vim
+#
+#	printSubHeader "Setting vim as default..."
+#	update-alternatives --install /usr/bin/editor editor /usr/bin/vim 1
+#	update-alternatives --set editor /usr/bin/vim
+#	update-alternatives --install /usr/bin/vi vi /usr/bin/vim 1
+#	update-alternatives --set vi /usr/bin/vim
+#
+#	configureVim
+#	installVimExtensions_YCM
+#
+#	cd ${MY_HOME}
 }
 
-configureVim() {
-	printSubHeader "Downloading vim configuration..."
-	cd ${MY_HOME}
-	retry git clone https://github.com/codisms/vim-config.git .vim
-
-	echo "Downloading submodules..."
-	cd ${MY_HOME}/.vim
-	retry git submodule update --init --recursive
-
-	printSubHeader "Configuring vim..."
-	ln -s ${MY_HOME}/.vim/vimrc ${MY_HOME}/.vimrc
-	ln -s ${MY_HOME}/.codisms/vimrc.dbext ${MY_HOME}/.vim/vimrc.dbext
-}
-
-installVimExtensions_YCM() {
-	printSubHeader "Installing ycm..."
-
-	cd ${MY_HOME}/.vim/bundle/YouCompleteMe
-	#./install.py
-	retry ./install.py --clang-completer --gocode-completer --tern-completer
-	#./install.py --clang-completer --system-libclang --gocode-completer > /dev/null
-	cd ${MY_HOME}
-}
+#configureVim() {
+#	printSubHeader "Downloading vim configuration..."
+#	cd ${MY_HOME}
+#	retry git clone https://github.com/codisms/vim-config.git .vim
+#
+#	echo "Downloading submodules..."
+#	cd ${MY_HOME}/.vim
+#	retry git submodule update --init --recursive
+#
+#	printSubHeader "Configuring vim..."
+#	ln -s ${MY_HOME}/.vim/vimrc ${MY_HOME}/.vimrc
+#	ln -s ${MY_HOME}/.codisms/vimrc.dbext ${MY_HOME}/.vim/vimrc.dbext
+#}
+#
+#installVimExtensions_YCM() {
+#	printSubHeader "Installing ycm..."
+#
+#	cd ${MY_HOME}/.vim/bundle/YouCompleteMe
+#	#./install.py
+#	retry ./install.py --clang-completer --gocode-completer --tern-completer
+#	#./install.py --clang-completer --system-libclang --gocode-completer > /dev/null
+#	cd ${MY_HOME}
+#}
 
 installTmux() {
 	echo Installing libevent 2.x...
