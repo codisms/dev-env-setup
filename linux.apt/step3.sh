@@ -88,7 +88,7 @@ installTmux() {
 
 	printSubHeader "Installing tmux..."
 
-	${MY_HOME}/.codisms/bin/install-tmux 2.3
+	${MY_HOME}/.codisms/bin/install-tmux 2.6
 	#cd ${MY_HOME}
 	#echo Cloning tmux...
 	#retry git clone --depth=1 -b 2.3 https://github.com/tmux/tmux.git
