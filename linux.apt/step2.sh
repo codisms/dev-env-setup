@@ -68,7 +68,7 @@ configureEnvironment() {
 installPackages() {
 	apt_get_install git mercurial bzr subversion \
 		gcc gpp linux-kernel-headers kernel-package \
-		automake cmake make libtool \
+		automake cmake make libtool gawk \
 		libncurses-dev tcl-dev \
 		curl libcurl4-openssl-dev clang ctags \
 		python python-dev python-pip python3 python3-dev python3-pip \

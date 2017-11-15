@@ -96,7 +96,7 @@ installPackages() {
 
 	yum install -y git mercurial bzr \
 		gcc gcc-c++ kernel-devel \
-		automake cmake make libtool \
+		automake cmake make libtool bc \
 		ncurses-devel tcl-devel \
 		libcurl-devel clang ctags wget unzip \
 		python python-devel golang ruby \
