@@ -1,6 +1,9 @@
 
 source ../functions
 
+UBUNTU_VERSION=$(lsb_release -rs)
+echo UBUNTU_VERSION = ${UBUNTU_VERSION}
+
 wait_for_apt() {
 	local n=1
 	local max=60

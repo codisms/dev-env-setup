@@ -74,10 +74,12 @@ installPackages() {
 		python python-dev python-pip python3 python3-dev python3-pip \
 		golang ruby \
 		perl libperl-dev perl-modules \
-		php-cli php-mysql \
-		openjdk-8-jre \
-		libdbd-odbc-perl freetds-bin freetds-common freetds-dev \
-		libevent-2* libevent-dev
+		libdbd-odbc-perl freetds-bin freetds-common freetds-dev
+	if [ "${UBUNTU_VERSION}" == "14.04" ]; then
+		apt_get_install php5-cli php5-mysql openjdk-7-jre
+	else
+		apt_get_install php-cli php-mysql openjdk-8-jre
+	fi
 
 	apt_get_install man htop zsh wget unzip \
 		dnsutils mutt elinks telnet \
