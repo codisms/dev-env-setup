@@ -24,8 +24,14 @@ INSTALL_DIR=
 case "$OSTYPE" in
 	solaris*) INSTALL_DIR=solaris ;;
 	linux*)
-		[ -n "$(command -v apt-get)" ] && INSTALL_DIR=linux.apt
-		[ -n "$(command -v yum)" ] && INSTALL_DIR=linux.yum
+		if [ -f /etc/centos-release ]; then
+			INSTALL_DIR=linux.yum
+		elif [ -n "$(command -v apt-get)" ]; then
+			INSTALL_DIR=linux.apt
+		elif [ -n "$(command -v yum)" ]; then
+			INSTALL_DIR=linux.yum
+		fi
+
 		if [ "${INSTALL_DIR}" == "" ]; then
 			echo "Unable to find yum or apt-get!"
 		fi
