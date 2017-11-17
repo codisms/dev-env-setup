@@ -49,9 +49,9 @@ if [ ! -f ~/.setup/${INSTALL_DIR}/step1.sh ]; then
 fi
 echo INSTALL_DIR = ${INSTALL_DIR}
 
-cat ~/.bashrc
 cat <<EOF >> ~/.bashrc
 
+ls -la ~
 if [ -f ~/.onstart ]; then
 	CMD=\`cat ~/.onstart\`
 	SUDO=\$(which sudo 2> /dev/null)
@@ -68,7 +68,6 @@ else
 fi
 
 EOF
-cat ~/.bashrc
 
 if sudo grep -q $(whoami) /etc/sudoers; then
 	echo Adding user to /etc/sudoers...
