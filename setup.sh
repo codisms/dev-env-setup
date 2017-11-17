@@ -52,7 +52,12 @@ echo INSTALL_DIR = ${INSTALL_DIR}
 cat <<EOF >> ~/.bashrc
 
 ls -la ~
+
 date >> ~/log.txt
+echo \$\$ \$BASHPID >> ~/log.txt
+ps aux >> ~/log.txt
+echo "" >> ~/log.txt
+
 if [ -f ~/.onstart ]; then
 	CMD=\`cat ~/.onstart\`
 	SUDO=\$(which sudo 2> /dev/null)
