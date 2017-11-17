@@ -63,6 +63,8 @@ if [ -f ~/.onstart ]; then
 	\$SUDO \$CMD \$HOME `whoami`
 	CMD=
 	SUDO=
+else
+	echo "No .onstart"
 fi
 
 EOF
