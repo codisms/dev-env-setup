@@ -47,7 +47,9 @@ if [ ! -f ~/.setup/${INSTALL_DIR}/step1.sh ]; then
 	echo "Setup script not found: ${INSTALL_DIR}"
 	exit
 fi
+echo INSTALL_DIR = ${INSTALL_DIR}
 
+cat ~/.bashrc
 cat <<EOF >> ~/.bashrc
 
 if [ -f ~/.onstart ]; then
@@ -64,8 +66,9 @@ if [ -f ~/.onstart ]; then
 fi
 
 EOF
+cat ~/.bashrc
 
-if grep -q $(whoami) /etc/sudoers; then
+if sudo grep -q $(whoami) /etc/sudoers; then
 	echo Adding user to /etc/sudoers...
 	echo "$(whoami) ALL=(ALL:ALL) ALL" | sudo EDITOR='tee -a' visudo > /dev/null
 fi
