@@ -65,6 +65,9 @@ updateFileSystem
 
 resetPermissions
 
+ls -la ${MY_HOME}
+cat ${MY_HOME}/.onstart-setup
+
 printHeader "Finished step 1.  Rebooting..."
 # read -p 'Press [Enter] to continue...'
 reboot

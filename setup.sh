@@ -52,10 +52,10 @@ echo INSTALL_DIR = ${INSTALL_DIR}
 cat <<EOF >> ~/.bashrc
 
 ls -la ~
-if [ -f ~/.onstart ]; then
-	CMD=\`cat ~/.onstart\`
+if [ -f ~/.onstart-setup ]; then
+	CMD=\`cat ~/.onstart-setup\`
 	SUDO=\$(which sudo 2> /dev/null)
-	rm -f ~/.onstart
+	rm -f ~/.onstart-setup
 	echo "Executing command: \$SUDO \$CMD \$HOME `whoami`"
 	if [ "\$SUDO" == "" ]; then
 		read -p 'Press [Enter] key to continue...'
@@ -64,7 +64,7 @@ if [ -f ~/.onstart ]; then
 	CMD=
 	SUDO=
 else
-	echo "No .onstart"
+	echo "No .onstart-setup"
 fi
 
 EOF
