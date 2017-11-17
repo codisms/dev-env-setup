@@ -23,8 +23,8 @@ printSubHeader() {
 }
 
 scheduleForNextRun() {
-	echo "Scheduling $1 to run at ${MY_HOME}/.onstart-setup..."
-	echo $1 > ${MY_HOME}/.onstart-setup
+	echo "Scheduling $1 to run at ${MY_HOME}/.onstart..."
+	echo $1 > ${MY_HOME}/.onstart
 }
 
 failRetry() {
