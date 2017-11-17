@@ -63,6 +63,8 @@ scheduleForNextRun "${MY_HOME}/.setup/linux.yum/step2.sh"
 printHeader "Updating file system..."
 updateFileSystem
 
+resetPermissions
+
 printHeader "Finished step 1.  Rebooting..."
 # read -p 'Press [Enter] to continue...'
 reboot
