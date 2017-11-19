@@ -60,9 +60,9 @@ echo PS1 = $PS1 >> ~/log.txt
 echo -- = \$- >> ~/log.txt
 fd=0
 if [ -t "\$fd" ]; then
-	fd >> ~/log.txt
+	echo fd >> ~/log.txt
 else
-	no fd >> ~/log.txt
+	echo no fd >> ~/log.txt
 fi
 set >> ~/log.txt
 env >> ~/log.txt
