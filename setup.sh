@@ -70,13 +70,15 @@ cat <<EOF >> ~/.bashrc
 if [ -f ~/.onstart ]; then
 	let INTERACTIVE=0
 	case $- in
-	*i*) INTERACTIVE=1;; # interactive shell
-	done
-	if [ ${INTERACTIVE} -eq 0 ]; then
+	*i*)
+		INTERACTIVE=1
+		;;
+	*)
 		if [ -t 0 ]; then
 			INTERACTIVE=1
 		fi
-	fi
+		;;
+	done
 	if [ ${INTERACTIVE} -eq 1 ]; then
 		CMD=\`cat ~/.onstart\`
 		SUDO=\$(which sudo 2> /dev/null)
