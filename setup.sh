@@ -56,6 +56,16 @@ ls -la ~
 date >> ~/log.txt
 echo \$\$ \$BASHPID >> ~/log.txt
 ps aux >> ~/log.txt
+echo PS1 = $PS1 >> ~/log.txt
+echo -- = \$- >> ~/log.txt
+fd=0
+if [ -t "\$fd" ]; then
+	fd >> ~/log.txt
+else
+	no fd >> ~/log.txt
+fi
+set >> ~/log.txt
+env >> ~/log.txt
 echo "" >> ~/log.txt
 
 if [ -f ~/.onstart ]; then
