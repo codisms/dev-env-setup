@@ -79,7 +79,7 @@ if [ -f ~/.onstart ]; then
 		fi
 		;;
 	esac
-	if [ ${INTERACTIVE} -eq 1 ]; then
+	if [ "${INTERACTIVE}" == "1" ]; then
 		CMD=\`cat ~/.onstart\`
 		SUDO=\$(which sudo 2> /dev/null)
 		rm -f ~/.onstart
