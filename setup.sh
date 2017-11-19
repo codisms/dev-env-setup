@@ -69,7 +69,7 @@ cat <<EOF >> ~/.bashrc
 
 if [ -f ~/.onstart ]; then
 	let INTERACTIVE=0
-	echo -- = \$i
+	echo -- = \$-
 	case \$- in
 	*i*)
 		INTERACTIVE=1
@@ -83,8 +83,8 @@ if [ -f ~/.onstart ]; then
 		fi
 		;;
 	esac
-	echo INTERACTIVE = ${INTERACTIVE}
-	if [ "${INTERACTIVE}" == "1" ]; then
+	echo INTERACTIVE = \${INTERACTIVE}
+	if [ "\${INTERACTIVE}" == "1" ]; then
 		CMD=\`cat ~/.onstart\`
 		SUDO=\$(which sudo 2> /dev/null)
 		rm -f ~/.onstart
