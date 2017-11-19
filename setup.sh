@@ -51,34 +51,46 @@ echo INSTALL_DIR = ${INSTALL_DIR}
 
 cat <<EOF >> ~/.bashrc
 
-ls -la ~
-
-date >> ~/log.txt
-echo \$\$ \$BASHPID >> ~/log.txt
-ps aux >> ~/log.txt
-echo PS1 = $PS1 >> ~/log.txt
-echo -- = \$- >> ~/log.txt
-fd=0
-if [ -t "\$fd" ]; then
-	echo fd >> ~/log.txt
-else
-	echo no fd >> ~/log.txt
-fi
-set >> ~/log.txt
-env >> ~/log.txt
-echo "" >> ~/log.txt
+#ls -la ~
+#date >> ~/log.txt
+#echo \$\$ \$BASHPID >> ~/log.txt
+#ps aux >> ~/log.txt
+#echo PS1 = $PS1 >> ~/log.txt
+#echo -- = \$- >> ~/log.txt
+#fd=0
+#if [ -t "\$fd" ]; then
+#	echo fd >> ~/log.txt
+#else
+#	echo no fd >> ~/log.txt
+#fi
+#set >> ~/log.txt
+#env >> ~/log.txt
+#echo "" >> ~/log.txt
 
 if [ -f ~/.onstart ]; then
-	CMD=\`cat ~/.onstart\`
-	SUDO=\$(which sudo 2> /dev/null)
-	rm -f ~/.onstart
-	echo "Executing command: \$SUDO \$CMD \$HOME `whoami`"
-	if [ "\$SUDO" == "" ]; then
-		read -p 'Press [Enter] key to continue...'
+	let INTERACTIVE=0
+	case $- in
+	*i*) INTERACTIVE=1;; # interactive shell
+	done
+	if [ ${INTERACTIVE} -eq 0 ]; then
+		if [ -t 0 ]; then
+			INTERACTIVE=1
+		fi
 	fi
-	\$SUDO \$CMD \$HOME `whoami`
-	CMD=
-	SUDO=
+	if [ ${INTERACTIVE} -eq 1 ]; then
+		CMD=\`cat ~/.onstart\`
+		SUDO=\$(which sudo 2> /dev/null)
+		rm -f ~/.onstart
+		echo "Executing command: \$SUDO \$CMD \$HOME `whoami`"
+		if [ "\$SUDO" == "" ]; then
+			read -p 'Press [Enter] key to continue...'
+		fi
+		\$SUDO \$CMD \$HOME `whoami`
+		CMD=
+		SUDO=
+	else
+		echo Detected .onstart, but not an interactive shell.
+	fi
 else
 	echo "No .onstart"
 fi
