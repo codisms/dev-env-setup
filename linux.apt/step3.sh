@@ -127,7 +127,7 @@ startServices() {
 	#startMySql
 
 	echo Disabling firewalld...
-	$SUDO ufw disable
+	ufw disable
 }
 
 startMySql() {

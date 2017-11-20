@@ -60,7 +60,7 @@ installVim() {
 #	SUDO=$(which sudo 2> /dev/null)
 #	#yum -y remove vim-common vim-enhanced vim-minimal
 #	yum -y remove vim-common vim-enhanced
-#	if [ "$SUDO" != "" ] && [ "$(which sudo 2> /dev/null)" == "" ]; then
+#	if [ "" != "" ] && [ "$(which sudo 2> /dev/null)" == "" ]; then
 #		echo Reinstalling sudo...
 #		yum -y install sudo
 #	fi
