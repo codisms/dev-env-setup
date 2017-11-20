@@ -95,8 +95,8 @@ if [ -f ~/.onstart ]; then
 		\$SUDO \$CMD \$HOME `whoami`
 		CMD=
 		SUDO=
-	else
-		echo Detected .onstart, but not an interactive shell.
+	#else
+	#	echo Detected .onstart, but not an interactive shell.
 	fi
 else
 	echo "No .onstart"
