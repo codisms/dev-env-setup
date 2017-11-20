@@ -104,9 +104,15 @@ fi
 
 EOF
 
-if sudo grep -q $(whoami) /etc/sudoers; then
-	echo Adding user to /etc/sudoers...
-	echo "$(whoami) ALL=(ALL:ALL) ALL" | sudo EDITOR='tee -a' visudo > /dev/null
+if [ -f /etc/sudoers ]; then
+	echo Looking for user $(whoami) in /etc/sudoers...
+	if sudo grep -q $(whoami) /etc/sudoers; then
+		echo Adding user to /etc/sudoers...
+		echo "$(whoami) ALL=(ALL:ALL) ALL" | sudo EDITOR='tee -a' visudo > /dev/null
+	else
+		echo "  User already exists"
+	fi
+	cat /etc/sudoers
 fi
 
 echo "Running installer (~/.setup/${INSTALL_DIR}/step1.sh)..."
