@@ -47,13 +47,14 @@ updateFileSystem() {
 
 updateSudoers() {
 	echo Looking for user $MY_USER in /etc/sudoers...
-	if  grep -q $MY_USER /etc/sudoers; then
-		echo Adding user to /etc/sudoers...
-		echo "$MY_USER ALL=(ALL:ALL) ALL" |  EDITOR='tee -a' visudo > /dev/null
+	if ! grep -q $MY_USER /etc/sudoers; then
+		echo " Adding user to /etc/sudoers..."
+		echo "$MY_USER ALL=(ALL:ALL) ALL" | EDITOR='tee -a' visudo > /dev/null
 	else
 		echo "  User already exists"
+		grep $MY_USER
 	fi
-	cat /etc/sudoers
+	#cat /etc/sudoers
 }
 
 ############################################################################################################
