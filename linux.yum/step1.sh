@@ -6,7 +6,6 @@ cd "$( dirname "${BASH_SOURCE[0]}" )"
 . ./functions
 
 setHostName() {
-	echo SUDO=$SUDO
 	echo Setting host name to "$1"...
 	[ ! -f  /etc/sysconfig/network.orig ] && cp -f /etc/sysconfig/network /etc/sysconfig/network.orig
 	sed -i "s|HOSTNAME=.\+\$|HOSTNAME=$1|" /etc/sysconfig/network
@@ -32,29 +31,29 @@ updateSystem() {
 	yum install -y epel-release ius-release deltarpm
 
 	echo Updating system...
-	$SUDO yum -y update
+	yum -y update
 }
 
 updateFileSystem() {
 	if grep -q "^/dev/vdb1 /data" "/etc/mtab"; then
-		[ ! -f /etc/fstab.orig ] && $SUDO cp /etc/fstab /etc/fstab.orig
-		$SUDO cp -R /root/* /data/ || true
-		$SUDO cp .* /data/ || true
-		$SUDO cp -R /root/.ssh /data/ || true
-		$SUDO cp -R /root/.setup /data/ || true
-		$SUDO sed 's|/data|/root|' /etc/fstab.orig > /etc/fstab
+		[ ! -f /etc/fstab.orig ] &&  cp /etc/fstab /etc/fstab.orig
+		cp -R /root/* /data/ || true
+		cp .* /data/ || true
+		cp -R /root/.ssh /data/ || true
+		cp -R /root/.setup /data/ || true
+		sed 's|/data|/root|' /etc/fstab.orig > /etc/fstab
 	fi
 }
 
 updateSudoers() {
 	echo Looking for user $(whoami) in /etc/sudoers...
-	if $SUDO grep -q $(whoami) /etc/sudoers; then
+	if  grep -q $(whoami) /etc/sudoers; then
 		echo Adding user to /etc/sudoers...
-		echo "$(whoami) ALL=(ALL:ALL) ALL" | $SUDO EDITOR='tee -a' visudo > /dev/null
+		echo "$(whoami) ALL=(ALL:ALL) ALL" |  EDITOR='tee -a' visudo > /dev/null
 	else
 		echo "  User already exists"
 	fi
-	$SUDO cat /etc/sudoers
+	cat /etc/sudoers
 }
 
 ############################################################################################################
