@@ -46,6 +46,17 @@ updateFileSystem() {
 	fi
 }
 
+updateSudoers() {
+	echo Looking for user $(whoami) in /etc/sudoers...
+	if $SUDO grep -q $(whoami) /etc/sudoers; then
+		echo Adding user to /etc/sudoers...
+		echo "$(whoami) ALL=(ALL:ALL) ALL" | $SUDO EDITOR='tee -a' visudo > /dev/null
+	else
+		echo "  User already exists"
+	fi
+	$SUDO cat /etc/sudoers
+}
+
 ############################################################################################################
 # BEGIN
 ############################################################################################################
@@ -62,6 +73,11 @@ scheduleForNextRun "${MY_HOME}/.setup/linux.yum/step2.sh"
 
 printHeader "Updating file system..."
 updateFileSystem
+
+if [ -f /etc/sudoers ]; then
+	printHeader "Updating /etc/sudoers..."
+	updateSudoers
+fi
 
 resetPermissions
 

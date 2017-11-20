@@ -36,6 +36,17 @@ updateSystem() {
 #	fi
 #}
 
+updateSudoers() {
+	echo Looking for user $(whoami) in /etc/sudoers...
+	if $SUDO grep -q $(whoami) /etc/sudoers; then
+		echo Adding user to /etc/sudoers...
+		echo "$(whoami) ALL=(ALL:ALL) ALL" | $SUDO EDITOR='tee -a' visudo > /dev/null
+	else
+		echo "  User already exists"
+	fi
+	$SUDO cat /etc/sudoers
+}
+
 ############################################################################################################
 # BEGIN
 ############################################################################################################
@@ -47,6 +58,11 @@ fi
 
 printHeader "Updating system..."
 updateSystem
+
+if [ -f /etc/sudoers ]; then
+	printHeader "Updating /etc/sudoers..."
+	updateSudoers
+fi
 
 scheduleForNextRun "${MY_HOME}/.setup/linux.apt/step2.sh"
 
