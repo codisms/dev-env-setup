@@ -99,13 +99,15 @@ installPackages() {
 		automake cmake make libtool bc \
 		ncurses-devel tcl-devel \
 		libcurl-devel clang ctags wget unzip \
-		python python-devel golang ruby \
+		python python-devel python2-pip python34 python34-pip python34-devel\
+		golang ruby \
 		perl perl-devel perl-ExtUtils-ParseXS perl-ExtUtils-CBuilder perl-ExtUtils-Embed \
 		bind-utils mutt elinks telnet \
 		man htop zsh \
 		redis \
 		httpd mod_ssl \
-		php php-mysql java-1.8.0-openjdk \
+		php php-mysql \
+		java-1.8.0-openjdk \
 		perl-DBD-ODBC freetds \
 		libevent-2* libevent-devel-2* \
 		yum-utils \
