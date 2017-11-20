@@ -76,10 +76,10 @@ if [ -f ~/.onstart ]; then
 		;;
 	*)
 		if [ -t 0 ]; then
-			#echo t = 1
+		#	echo t = 1
 			INTERACTIVE=1
-		else
-			#echo t = 0
+		#else
+		#	echo t = 0
 		fi
 		;;
 	esac
