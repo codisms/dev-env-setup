@@ -84,7 +84,7 @@ installPackages() {
 	apt_get_install man htop zsh wget unzip \
 		dnsutils mutt elinks telnet \
 		redis-server apache2 docker \
-		openssh-client openconnect \
+		openssh-client openconnect cifs-utils \
 		sysstat iotop traceroute iftop \
 		network-manager-vpnc
 		#mariadb mariadb-server \
