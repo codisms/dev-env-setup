@@ -111,7 +111,7 @@ installPackages() {
 		perl-DBD-ODBC freetds \
 		libevent-2* libevent-devel-2* \
 		yum-utils \
-		openssh-clients openconnect \
+		openssh-clients openconnect cifs-utils \
 		docker \
 		sysstat iotop traceroute
 		#mariadb mariadb-server \
