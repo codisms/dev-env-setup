@@ -41,7 +41,7 @@ installPostgres() {
 installVim() {
 	printSubHeader "Installing vim..."
 
-	${MY_HOME}/.codisms/bin/install-vim --pwd=${MY_HOME}
+	${MY_HOME}/.codisms/bin/install-vim --pwd=${MY_HOME} --build
 
 #	apt_add_repository ppa:jonathonf/vim
 #	apt_get_install vim
@@ -88,7 +88,7 @@ installTmux() {
 
 	printSubHeader "Installing tmux..."
 
-	${MY_HOME}/.codisms/bin/install-tmux --version=2.6 --pwd=${MY_HOME}
+	${MY_HOME}/.codisms/bin/install-tmux --version=2.6 --pwd=${MY_HOME} --build
 	#cd ${MY_HOME}
 	#echo Cloning tmux...
 	#retry git clone --depth=1 -b 2.3 https://github.com/tmux/tmux.git
