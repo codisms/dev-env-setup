@@ -28,7 +28,9 @@ finalConfigurations() {
 	chsh -s `which zsh` ${MY_USER}
 
 	echo "Setting crontab jobs..."
+	set +e
 	(crontab -u ${MY_USER} -l 2>/dev/null; echo "0 5 * * * ${MY_HOME}/.codisms/bin/crontab-daily") | crontab -u ${MY_USER} -
+	set -e
 }
 
 ############################################################################################################
