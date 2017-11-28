@@ -19,11 +19,16 @@ downloadCode() {
 }
 
 finalConfigurations() {
+	echo "Setting motd..."
 	[ -f /etc/motd ] && mv /etc/motd /etc/motd.orig
 	ln -s ${MY_HOME}/.codisms/motd /etc/motd
 
+	echo "Setting zsh as default shell..."
 	[ -f /etc/ptmp ] && rm -f /etc/ptmp
 	chsh -s `which zsh` ${MY_USER}
+
+	echo "Setting crontab jobs..."
+	(crontab -u ${MY_USER} -l 2>/dev/null; echo "0 5 * * * ${MY_HOME}/.codisms/bin/crontab-daily ${MY_HOME}") | crontab -u ${MY_USER} -
 }
 
 ############################################################################################################
