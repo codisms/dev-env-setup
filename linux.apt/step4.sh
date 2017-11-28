@@ -27,8 +27,10 @@ finalConfigurations() {
 	[ -f /etc/ptmp ] && rm -f /etc/ptmp
 	chsh -s `which zsh` ${MY_USER}
 
-	echo "Setting crontab jobs..."
-	(crontab -u ${MY_USER} -l 2>/dev/null; echo "0 5 * * * ${MY_HOME}/.codisms/bin/crontab-daily ${MY_HOME}") | crontab -u ${MY_USER} -
+	echo "Setting crontab jobs ${MY_USER} ${MY_HOME}..."
+	crontab -u ${MY_USER} -l
+	(crontab -u ${MY_USER} -l 2>/dev/null; echo "0 5 * * * ${MY_HOME}/.codisms/bin/crontab-daily") | crontab -u ${MY_USER} -
+	crontab -u ${MY_USER} -l
 }
 
 ############################################################################################################
