@@ -83,8 +83,8 @@ installVim() {
 #}
 
 installTmux() {
-	#printSubHeader "Installing libevent 2.x..."
-	#apt_get_install libevent-2* libevent-dev
+	printSubHeader "Installing libevent 2.x..."
+	apt_get_install libevent-2* libevent-dev
 
 	printSubHeader "Installing tmux..."
 

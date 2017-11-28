@@ -74,6 +74,7 @@ installPackages() {
 		python python-dev python-pip python3 python3-dev python3-pip \
 		golang ruby \
 		perl libperl-dev perl-modules \
+		libevent-2* libevent-dev \
 		libdbd-odbc-perl freetds-bin freetds-common freetds-dev
 	if [ "${UBUNTU_VERSION}" == "14.04" ]; then
 		apt_get_install php5-cli php5-mysql openjdk-7-jre
