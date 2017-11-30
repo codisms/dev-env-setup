@@ -84,7 +84,7 @@ installPackages() {
 
 	apt_get_install man htop zsh wget unzip \
 		dnsutils mutt elinks telnet \
-		redis-server apache2 docker \
+		redis-server apache2 docker.io \
 		openssh-client openconnect cifs-utils \
 		sysstat iotop traceroute iftop \
 		network-manager-vpnc
