@@ -121,6 +121,11 @@ installPackages() {
 		#ruby ruby-devel rubygems
 		#lua lua-devel luajit luajit-devel
 		#python3 python3-devel \
+
+	if ! grep -q $group /etc/group; then
+		groupadd docker
+	fi
+	usermod -aG docker ${MY_USER}
 }
 
 installLanguages() {
