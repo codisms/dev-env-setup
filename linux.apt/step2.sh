@@ -84,7 +84,7 @@ installPackages() {
 
 	apt_get_install man htop zsh wget unzip \
 		dnsutils mutt elinks telnet \
-		redis-server apache2 docker.io \
+		redis-server apache2 docker docker.io \
 		openssh-client openconnect cifs-utils \
 		sysstat iotop traceroute iftop \
 		network-manager-vpnc
@@ -95,6 +95,11 @@ installPackages() {
 		#ruby ruby-devel rubygems
 		#lua lua-devel luajit luajit-devel
 		#python3 python3-devel \
+
+	if ! grep -q $group /etc/group; then
+		groupadd docker
+	fi
+	usermod -aG docker ${MY_USER}
 }
 
 installLanguages() {
