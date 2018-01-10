@@ -85,10 +85,11 @@ installPackages() {
 
 	apt_get_install man htop zsh wget unzip \
 		dnsutils mutt elinks telnet \
-		redis-server apache2 docker docker.io \
+		redis-server apache2 \
 		openssh-client openconnect cifs-utils \
 		sysstat iotop traceroute iftop \
 		network-manager-vpnc
+		#docker docker.io \
 		#mariadb mariadb-server \
 		#mysql-community-devel mysql-community-server mysql-community-client \
 		#postgresql94-odbc postgresql-odbc postgresql-devel postgresql94-devel
@@ -97,10 +98,10 @@ installPackages() {
 		#lua lua-devel luajit luajit-devel
 		#python3 python3-devel \
 
-	if ! grep -q $group /etc/group; then
-		groupadd docker
-	fi
-	usermod -aG docker ${MY_USER}
+	#if ! grep -q $group /etc/group; then
+	#	groupadd docker
+	#fi
+	#usermod -aG docker ${MY_USER}
 }
 
 installLanguages() {
