@@ -17,6 +17,9 @@ if [ "$(which git 2> /dev/null)" == "" ]; then
 fi
 
 echo "Downloading setup scripts..."
+if [ -d ~/.setup ]; then
+	rm -rf ~/.setup
+fi
 git clone https://bitbucket.org/codisms/dev-setup.git ~/.setup
 chown -R `whoami`:`whoami` .setup
 
