@@ -6,6 +6,7 @@ shift
 
 resetPermissions() {
 	#$SUDO chown -R ${MY_USER}:${MY_USER} ${MY_HOME}
+	echo "Skipping resetting of permissions"
 }
 
 printHeader() {
