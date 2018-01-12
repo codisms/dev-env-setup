@@ -42,6 +42,7 @@ apt_get_install() {
 apt_get_update() {
 	wait_for_apt
 	$SUDO apt-get update
+	wait_for_apt
 	$SUDO apt-get upgrade
 }
 
