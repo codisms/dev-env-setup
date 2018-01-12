@@ -5,7 +5,7 @@ MY_USER=$1
 shift
 
 resetPermissions() {
-	$SUDO chown -R ${MY_USER}:${MY_USER} ${MY_HOME}
+	#$SUDO chown -R ${MY_USER}:${MY_USER} ${MY_HOME}
 }
 
 printHeader() {
