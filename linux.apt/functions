@@ -11,7 +11,7 @@ wait_for_apt() {
 	while true; do
 		[ -f /var/lib/dpkg/lock ] && break || {
 			echo "!!! dpkg is locked !!!"
-			sudo lsof /var/lib/dpkg/lock
+			$SUDO lsof /var/lib/dpkg/lock
 			if [[ $n -lt $max ]]; then
 				((n++))
 				echo "!!! Attempt $n/$max; sleeping for ${delay}s !!!"
@@ -28,7 +28,7 @@ wait_for_apt() {
 
 			if [ -f /var/lib/dpkg/lock ]; then
 				fail "!!! dpkg locked after $n attempts !!!"
-				sudo lsof /var/lib/dpkg/lock
+				$SUDO lsof /var/lib/dpkg/lock
 			fi
 		}
 	done

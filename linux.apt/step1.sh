@@ -9,12 +9,12 @@ setHostName() {
 	echo SUDO=$SUDO
 	echo Setting host name to "$1"...
 
-	echo nameserver 8.8.8.8 >>/etc/resolv.conf
-	echo nameserver 8.8.4.4 >>/etc/resolv.conf
+	$SUDO echo nameserver 8.8.8.8 >>/etc/resolv.conf
+	$SUDO echo nameserver 8.8.4.4 >>/etc/resolv.conf
 
-	echo 127.0.0.1 $1>> /etc/hosts
+	$SUDO echo 127.0.0.1 $1>> /etc/hosts
 
-	hostnamectl set-hostname $1
+	$SUDO hostnamectl set-hostname $1
 }
 
 #-----------------------------------------------------------------------------------------------------------
@@ -40,7 +40,7 @@ updateSudoers() {
 	echo Looking for user $MY_USER in /etc/sudoers...
 	if ! grep -q $MY_USER /etc/sudoers; then
 		echo "  Adding user to /etc/sudoers..."
-		echo "$MY_USER ALL=(ALL:ALL) NOPASSWD: ALL" | EDITOR='tee -a' visudo > /dev/null
+		echo "$MY_USER ALL=(ALL:ALL) NOPASSWD: ALL" | $SUDO EDITOR='tee -a' visudo > /dev/null
 	else
 		echo "  User already exists"
 		grep $MY_USER
@@ -73,4 +73,4 @@ scheduleForNextRun "${MY_HOME}/.setup/linux.apt/step2.sh"
 
 printHeader "Finished step 1.  Rebooting..."
 # read -p 'Press [Enter] to continue...'
-reboot
+$SUDO reboot

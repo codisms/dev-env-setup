@@ -92,7 +92,7 @@ if [ -f ~/.onstart ]; then
 		if [ "\$SUDO" == "" ]; then
 			read -p 'Press [Enter] key to continue...'
 		fi
-		\$SUDO \$CMD \$HOME `whoami`
+		\$CMD \$HOME `whoami`
 		CMD=
 		SUDO=
 	#else
@@ -106,5 +106,5 @@ EOF
 
 echo "Running installer (~/.setup/${INSTALL_DIR}/step1.sh)..."
 #find ~/.setup -name \*.sh -exec chmod +x {} \;
-$SUDO ~/.setup/${INSTALL_DIR}/step1.sh $HOME `whoami` $1
+~/.setup/${INSTALL_DIR}/step1.sh $HOME `whoami` $1
 
