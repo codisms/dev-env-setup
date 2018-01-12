@@ -4,6 +4,8 @@ shift
 MY_USER=$1
 shift
 
+SUDO=$(which sudo 2> /dev/null)
+
 resetPermissions() {
 	#$SUDO chown -R ${MY_USER}:${MY_USER} ${MY_HOME}
 	echo "Skipping resetting of permissions"
