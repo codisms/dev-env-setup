@@ -9,6 +9,7 @@ wait_for_apt() {
 	local max=60
 	local delay=2
 	while true; do
+ls /var/lib/dpkg
 		[ -f /var/lib/dpkg/lock ] && break || {
 			echo "!!! dpkg is locked !!!"
 			$SUDO lsof /var/lib/dpkg/lock
