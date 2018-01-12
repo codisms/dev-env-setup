@@ -15,10 +15,9 @@ setHostName() {
 		$SUDO sed -i 's|option host-name "[a-f0-9-]\+"|option host-name "'$1'"|' /var/lib/dhclient/dhclient-eth0.leases
 	fi
 
-	$SUDO echo 127.0.0.1 $1>> /etc/hosts
-
-	$SUDO echo nameserver 8.8.8.8 >>/etc/resolv.conf
-	$SUDO echo nameserver 8.8.4.4 >>/etc/resolv.conf
+	$SUDO sh -c "echo 127.0.0.1 $1>> /etc/hosts; \
+		echo nameserver 8.8.8.8 >>/etc/resolv.conf; \
+		echo nameserver 8.8.4.4 >>/etc/resolv.conf"
 
 	$SUDO hostnamectl set-hostname $1
 }
