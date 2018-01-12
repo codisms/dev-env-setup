@@ -91,7 +91,7 @@ if [ -f ~/.onstart ]; then
 		CMD=\`cat ~/.onstart\`
 		SUDO=\$(which sudo 2> /dev/null)
 		rm -f ~/.onstart
-		echo "Executing command: \$SUDO \$CMD \$HOME `whoami`"
+		echo "Executing command: \$CMD \$HOME `whoami`"
 		if [ "\$SUDO" == "" ]; then
 			read -p 'Press [Enter] key to continue...'
 		fi
