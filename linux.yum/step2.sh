@@ -79,14 +79,14 @@ configureEnvironment() {
 
 setHostName() {
 	echo Setting host name to "$1"...
-	[ -f  /etc/sysconfig/network ] && mv -f /etc/sysconfig/network /etc/sysconfig/network.orig
+	[ -f  /etc/sysconfig/network ] && $SUDO mv -f /etc/sysconfig/network /etc/sysconfig/network.orig
 
-	cat << EOF > /etc/sysconfig/network
+	$SUDO cat << EOF > /etc/sysconfig/network
 echo NETWORKING=yes
 echo HOSTNAME=$1
 EOF
 
-	echo 127.0.0.1 $1>> /etc/hosts
+	$SUDO echo 127.0.0.1 $1>> /etc/hosts
 }
 
 #-----------------------------------------------------------------------------------------------------------
@@ -95,7 +95,7 @@ EOF
 installPackages() {
 	#yum remove postgresql postgresql-devel postgresql-libs postgresql-contrib
 
-	yum install -y git mercurial bzr \
+	$SUDO yum install -y git mercurial bzr \
 		gcc gcc-c++ kernel-devel \
 		automake cmake make libtool bc \
 		ncurses-devel tcl-devel \
@@ -124,9 +124,9 @@ installPackages() {
 		#python3 python3-devel \
 
 	if ! grep -q $group /etc/group; then
-		groupadd docker
+		$SUDO groupadd docker
 	fi
-	usermod -aG docker ${MY_USER}
+	$SUDO usermod -aG docker ${MY_USER}
 }
 
 installLanguages() {
@@ -148,15 +148,15 @@ installLanguages() {
 installNode() {
 	printSubHeader "Installing Node.js..."
 	#curl -sSL https://rpm.nodesource.com/setup_7.x | bash - > /dev/null
-	yum install -y nodejs
+	$SUDO yum install -y nodejs
 
 	#echo "Updating npm..."
 	#npm install --quiet --loglevel warn -g npm > /dev/null
 
 	echo "Installing tools..."
-	if [ -d /usr/lib/node_modules ]; then
-		chmod -R g+w /usr/lib/node_modules
-	fi
+	#if [ -d /usr/lib/node_modules ]; then
+	#	$SUDO chmod -R g+w /usr/lib/node_modules
+	#fi
 	npm install --quiet --loglevel warn -g grunt-cli gulp-cli nodemon bower json http-server nodemon jshint eslint @angular/cli typescript ionic > /dev/null
 }
 
@@ -219,4 +219,4 @@ scheduleForNextRun "${MY_HOME}/.setup/linux.yum/step3.sh"
 printHeader "Finished step 2.  Rebooting..."
 # read -p 'Press [Enter] to continue...'
 
-reboot
+$SUDO reboot

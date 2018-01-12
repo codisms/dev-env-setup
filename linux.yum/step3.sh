@@ -9,7 +9,7 @@ cd "$( dirname "${BASH_SOURCE[0]}" )"
 # Installations
 
 postInstall() {
-	chmod 755 ${MY_HOME}
+	$SUDO chmod 755 ${MY_HOME}
 	[ -d ${MY_HOME}/web ] && chown -R apache:apache ${MY_HOME}/web
 
 	startServices
@@ -26,11 +26,11 @@ installPackages() {
 installPostgres() {
 	printSubHeader "Installing postgresql..."
 
-	yum install -y https://download.postgresql.org/pub/repos/yum/9.6/redhat/rhel-7-x86_64/pgdg-centos96-9.6-3.noarch.rpm
-	yum install -y postgresql96-odbc postgresql96-devel postgresql96 postgresql96-contrib postgresql96-server
-	/usr/pgsql-9.6/bin/postgresql96-setup initdb
-	systemctl start postgresql-9.6.service
-	systemctl enable postgresql-9.6.service
+	$SUDO yum install -y https://download.postgresql.org/pub/repos/yum/9.6/redhat/rhel-7-x86_64/pgdg-centos96-9.6-3.noarch.rpm
+	$SUDO yum install -y postgresql96-odbc postgresql96-devel postgresql96 postgresql96-contrib postgresql96-server
+	$SUDO /usr/pgsql-9.6/bin/postgresql96-setup initdb
+	$SUDO systemctl start postgresql-9.6.service
+	$SUDO systemctl enable postgresql-9.6.service
 
 	ln -s ${MY_HOME}/.codisms/psqlrc ${MY_HOME}/.psqlrc
 }
@@ -38,7 +38,7 @@ installPostgres() {
 installVim() {
 	printSubHeader "Installing vim..."
 
-	${MY_HOME}/.codisms/bin/install-vim --pwd=${MY_HOME} --build
+	$SUDO ${MY_HOME}/.codisms/bin/install-vim --pwd=${MY_HOME} --build
 
 #	cd ${MY_HOME}
 #	echo Cloning vim...
@@ -107,11 +107,11 @@ installVim() {
 
 installTmux() {
 	echo Installing libevent 2.x...
-	yum install -y libevent-2* libevent-devel-2*
+	$SUDO yum install -y libevent-2* libevent-devel-2*
 
 	printSubHeader "Installing tmux..."
 
-	${MY_HOME}/.codisms/bin/install-tmux --version=2.6 --pwd=${MY_HOME} --build
+	$SUDO ${MY_HOME}/.codisms/bin/install-tmux --version=2.6 --pwd=${MY_HOME} --build
 	#cd ${MY_HOME}
 	#echo Cloning tmux...
 	#retry git clone --depth=1 -b 2.3 https://github.com/tmux/tmux.git
@@ -150,13 +150,13 @@ startServices() {
 	#startMySql
 
 	echo Disabling firewalld...
-	systemctl stop firewalld.service
-	systemctl disable firewalld.service
+	$SUDO systemctl stop firewalld.service
+	$SUDO systemctl disable firewalld.service
 }
 
 startMySql() {
-	systemctl start mysqld.service
-	systemctl enable mysqld.service
+	$SUDO systemctl start mysqld.service
+	$SUDO systemctl enable mysqld.service
 }
 
 
@@ -176,5 +176,5 @@ scheduleForNextRun "${MY_HOME}/.setup/linux.yum/step4.sh"
 printHeader "Finished step 3.  Rebooting..."
 # read -p 'Press [Enter] to continue...'
 
-reboot
+$SUDO reboot
 

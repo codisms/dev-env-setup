@@ -9,7 +9,7 @@ cd "$( dirname "${BASH_SOURCE[0]}" )"
 # Installations
 
 postInstall() {
-	chmod 755 ${MY_HOME}
+	$SUDO chmod 755 ${MY_HOME}
 	[ -d ${MY_HOME}/web ] && chown -R apache:apache ${MY_HOME}/web
 
 	startServices
@@ -41,7 +41,7 @@ installPostgres() {
 installVim() {
 	printSubHeader "Installing vim..."
 
-	${MY_HOME}/.codisms/bin/install-vim --pwd=${MY_HOME} --build
+	$SUDO ${MY_HOME}/.codisms/bin/install-vim --pwd=${MY_HOME} --build
 
 #	apt_add_repository ppa:jonathonf/vim
 #	apt_get_install vim
@@ -88,7 +88,7 @@ installTmux() {
 
 	printSubHeader "Installing tmux..."
 
-	${MY_HOME}/.codisms/bin/install-tmux --version=2.6 --pwd=${MY_HOME} --build
+	$SUDO ${MY_HOME}/.codisms/bin/install-tmux --version=2.6 --pwd=${MY_HOME} --build
 	#cd ${MY_HOME}
 	#echo Cloning tmux...
 	#retry git clone --depth=1 -b 2.3 https://github.com/tmux/tmux.git
@@ -127,12 +127,12 @@ startServices() {
 	#startMySql
 
 	echo Disabling firewalld...
-	ufw disable
+	$SUDO ufw disable
 }
 
 startMySql() {
-	systemctl start mysqld.service
-	systemctl enable mysqld.service
+	$SUDO systemctl start mysqld.service
+	$SUDO systemctl enable mysqld.service
 }
 
 
@@ -152,5 +152,5 @@ scheduleForNextRun "${MY_HOME}/.setup/linux.apt/step4.sh"
 printHeader "Finished step 3.  Rebooting..."
 # read -p 'Press [Enter] to continue...'
 
-reboot
+$SUDO reboot
 

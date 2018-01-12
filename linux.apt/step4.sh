@@ -20,11 +20,11 @@ downloadCode() {
 
 finalConfigurations() {
 	echo "Setting motd..."
-	[ -f /etc/motd ] && mv /etc/motd /etc/motd.orig
-	ln -s ${MY_HOME}/.codisms/motd /etc/motd
+	[ -f /etc/motd ] && $SUDO mv /etc/motd /etc/motd.orig
+	$SUDO ln -s ${MY_HOME}/.codisms/motd /etc/motd
 
 	echo "Setting zsh as default shell..."
-	[ -f /etc/ptmp ] && rm -f /etc/ptmp
+	[ -f /etc/ptmp ] && $SUDO rm -f /etc/ptmp
 	chsh -s `which zsh` ${MY_USER}
 
 	echo "Setting crontab jobs ${MY_USER} ${MY_HOME}..."
@@ -53,4 +53,4 @@ resetPermissions
 printHeader "Done.  Rebooting for the final time..."
 # read -p 'Press [Enter] to continue...'
 
-reboot
+$SUDO reboot
