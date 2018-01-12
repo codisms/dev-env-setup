@@ -133,9 +133,9 @@ installNode() {
 	#mkdir -p /usr/lib/node_modules/@angular/cli/node_modules/node-sass/vendor
 
 	echo "Installing tools..."
-	npm install --quiet --loglevel warn -g grunt-cli gulp-cli nodemon bower json http-server nodemon jshint eslint typescript > /dev/null
-	npm install --quiet --loglevel warn -g @angular/cli > /dev/null
-	npm install --quiet --loglevel warn -g ionic > /dev/null
+	$SUDO npm install --quiet --loglevel warn -g grunt-cli gulp-cli nodemon bower json http-server nodemon jshint eslint typescript > /dev/null
+	$SUDO npm install --quiet --allow-root --loglevel warn -g @angular/cli > /dev/null
+	$SUDO npm install --quiet --loglevel warn -g ionic > /dev/null
 }
 
 setUpGoDirectories() {
