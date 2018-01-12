@@ -9,7 +9,6 @@ wait_for_apt() {
 	local max=60
 	local delay=2
 	while true; do
-ls -l /var/lib/dpkg/lock
 		[ ! -f /var/lib/dpkg/lock ] && break || {
 			echo "!!! dpkg is locked !!!"
 			$SUDO lsof /var/lib/dpkg/lock
@@ -36,19 +35,19 @@ ls -l /var/lib/dpkg/lock
 }
 
 apt_get_install() {
-	wait_for_apt
+	#wait_for_apt
 	$SUDO apt-get install -y "$@"
 }
 
 apt_get_update() {
-	wait_for_apt
+	#wait_for_apt
 	$SUDO apt-get update
-	wait_for_apt
+	#wait_for_apt
 	$SUDO apt-get upgrade
 }
 
 apt_add_repository() {
-	wait_for_apt
+	#wait_for_apt
 	$SUDO add-apt-repository -y "$1"
 	$SUDO apt-get update
 }
