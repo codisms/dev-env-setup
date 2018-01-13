@@ -134,7 +134,7 @@ installNode() {
 
 	echo "Installing tools..."
 	$SUDO npm install --quiet --loglevel warn -g grunt-cli gulp-cli nodemon bower json http-server nodemon jshint eslint typescript > /dev/null
-	$SUDO npm install --quiet --allow-root --loglevel warn -g @angular/cli > /dev/null
+	$SUDO npm install --quiet --unsafe-perm --loglevel warn -g @angular/cli > /dev/null
 	$SUDO npm install --quiet --loglevel warn -g ionic > /dev/null
 }
 
