@@ -157,7 +157,9 @@ installNode() {
 	#if [ -d /usr/lib/node_modules ]; then
 	#	$SUDO chmod -R g+w /usr/lib/node_modules
 	#fi
-	npm install --quiet --loglevel warn -g grunt-cli gulp-cli nodemon bower json http-server nodemon jshint eslint @angular/cli typescript ionic > /dev/null
+	$SUDO npm install --quiet --loglevel warn -g grunt-cli gulp-cli nodemon bower json http-server nodemon jshint eslint typescript > /dev/null
+	$SUDO npm install --quiet --unsafe-perm --loglevel warn -g @angular/cli > /dev/null
+	$SUDO npm install --quiet --loglevel warn -g ionic > /dev/null
 }
 
 setUpGoDirectories() {

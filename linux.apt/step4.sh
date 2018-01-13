@@ -25,7 +25,7 @@ finalConfigurations() {
 
 	echo "Setting zsh as default shell..."
 	[ -f /etc/ptmp ] && $SUDO rm -f /etc/ptmp
-	chsh -s `which zsh` ${MY_USER}
+	$SUDO chsh -s `which zsh` ${MY_USER}
 
 	echo "Setting crontab jobs ${MY_USER} ${MY_HOME}..."
 	set +e
