@@ -36,19 +36,19 @@ wait_for_apt() {
 
 apt_get_install() {
 	#wait_for_apt
-	$SUDO apt-get install -y "$@"
+	retry_long $SUDO apt-get install -y "$@"
 }
 
 apt_get_update() {
 	#wait_for_apt
-	$SUDO apt-get update
+	retry_long $SUDO apt-get update
 	#wait_for_apt
-	$SUDO apt-get upgrade
+	retry_long $SUDO apt-get upgrade
 }
 
 apt_add_repository() {
 	#wait_for_apt
-	$SUDO add-apt-repository -y "$1"
-	$SUDO apt-get update
+	retry_long $SUDO add-apt-repository -y "$1"
+	retry_long $SUDO apt-get update
 }
 
