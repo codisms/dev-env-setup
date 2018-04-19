@@ -51,7 +51,7 @@ updateSudoers() {
 		echo "$MY_USER ALL=(ALL) NOPASSWD: ALL" | $SUDO EDITOR='tee -a' visudo > /dev/null
 	else
 		echo "  User already exists"
-		grep $MY_USER
+		grep $MY_USER /etc/sudoers
 	fi
 	#cat /etc/sudoers
 }
