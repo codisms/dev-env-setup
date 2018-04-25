@@ -101,7 +101,7 @@ installPackages() {
 		ncurses-devel tcl-devel \
 		libcurl-devel clang ctags wget unzip \
 		python python-devel python2-pip python34 python34-pip python34-devel\
-		golang ruby \
+		golang \
 		perl perl-devel perl-ExtUtils-ParseXS perl-ExtUtils-CBuilder perl-ExtUtils-Embed \
 		bind-utils mutt elinks telnet \
 		man htop zsh \
@@ -119,7 +119,6 @@ installPackages() {
 		#mysql-community-devel mysql-community-server mysql-community-client \
 		#postgresql94-odbc postgresql-odbc postgresql-devel postgresql94-devel
 		#tmux nodejs
-		#ruby ruby-devel rubygems
 		#lua lua-devel luajit luajit-devel
 		#python3 python3-devel \
 
@@ -131,6 +130,7 @@ installPackages() {
 
 installLanguages() {
 	installNode
+	installRuby
 	setUpGoDirectories
 
 	printSubHeader "Updating pip..."
@@ -160,6 +160,18 @@ installNode() {
 	$SUDO npm install --quiet --loglevel warn -g grunt-cli gulp-cli nodemon bower json http-server nodemon jshint eslint typescript > /dev/null
 	$SUDO npm install --quiet --unsafe-perm --loglevel warn -g @angular/cli > /dev/null
 	$SUDO npm install --quiet --loglevel warn -g ionic > /dev/null
+}
+
+installRuby() {
+#	apt_get_install software-properties-common
+#	$SUDO apt-add-repository -y ppa:rael-gc/rvm
+#	apt_get_update
+#	apt_get_install rvm
+#	source /etc/profile.d/rvm.sh
+#	rvm install ruby-2.3.4
+#	source /etc/profile.d/rvm.sh
+#	gem install bundler
+	echo Ruby needs to be installed!
 }
 
 setUpGoDirectories() {
