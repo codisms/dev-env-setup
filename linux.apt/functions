@@ -50,7 +50,8 @@ apt_get_update() {
 		APT_GET=apt-fast
 	fi
 
-	retry_long $SUDO $APT_GET update
+	retry_long $SUDO apt-get update
+	wait_for_apt
 	retry_long $SUDO $APT_GET upgrade
 }
 
