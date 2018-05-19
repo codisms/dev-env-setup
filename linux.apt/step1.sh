@@ -28,7 +28,6 @@ installAptFast() {
 }
 
 updateSystem() {
-	echo Updating system...
 	apt_get_update
 }
 
