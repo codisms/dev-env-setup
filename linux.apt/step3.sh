@@ -85,13 +85,6 @@ startMySql() {
 
 downloadCode() {
 	printHeader "Downloading code...", "dl-code"
-
-	cd ${MY_HOME}/go
-	GOPATH=`pwd` /usr/local/go/bin/go get golang.org/x/tools/cmd/goimports
-	cd ${MY_HOME}
-
-	printSubHeader "Cloning db..."
-	retry git clone https://bitbucket.org/codisms/db.git ${MY_HOME}/db
 	${MY_HOME}/.codisms/get-code.sh
 }
 
