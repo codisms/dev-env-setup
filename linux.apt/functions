@@ -35,20 +35,27 @@ wait_for_apt() {
 }
 
 apt_get_install() {
-	#wait_for_apt
-	retry_long $SUDO DEBIAN_FRONTEND=noninteractive apt-get install -yq "$@"
+	if [ "$(which git 2> /dev/null)" == "" ]; then
+		APT_GET=apt-fast
+	else
+		APT_GET=apt-get
+	fi
+	retry_long $SUDO DEBIAN_FRONTEND=noninteractive $APT_GET install -yq "$@"
 }
 
 apt_get_update() {
-	#wait_for_apt
-	retry_long $SUDO apt-get update
-	#wait_for_apt
-	retry_long $SUDO apt-get upgrade
+	if [ "$(which git 2> /dev/null)" == "" ]; then
+		APT_GET=apt-fast
+	else
+		APT_GET=apt-get
+	fi
+
+	retry_long $SUDO $APT_GET update
+	retry_long $SUDO $APT_GET upgrade
 }
 
 apt_add_repository() {
-	#wait_for_apt
 	retry_long $SUDO add-apt-repository -y "$1"
-	retry_long $SUDO apt-get update
+	apt_get_update
 }
 

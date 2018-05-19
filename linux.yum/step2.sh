@@ -157,7 +157,7 @@ installRuby() {
 #	apt_get_update
 #	source /etc/profile.d/rvm.sh
 #	echo "export rvm_max_time_flag=20" >> ~/.rvmrc
-#	rvm install ruby-2.3.4
+#	$SUDO rvm install ruby-2.3
 #	source /etc/profile.d/rvm.sh
 #	gem install bundler
 	echo Ruby needs to be installed!
