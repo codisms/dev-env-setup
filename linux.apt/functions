@@ -36,18 +36,18 @@ wait_for_apt() {
 
 apt_get_install() {
 	if [ "$(which apt-fast 2> /dev/null)" == "" ]; then
-		APT_GET=apt-fast
-	else
 		APT_GET=apt-get
+	else
+		APT_GET=apt-fast
 	fi
 	retry_long $SUDO DEBIAN_FRONTEND=noninteractive $APT_GET install -yq "$@"
 }
 
 apt_get_update() {
 	if [ "$(which apt-fast 2> /dev/null)" == "" ]; then
-		APT_GET=apt-fast
-	else
 		APT_GET=apt-get
+	else
+		APT_GET=apt-fast
 	fi
 
 	retry_long $SUDO $APT_GET update
