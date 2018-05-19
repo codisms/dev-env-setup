@@ -6,8 +6,10 @@ cd "$( dirname "${BASH_SOURCE[0]}" )"
 . ./functions
 
 downloadRepos() {
+	printHeader "Downloading repos..." "dl-repos"
+
+	printSubHeader "Cloning dev-config..."
 	echo 'Cloning .codisms; enter bitbucket.org password for "codisms":'
-	echo Cloning dev-config...
 	retry git clone https://codisms@bitbucket.org/codisms/dev-config.git ${MY_HOME}/.codisms
 
 	printSubHeader "Configuring security..."
@@ -42,6 +44,8 @@ downloadRepos() {
 # Configuration
 
 configureEnvironment() {
+	printHeader "Configuring environment..." "config-env"
+
 	ln -s ${MY_HOME}/.codisms/repos/dircolors-solarized/dircolors.256dark ${MY_HOME}/.dircolors
 	ln -s ${MY_HOME}/.codisms/zshrc ${MY_HOME}/.zshrc
 	ln -s ${MY_HOME}/.codisms/gitconfig ${MY_HOME}/.gitconfig
@@ -57,6 +61,9 @@ configureEnvironment() {
 # Installations
 
 installPackages() {
+	printHeader "Installing packages..." "install-pkg"
+
+	printSubHeader "Phase 1"
 	apt_get_install git mercurial bzr subversion \
 		gcc gpp linux-kernel-headers kernel-package \
 		automake cmake make libtool gawk \
@@ -67,12 +74,15 @@ installPackages() {
 		perl libperl-dev perl-modules \
 		libevent-2* libevent-dev \
 		libdbd-odbc-perl freetds-bin freetds-common freetds-dev
+
+	printSubHeader "Phase 2"
 	if [ "${UBUNTU_VERSION}" == "14.04" ]; then
 		apt_get_install php5-cli php5-mysql openjdk-7-jre
 	else
 		apt_get_install php-cli php-mysql openjdk-8-jre
 	fi
 
+	printSubHeader "Phase 3"
 	apt_get_install man htop zsh wget unzip \
 		dnsutils mutt elinks telnet \
 		redis-server apache2 \
@@ -94,10 +104,16 @@ installPackages() {
 }
 
 installLanguages() {
+	printHeader "Installing languages..." "install-lang"
+
 	installNode
 	installRuby
 	setUpGo
+	updatePip
+}
 
+updatePip() {
+	printHeader "Setting up pip...", "pip"
 	if [ ! -d ~/.cache/pip ]; then
 		mkdir -p ~/.cache/pip
 		chmod 775 ~/.cache/pip
@@ -112,7 +128,7 @@ installLanguages() {
 }
 
 installNode() {
-	printSubHeader "Installing Node.js..."
+	printHeader "Installing Node.js...", "node"
 	curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 	apt_get_install nodejs build-essential
 
@@ -123,31 +139,37 @@ installNode() {
 	#mkdir -p ~/.node-gyp/8.9.1
 	#mkdir -p /usr/lib/node_modules/@angular/cli/node_modules/node-sass/vendor
 
-	echo "Installing tools..."
+	printSubHeader "Installing tools..."
 	$SUDO npm install --quiet --loglevel warn -g grunt-cli gulp-cli nodemon bower json http-server nodemon jshint eslint typescript > /dev/null
 	$SUDO npm install --quiet --unsafe-perm --loglevel warn -g @angular/cli > /dev/null
 	$SUDO npm install --quiet --loglevel warn -g ionic > /dev/null
 }
 
 installRuby() {
-	printSubHeader "Installing Ruby..."
+	printHeader "Installing Ruby..." "ruby"
 	apt_get_install software-properties-common
 	#apt_add_repository ppa:rael-gc/rvm
 	#apt_get_update
 	#apt_get_install rvm
 	#source /etc/profile.d/rvm.sh
 
+	printSubHeader "Downloading GPG keys..."
 	retry gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
 	curl -sSL https://get.rvm.io | bash -s stable
 	source ${MY_HOME}/.rvm/scripts/rvm
 
+	printSubHeader "Downloading and installying Ruby..."
 	retry rvm install ruby-2.3
 	#source /etc/profile.d/rvm.sh
 	source ${MY_HOME}/.rvm/scripts/rvm
+
+	printSubHeader "Running bundler..."
 	retry gem install bundler
 }
 
 setUpGo() {
+	printHeader "Setting up Go...", "go"
+
 	printSubHeader "Setting up Go directory structure..."
 	mkdir -p ${MY_HOME}/go/bin
 	mkdir -p ${MY_HOME}/go/pkg
@@ -163,7 +185,6 @@ setUpGo() {
 # BEGIN
 ############################################################################################################
 
-printHeader "Downloading repos..."
 downloadRepos
 
 #-----------------------------------------------------------------------------------------------------------
@@ -183,13 +204,8 @@ downloadRepos
 #-----------------------------------------------------------------------------------------------------------
 # Do it!
 
-printHeader "Configuring environment..."
 configureEnvironment
-
-printHeader "Installing packages..."
 installPackages
-
-printHeader "Installing languages..."
 installLanguages
 
 # echo
@@ -200,12 +216,12 @@ installLanguages
 # echo
 # #read -p 'Press [Enter] to continue...'
 
-printHeader "Resetting home directory owner..."
+printHeader "Resetting home directory owner..." "reset-perm"
 resetPermissions
 
 scheduleForNextRun "${MY_HOME}/.setup/linux.apt/step3.sh"
 
-printHeader "Finished step 2.  Rebooting..."
+printHeader "Finished step 2.  Rebooting...", "reboot"
 # read -p 'Press [Enter] to continue...'
 
 $SUDO reboot

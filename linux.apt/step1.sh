@@ -6,6 +6,8 @@ cd "$( dirname "${BASH_SOURCE[0]}" )"
 . ./functions
 
 setHostName() {
+	printHeader "Setting host name..." "hostname"
+
 	echo SUDO=$SUDO
 	echo Setting host name to "$1"...
 
@@ -20,6 +22,8 @@ setHostName() {
 # Updates
 
 installAptFast() {
+	printHeader "Installing apt-fast..." "apt-fast"
+
 	apt_add_repository ppa:apt-fast/stable
 	apt_get_update
 	apt_get_install apt-fast
@@ -28,6 +32,8 @@ installAptFast() {
 }
 
 updateSystem() {
+	printHeader "Updating system..." "system"
+
 	apt_get_update
 }
 
@@ -43,6 +49,8 @@ updateSystem() {
 #}
 
 updateSudoers() {
+	printHeader "Updating /etc/sudoers..." "sudoers"
+
 	echo Looking for user $MY_USER in /etc/sudoers...
 	if ! $SUDO grep -q $MY_USER /etc/sudoers; then
 		echo "  Adding user to /etc/sudoers..."
@@ -59,18 +67,13 @@ updateSudoers() {
 ############################################################################################################
 
 if [ "$1" != "" ]; then
-	printHeader "Setting host name..."
 	setHostName $1
 fi
 
-printHeader "Installing apt-fast..."
 installAptFast
-
-printHeader "Updating system..."
 updateSystem
 
 if [ -f /etc/sudoers ]; then
-	printHeader "Updating /etc/sudoers..."
 	updateSudoers
 fi
 
@@ -80,6 +83,6 @@ scheduleForNextRun "${MY_HOME}/.setup/linux.apt/step2.sh"
 #printHeader "Updating file system..."
 #updateFileSystem
 
-printHeader "Finished step 1.  Rebooting..."
+printHeader "Finished step 1.  Rebooting..." "reboot"
 # read -p 'Press [Enter] to continue...'
 $SUDO reboot
