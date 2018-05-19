@@ -55,45 +55,7 @@ installVim() {
 	printSubHeader "Installing vim..."
 
 	$SUDO ${MY_HOME}/.codisms/bin/install-vim --pwd=${MY_HOME} --build
-
-#	apt_add_repository ppa:jonathonf/vim
-#	apt_get_install vim
-#
-#	printSubHeader "Setting vim as default..."
-#	update-alternatives --install /usr/bin/editor editor /usr/bin/vim 1
-#	update-alternatives --set editor /usr/bin/vim
-#	update-alternatives --install /usr/bin/vi vi /usr/bin/vim 1
-#	update-alternatives --set vi /usr/bin/vim
-#
-#	configureVim
-#	installVimExtensions_YCM
-#
-#	cd ${MY_HOME}
 }
-
-#configureVim() {
-#	printSubHeader "Downloading vim configuration..."
-#	cd ${MY_HOME}
-#	retry git clone https://github.com/codisms/vim-config.git .vim
-#
-#	echo "Downloading submodules..."
-#	cd ${MY_HOME}/.vim
-#	retry git submodule update --init --recursive
-#
-#	printSubHeader "Configuring vim..."
-#	ln -s ${MY_HOME}/.vim/vimrc ${MY_HOME}/.vimrc
-#	ln -s ${MY_HOME}/.codisms/vimrc.dbext ${MY_HOME}/.vim/vimrc.dbext
-#}
-#
-#installVimExtensions_YCM() {
-#	printSubHeader "Installing ycm..."
-#
-#	cd ${MY_HOME}/.vim/bundle/YouCompleteMe
-#	#./install.py
-#	retry ./install.py --clang-completer --gocode-completer --tern-completer
-#	#./install.py --clang-completer --system-libclang --gocode-completer > /dev/null
-#	cd ${MY_HOME}
-#}
 
 installTmux() {
 	printSubHeader "Installing libevent 2.x..."
@@ -102,36 +64,6 @@ installTmux() {
 	printSubHeader "Installing tmux..."
 
 	$SUDO ${MY_HOME}/.codisms/bin/install-tmux --version=2.6 --pwd=${MY_HOME} --build
-	#cd ${MY_HOME}
-	#echo Cloning tmux...
-	#retry git clone --depth=1 -b 2.3 https://github.com/tmux/tmux.git
-
-	#echo Compiling tmux...
-	#cd tmux
-	#sh autogen.sh --quiet > /dev/null
-	##./configure --prefix=/usr/local #--quiet > /dev/null
-	#./configure --quiet > /dev/null
-	#make --quiet > /dev/null
-
-	#echo Installing tmux...
-	#make install --quiet > /dev/null
-	#cd ..
-	#rm -rf tmux
-
-	##gem --update system
-	#gem install tmuxinator > /dev/null
-
-	#printSubHeader "Downloading tmux configuration..."
-	#cd ${MY_HOME}
-	#retry git clone https://github.com/codisms/tmux-config.git .tmux
-
-	#echo "Downloading submodules..."
-	#cd .tmux
-	#retry git submodule update --init --recursive
-	#cd ..
-
-	#printSubHeader "Configuring tmux..."
-	#ln -s .tmux/tmux.conf .tmux.conf
 }
 
 startServices() {
@@ -150,6 +82,33 @@ startMySql() {
 	$SUDO systemctl enable mysqld.service
 }
 
+downloadCode() {
+	cd ${MY_HOME}/go
+	GOPATH=`pwd` /usr/local/go/bin/go get golang.org/x/tools/cmd/goimports
+	cd ${MY_HOME}
+
+	echo Cloning db...
+	retry git clone https://bitbucket.org/codisms/db.git ${MY_HOME}/db
+	${MY_HOME}/.codisms/get-code.sh
+}
+
+finalConfigurations() {
+	echo "Setting motd..."
+	[ -f /etc/motd ] && $SUDO mv /etc/motd /etc/motd.orig
+	$SUDO ln -s ${MY_HOME}/.codisms/motd /etc/motd
+
+	echo "Setting zsh as default shell..."
+	[ -f /etc/ptmp ] && $SUDO rm -f /etc/ptmp
+	$SUDO chsh -s `which zsh` ${MY_USER}
+
+	echo "Setting crontab jobs ${MY_USER} ${MY_HOME}..."
+	set +e
+	(crontab -u ${MY_USER} -l 2>/dev/null; \
+		echo "0 5 * * * ${MY_HOME}/.codisms/bin/crontab-daily"; \
+		echo "5 5 * * 1 ${MY_HOME}/.codisms/bin/crontab-weekly"; \
+		echo "15 5 1 * * ${MY_HOME}/.codisms/bin/crontab-monthly") | crontab -u ${MY_USER} -
+	set -e
+}
 
 
 ############################################################################################################
@@ -162,13 +121,21 @@ installFonts
 printHeader "Installing packages..."
 installPackages
 
+printHeader "Making final configuration changes..."
+finalConfigurations
+
+read -p "Are you sure? " -n 1 -r
+echo
+if [[ $REPLY =~ ^[Yy]$ ]]
+	printHeader "Downloading code..."
+	downloadCode
+	rsync -avzhe ssh --progress dev.codisms.com:/root/ /root/
+fi
+
 printHeader "Resetting home directory owner..."
 resetPermissions
 
-scheduleForNextRun "${MY_HOME}/.setup/linux.apt/step4.sh"
-
-printHeader "Finished step 3.  Rebooting..."
+printHeader "Done.  Rebooting for the final time..."
 # read -p 'Press [Enter] to continue...'
-
 $SUDO reboot
 
