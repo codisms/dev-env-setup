@@ -44,15 +44,8 @@ apt_get_install() {
 }
 
 apt_get_update() {
-	if [ "$(which apt-fast 2> /dev/null)" == "" ]; then
-		APT_GET=apt-get
-	else
-		APT_GET=apt-fast
-	fi
-
 	retry_long $SUDO apt-get update
-	wait_for_apt
-	retry_long $SUDO $APT_GET upgrade
+	retry_long $SUDO apt-get upgrade
 }
 
 apt_add_repository() {
