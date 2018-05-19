@@ -73,7 +73,7 @@ if [ -f /etc/sudoers ]; then
 	updateSudoers
 fi
 
-scheduleForNextRun "${MY_HOME}/.setup/linux.apt/step2.sh"
+#scheduleForNextRun "${MY_HOME}/.setup/linux.apt/step2.sh"
 
 # This is a Joyent thing; not sure if it's needed
 #printHeader "Updating file system..."
