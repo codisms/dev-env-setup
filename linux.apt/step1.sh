@@ -19,6 +19,12 @@ setHostName() {
 #-----------------------------------------------------------------------------------------------------------
 # Updates
 
+installAptFast() {
+	add_apt_repository ppa:apt-fast/stable
+	apt_get_update
+	apt_get_install apt-fast
+}
+
 updateSystem() {
 	echo Updating system...
 	apt_get_update
@@ -55,6 +61,9 @@ if [ "$1" != "" ]; then
 	printHeader "Setting host name..."
 	setHostName $1
 fi
+
+printHeader "Installing apt-fast..."
+installAptFast
 
 printHeader "Updating system..."
 updateSystem
