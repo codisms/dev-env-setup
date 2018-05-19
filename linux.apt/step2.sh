@@ -177,7 +177,7 @@ setUpGo() {
 
 	printSubHeader "Downloading goimports..."
 	cd ${MY_HOME}/go
-	GOPATH=`pwd` /usr/local/go/bin/go get golang.org/x/tools/cmd/goimports
+	GOPATH=`pwd` go get golang.org/x/tools/cmd/goimports
 	cd ${MY_HOME}
 }
 
