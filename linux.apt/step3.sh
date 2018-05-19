@@ -9,6 +9,7 @@ cd "$( dirname "${BASH_SOURCE[0]}" )"
 # Installations
 
 installFonts() {
+	printHeader "Installing fonts...", "fonts"
 	retry pip install --user powerline-status
 
 	## https://gist.github.com/renshuki/3cf3de6e7f00fa7e744a
@@ -29,6 +30,7 @@ postInstall() {
 }
 
 installPackages() {
+	printHeader "Installing packages...", "install-pkg"
 	installPostgres
 	installVim
 	installTmux
@@ -53,7 +55,6 @@ installPostgres() {
 
 installVim() {
 	printSubHeader "Installing vim..."
-
 	$SUDO ${MY_HOME}/.codisms/bin/install-vim --pwd=${MY_HOME} --build
 }
 
@@ -62,7 +63,6 @@ installTmux() {
 	apt_get_install libevent-2* libevent-dev
 
 	printSubHeader "Installing tmux..."
-
 	$SUDO ${MY_HOME}/.codisms/bin/install-tmux --version=2.6 --pwd=${MY_HOME} --build
 }
 
@@ -78,30 +78,34 @@ startServices() {
 }
 
 startMySql() {
+	printSubHeader "Starting MySQL services..."
 	$SUDO systemctl start mysqld.service
 	$SUDO systemctl enable mysqld.service
 }
 
 downloadCode() {
+	printHeader "Downloading code...", "dl-code"
+
 	cd ${MY_HOME}/go
 	GOPATH=`pwd` /usr/local/go/bin/go get golang.org/x/tools/cmd/goimports
 	cd ${MY_HOME}
 
-	echo Cloning db...
+	printSubHeader "Cloning db..."
 	retry git clone https://bitbucket.org/codisms/db.git ${MY_HOME}/db
 	${MY_HOME}/.codisms/get-code.sh
 }
 
 finalConfigurations() {
-	echo "Setting motd..."
+	printHeader "Making final configuration changes...", "final-config"
+	printSubHeader "Setting motd..."
 	[ -f /etc/motd ] && $SUDO mv /etc/motd /etc/motd.orig
 	$SUDO ln -s ${MY_HOME}/.codisms/motd /etc/motd
 
-	echo "Setting zsh as default shell..."
+	printSubHeader "Setting zsh as default shell..."
 	[ -f /etc/ptmp ] && $SUDO rm -f /etc/ptmp
 	$SUDO chsh -s `which zsh` ${MY_USER}
 
-	echo "Setting crontab jobs ${MY_USER} ${MY_HOME}..."
+	printSubHeader "Setting crontab jobs ${MY_USER} ${MY_HOME}..."
 	set +e
 	(crontab -u ${MY_USER} -l 2>/dev/null; \
 		echo "0 5 * * * ${MY_HOME}/.codisms/bin/crontab-daily"; \
@@ -115,30 +119,24 @@ finalConfigurations() {
 # BEGIN
 ############################################################################################################
 
-printHeader "Installing fonts..."
 installFonts
-
-printHeader "Installing packages..."
 installPackages
-
-printHeader "Making final configuration changes..."
 finalConfigurations
 
 read -p "Download code? (y/n) " -n 1 -r
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
-	printHeader "Downloading code..."
 	downloadCode
-	rsync -avzhe ssh --progress dev.codisms.com:/root/ /root/
+	#rsync -avzhe ssh --progress dev.codisms.com:/root/ /root/
 fi
 
 cd ${MY_HOME}/.codisms
 git checkout -- zshrc
 
-printHeader "Resetting home directory owner..."
+printHeader "Resetting home directory owner...", "reset-perm"
 resetPermissions
 
-printHeader "Done.  Rebooting for the final time..."
+printHeader "Done.  Rebooting for the final time...", "reboot"
 # read -p 'Press [Enter] to continue...'
 $SUDO reboot
 

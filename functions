@@ -5,24 +5,27 @@ MY_USER=$1
 shift
 
 SUDO=$(which sudo 2> /dev/null)
-
-resetPermissions() {
-	#$SUDO chown -R ${MY_USER}:${MY_USER} ${MY_HOME}
-	echo "Skipping resetting of permissions"
-}
+HEADER_LEADER=-
 
 printHeader() {
+	HEADER_LEADER=$2
 	echo
-	echo -e "\e[95m-------------------------------------------------------------------------------------------------------------------------------------------\e[0m"
-	echo -e "\e[95m$1\e[0m"
+	echo -e "\e[35m-------------------------------------------------------------------------------------------------------------------------------------------\e[0m"
+	echo -e "\e[35m${1}\e[0m"
 	echo
 }
 
 printSubHeader() {
 	echo
-	echo -e "\e[96m-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\e[0m"
-	echo -e "\e[96m$1\e[0m"
+	echo -e "\e[36m-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\e[0m"
+	echo -e "\e[36m${HEADER_LEADER}: ${1}\e[0m"
 	echo
+}
+
+resetPermissions() {
+	#printSubHeader "Reseeting permissions"
+	#$SUDO chown -R ${MY_USER}:${MY_USER} ${MY_HOME}
+	echo -e "\e[33mSkipping resetting of permissions\e[0m"
 }
 
 scheduleForNextRun() {
