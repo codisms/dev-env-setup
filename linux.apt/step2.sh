@@ -130,12 +130,18 @@ installRuby() {
 	apt_add_repository ppa:rael-gc/rvm
 	apt_get_update
 	apt_get_install rvm
-	apt_get_update
 	source /etc/profile.d/rvm.sh
-	echo "export rvm_max_time_flag=20" >> ~/.rvmrc
+
+	echo ** $(which rvm) **
+	cat /etc/profile.d/rvm.sh
+	echo ******************
 	$SUDO rvm install ruby-2.3
+
+	echo **1
 	source /etc/profile.d/rvm.sh
+	echo **2
 	gem install bundler
+	echo **3
 }
 
 setUpGoDirectories() {
