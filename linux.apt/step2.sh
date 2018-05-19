@@ -132,16 +132,16 @@ installRuby() {
 	apt_get_install rvm
 	source /etc/profile.d/rvm.sh
 
-	echo ** $(which rvm) **
+	echo "** $(which rvm) **"
 	cat /etc/profile.d/rvm.sh
-	echo ******************
+	echo "******************"
 	$SUDO rvm install ruby-2.3
 
-	echo **1
+	echo "**1"
 	source /etc/profile.d/rvm.sh
-	echo **2
+	echo "**2"
 	gem install bundler
-	echo **3
+	echo "**3"
 }
 
 setUpGoDirectories() {
