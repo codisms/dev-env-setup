@@ -63,7 +63,7 @@ configureEnvironment() {
 installPackages() {
 	printHeader "Installing packages..." "install-pkg"
 
-	printSubHeader "Phase 1"
+	printSubHeader "Phase 1/3"
 	apt_get_install git mercurial bzr subversion \
 		gcc gpp linux-kernel-headers kernel-package \
 		automake cmake make libtool gawk \
@@ -75,14 +75,14 @@ installPackages() {
 		libevent-2* libevent-dev \
 		libdbd-odbc-perl freetds-bin freetds-common freetds-dev
 
-	printSubHeader "Phase 2"
+	printSubHeader "Phase 2/3"
 	if [ "${UBUNTU_VERSION}" == "14.04" ]; then
 		apt_get_install php5-cli php5-mysql openjdk-7-jre
 	else
 		apt_get_install php-cli php-mysql openjdk-8-jre
 	fi
 
-	printSubHeader "Phase 3"
+	printSubHeader "Phase 3/3"
 	apt_get_install man htop zsh wget unzip \
 		dnsutils mutt elinks telnet \
 		redis-server apache2 \
