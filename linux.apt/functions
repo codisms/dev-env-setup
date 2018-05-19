@@ -35,7 +35,7 @@ wait_for_apt() {
 }
 
 apt_get_install() {
-	if [ "$(which git 2> /dev/null)" == "" ]; then
+	if [ "$(which apt-fast 2> /dev/null)" == "" ]; then
 		APT_GET=apt-fast
 	else
 		APT_GET=apt-get
@@ -44,7 +44,7 @@ apt_get_install() {
 }
 
 apt_get_update() {
-	if [ "$(which git 2> /dev/null)" == "" ]; then
+	if [ "$(which apt-fast 2> /dev/null)" == "" ]; then
 		APT_GET=apt-fast
 	else
 		APT_GET=apt-get
