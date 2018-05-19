@@ -70,7 +70,7 @@ installPackages() {
 		libncurses-dev tcl-dev \
 		curl libcurl4-openssl-dev clang ctags \
 		python python-dev python-pip python3 python3-dev python3-pip \
-		golang \
+		golang golang-golang-x-tools \
 		perl libperl-dev perl-modules \
 		libevent-2* libevent-dev \
 		libdbd-odbc-perl freetds-bin freetds-common freetds-dev
@@ -175,10 +175,10 @@ setUpGo() {
 	mkdir -p ${MY_HOME}/go/pkg
 	mkdir -p ${MY_HOME}/go/src/github.com
 
-	printSubHeader "Downloading goimports..."
-	cd ${MY_HOME}/go
-	GOPATH=`pwd` go get golang.org/x/tools/cmd/goimports
-	cd ${MY_HOME}
+	#printSubHeader "Downloading goimports..."
+	#cd ${MY_HOME}/go
+	#GOPATH=`pwd` go get golang.org/x/tools/cmd/goimports
+	#cd ${MY_HOME}
 }
 
 ############################################################################################################
