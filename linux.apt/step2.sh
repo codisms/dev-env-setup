@@ -130,6 +130,7 @@ installRuby() {
 	apt_add_repository ppa:rael-gc/rvm
 	apt_get_update
 	apt_get_install rvm
+	apt_get_update
 	source /etc/profile.d/rvm.sh
 	echo "export rvm_max_time_flag=20" >> ~/.rvmrc
 	rvm install ruby-2.3.4
