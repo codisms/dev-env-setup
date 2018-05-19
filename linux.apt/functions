@@ -40,7 +40,7 @@ apt_get_install() {
 	else
 		APT_GET=DOWNLOADBEFORE=no apt-fast
 	fi
-	retry_long $SUDO DEBIAN_FRONTEND=noninteractive $APT_GET install -yq "$@"
+	echo retry_long $SUDO DEBIAN_FRONTEND=noninteractive $APT_GET install -yq "$@"
 }
 
 apt_get_update() {
