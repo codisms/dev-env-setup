@@ -36,7 +36,7 @@ wait_for_apt() {
 
 apt_get_install() {
 	#wait_for_apt
-	retry_long $SUDO apt-get install -y "$@"
+	retry_long $SUDO DEBIAN_FRONTEND=noninteractive apt-get install -yq "$@"
 }
 
 apt_get_update() {
