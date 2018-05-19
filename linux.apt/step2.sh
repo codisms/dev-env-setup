@@ -131,7 +131,13 @@ installRuby() {
 	apt_get_update
 	apt_get_install rvm
 
-	su -c 'source /etc/profile.d/rvm.sh && rvm install ruby-2.3 && source /etc/profile.d/rvm.sh && gem install bundler'
+	echo "** ext"
+	exit
+
+	source /etc/profile.d/rvm.sh
+	rvm install ruby-2.3
+	source /etc/profile.d/rvm.sh
+	gem install bundler
 }
 
 setUpGoDirectories() {
