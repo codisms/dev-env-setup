@@ -133,9 +133,7 @@ installRuby() {
 	source /etc/profile.d/rvm.sh
 
 	echo "** $(which rvm) **"
-	cat /etc/profile.d/rvm.sh
-	echo "******************"
-	$SUDO rvm install ruby-2.3
+	rvm install ruby-2.3
 
 	echo "**1"
 	source /etc/profile.d/rvm.sh
