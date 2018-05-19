@@ -31,6 +31,9 @@ downloadRepos() {
 	cd ${MY_HOME}/.codisms
 	retry git submodule update --init --recursive
 
+	printSubHeader "Cloning db code..."
+	retry git clone https://bitbucket.org/codisms/db.git ${MY_HOME}/db
+
 	printSubHeader "Resetting permissions..."
 	resetPermissions
 }
@@ -93,17 +96,18 @@ installPackages() {
 installLanguages() {
 	installNode
 	installRuby
-	setUpGoDirectories
+	setUpGo
+
+	if [ ! -d ~/.cache/pip ]; then
+		mkdir -p ~/.cache/pip
+		chmod 775 ~/.cache/pip
+	else
+		chmod -R g+rw ~/.cache/pip
+		chmod -R o+r ~/.cache/pip
+	fi
 
 	# ** Don't do this
 	#printSubHeader "Updating pip..."
-	#if [ ! -d ~/.cache/pip ]; then
-	#	mkdir -p ~/.cache/pip
-	#	chmod 775 ~/.cache/pip
-	#else
-	#	chmod -R g+rw ~/.cache/pip
-	#	chmod -R o+r ~/.cache/pip
-	#fi
 	#pip install --upgrade pip
 }
 
@@ -142,11 +146,16 @@ installRuby() {
 	gem install bundler
 }
 
-setUpGoDirectories() {
+setUpGo() {
 	printSubHeader "Setting up Go directory structure..."
 	mkdir -p ${MY_HOME}/go/bin
 	mkdir -p ${MY_HOME}/go/pkg
 	mkdir -p ${MY_HOME}/go/src/github.com
+
+	printSubHeader "Downloading goimports..."
+	cd ${MY_HOME}/go
+	GOPATH=`pwd` /usr/local/go/bin/go get golang.org/x/tools/cmd/goimports
+	cd ${MY_HOME}
 }
 
 ############################################################################################################
