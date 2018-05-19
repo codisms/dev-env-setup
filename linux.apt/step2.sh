@@ -130,13 +130,8 @@ installRuby() {
 	apt_add_repository ppa:rael-gc/rvm
 	apt_get_update
 	apt_get_install rvm
-	newgrp rvm
-	source /etc/profile.d/rvm.sh
 
-	rvm install ruby-2.3
-
-	source /etc/profile.d/rvm.sh
-	gem install bundler
+	su -c 'source /etc/profile.d/rvm.sh && rvm install ruby-2.3 && source /etc/profile.d/rvm.sh && gem install bundler'
 }
 
 setUpGoDirectories() {
