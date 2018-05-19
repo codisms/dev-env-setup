@@ -43,7 +43,7 @@ updateSystem() {
 
 updateSudoers() {
 	echo Looking for user $MY_USER in /etc/sudoers...
-	if ! grep -q $MY_USER /etc/sudoers; then
+	if ! $SUDO grep -q $MY_USER /etc/sudoers; then
 		echo "  Adding user to /etc/sudoers..."
 		echo "$MY_USER ALL=(ALL:ALL) NOPASSWD: ALL" | $SUDO EDITOR='tee -a' visudo > /dev/null
 	else
@@ -73,7 +73,7 @@ if [ -f /etc/sudoers ]; then
 	updateSudoers
 fi
 
-#scheduleForNextRun "${MY_HOME}/.setup/linux.apt/step2.sh"
+scheduleForNextRun "${MY_HOME}/.setup/linux.apt/step2.sh"
 
 # This is a Joyent thing; not sure if it's needed
 #printHeader "Updating file system..."
