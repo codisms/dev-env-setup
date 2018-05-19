@@ -38,9 +38,9 @@ apt_get_install() {
 	if [ "$(which apt-fast 2> /dev/null)" == "" ]; then
 		APT_GET=apt-get
 	else
-		APT_GET=DOWNLOADBEFORE=no apt-fast
+		APT_GET=apt-fast
 	fi
-	echo retry_long $SUDO DEBIAN_FRONTEND=noninteractive $APT_GET install -yq "$@"
+	retry_long $SUDO DEBIAN_FRONTEND=noninteractive $APT_GET install -yq "$@"
 }
 
 apt_get_update() {
