@@ -23,6 +23,8 @@ installAptFast() {
 	apt_add_repository ppa:apt-fast/stable
 	apt_get_update
 	apt_get_install apt-fast
+	mkdir -p ${MY_HOME}/.aria2/
+	echo "log-level=warn" >> ~/.aria2/input.conf
 }
 
 updateSystem() {
