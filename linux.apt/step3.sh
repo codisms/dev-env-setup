@@ -85,6 +85,7 @@ startMySql() {
 
 downloadCode() {
 	printHeader "Downloading code..." "dl-code"
+	cd ${MY_HOME}
 	${MY_HOME}/.codisms/get-code.sh
 }
 

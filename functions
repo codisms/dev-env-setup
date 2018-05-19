@@ -23,9 +23,9 @@ printSubHeader() {
 }
 
 resetPermissions() {
-	#printSubHeader "Reseeting permissions"
-	#$SUDO chown -R ${MY_USER}:${MY_USER} ${MY_HOME}
-	echo -e "\e[33mSkipping resetting of permissions\e[0m"
+	printSubHeader "Reseeting permissions"
+	$SUDO chown -R ${MY_USER}:${MY_USER} ${MY_HOME}
+	#echo -e "\e[33mSkipping resetting of permissions\e[0m"
 }
 
 scheduleForNextRun() {
