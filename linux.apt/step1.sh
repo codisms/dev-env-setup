@@ -20,7 +20,7 @@ setHostName() {
 # Updates
 
 installAptFast() {
-	add_apt_repository ppa:apt-fast/stable
+	apt_add_repository ppa:apt-fast/stable
 	apt_get_update
 	apt_get_install apt-fast
 }
