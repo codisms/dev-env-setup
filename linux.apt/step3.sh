@@ -9,7 +9,7 @@ cd "$( dirname "${BASH_SOURCE[0]}" )"
 # Installations
 
 installFonts() {
-	printHeader "Installing fonts...", "fonts"
+	printHeader "Installing fonts..." "fonts"
 	retry pip install --user powerline-status
 
 	## https://gist.github.com/renshuki/3cf3de6e7f00fa7e744a
@@ -30,7 +30,7 @@ postInstall() {
 }
 
 installPackages() {
-	printHeader "Installing packages...", "install-pkg"
+	printHeader "Installing packages..." "install-pkg"
 	installPostgres
 	installVim
 	installTmux
@@ -84,12 +84,12 @@ startMySql() {
 }
 
 downloadCode() {
-	printHeader "Downloading code...", "dl-code"
+	printHeader "Downloading code..." "dl-code"
 	${MY_HOME}/.codisms/get-code.sh
 }
 
 finalConfigurations() {
-	printHeader "Making final configuration changes...", "final-config"
+	printHeader "Making final configuration changes..." "final-config"
 	printSubHeader "Setting motd..."
 	[ -f /etc/motd ] && $SUDO mv /etc/motd /etc/motd.orig
 	$SUDO ln -s ${MY_HOME}/.codisms/motd /etc/motd
@@ -126,10 +126,10 @@ fi
 cd ${MY_HOME}/.codisms
 git checkout -- zshrc
 
-printHeader "Resetting home directory owner...", "reset-perm"
+printHeader "Resetting home directory owner..." "reset-perm"
 resetPermissions
 
-printHeader "Done.  Rebooting for the final time...", "reboot"
+printHeader "Done.  \e[5mRebooting\e[25m for the final time..." "reboot"
 # read -p 'Press [Enter] to continue...'
 $SUDO reboot
 

@@ -113,7 +113,7 @@ installLanguages() {
 }
 
 updatePip() {
-	printHeader "Setting up pip...", "pip"
+	printHeader "Setting up pip..." "pip"
 	if [ ! -d ~/.cache/pip ]; then
 		mkdir -p ~/.cache/pip
 		chmod 775 ~/.cache/pip
@@ -128,7 +128,7 @@ updatePip() {
 }
 
 installNode() {
-	printHeader "Installing Node.js...", "node"
+	printHeader "Installing Node.js..." "node"
 	curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 	apt_get_install nodejs build-essential
 
@@ -168,7 +168,7 @@ installRuby() {
 }
 
 setUpGo() {
-	printHeader "Setting up Go...", "go"
+	printHeader "Setting up Go..." "go"
 
 	printSubHeader "Setting up Go directory structure..."
 	mkdir -p ${MY_HOME}/go/bin
@@ -221,7 +221,7 @@ resetPermissions
 
 scheduleForNextRun "${MY_HOME}/.setup/linux.apt/step3.sh"
 
-printHeader "Finished step 2.  Rebooting...", "reboot"
+printHeader "Finished step 2.  \e[5mRebooting\e[25m..." "reboot"
 # read -p 'Press [Enter] to continue...'
 
 $SUDO reboot
