@@ -130,20 +130,21 @@ installNode() {
 }
 
 installRuby() {
+	printSubHeader "Installing Ruby..."
 	apt_get_install software-properties-common
 	#apt_add_repository ppa:rael-gc/rvm
 	#apt_get_update
 	#apt_get_install rvm
 	#source /etc/profile.d/rvm.sh
 
-	gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
+	retry gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
 	curl -sSL https://get.rvm.io | bash -s stable
 	source ${MY_HOME}/.rvm/scripts/rvm
 
-	rvm install ruby-2.3
+	retry rvm install ruby-2.3
 	#source /etc/profile.d/rvm.sh
 	source ${MY_HOME}/.rvm/scripts/rvm
-	gem install bundler
+	retry gem install bundler
 }
 
 setUpGo() {
