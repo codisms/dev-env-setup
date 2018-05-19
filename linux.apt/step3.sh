@@ -124,13 +124,16 @@ installPackages
 printHeader "Making final configuration changes..."
 finalConfigurations
 
-read -p "Are you sure? " -n 1 -r
+read -p "Download code? (y/n) " -n 1 -r
 echo
-if [[ $REPLY =~ ^[Yy]$ ]]
+if [[ $REPLY =~ ^[Yy]$ ]]; then
 	printHeader "Downloading code..."
 	downloadCode
 	rsync -avzhe ssh --progress dev.codisms.com:/root/ /root/
 fi
+
+cd ${MY_HOME}/.codisms
+git checkout -- zshrc
 
 printHeader "Resetting home directory owner..."
 resetPermissions
