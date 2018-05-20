@@ -122,6 +122,7 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
 	#rsync -avzhe ssh --progress dev.codisms.com:/root/ /root/
 fi
 '
+chmod +x ${MY_HOME}/.onstart
 
 cd ${MY_HOME}/.codisms
 git checkout -- zshrc
