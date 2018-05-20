@@ -83,12 +83,6 @@ startMySql() {
 	$SUDO systemctl enable mysqld.service
 }
 
-downloadCode() {
-	printHeader "Downloading code..." "dl-code"
-	cd ${MY_HOME}
-	${MY_HOME}/.codisms/get-code.sh
-}
-
 finalConfigurations() {
 	printHeader "Making final configuration changes..." "final-config"
 	printSubHeader "Setting motd..."
@@ -117,12 +111,17 @@ installFonts
 installPackages
 finalConfigurations
 
-read -p "Download code? (y/n) " -n 1 -r
+scheduleForNextRun '#!/bin/bash
+
+read -p "Download pre-defined code projects? (y/n) " -n 1 -r
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
-	downloadCode
+	printHeader "Downloading code..." "dl-code"
+	cd ~
+	~/.codisms/get-code.sh
 	#rsync -avzhe ssh --progress dev.codisms.com:/root/ /root/
 fi
+'
 
 cd ${MY_HOME}/.codisms
 git checkout -- zshrc

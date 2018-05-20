@@ -30,7 +30,7 @@ resetPermissions() {
 
 scheduleForNextRun() {
 	echo "Scheduling $1 to run at ${MY_HOME}/.onstart..."
-	echo $1 > ${MY_HOME}/.onstart
+	echo "$1" > ${MY_HOME}/.onstart
 }
 
 failRetry() {
