@@ -182,7 +182,9 @@ installGo() {
 	curl https://dl.google.com/go/go1.10.2.linux-amd64.tar.gz > /tmp/go.tar.gz
 	$SUDO tar -C /usr/local -xzf /tmp/go.tar.gz
 	export PATH=${PATH}:/usr/local/go/bin
+	export GOPATH=${MY_HOME}/go
 	echo "export PATH=\${PATH}:/usr/local/go/bin" >> ~/.profile
+	echo "export GOPATH=${MY_HOME}/go" >> ~/.profile
 
 	printSubHeader "Setting up Go directory structure..."
 	mkdir -p ${MY_HOME}/go/bin
