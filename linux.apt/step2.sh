@@ -128,20 +128,24 @@ updatePip() {
 
 installNode() {
 	printHeader "Installing Node.js..." "node"
-	curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
-	apt_get_install nodejs build-essential
+	curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
+	export NVM_DIR="$HOME/.nvm"
+	#[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
-	#echo "Updating npm..."
-	#npm install --quiet --loglevel warn -g npm > /dev/null
+	#curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+	#apt_get_install nodejs build-essential
 
-	# workarounds...
-	#mkdir -p ~/.node-gyp/8.9.1
-	#mkdir -p /usr/lib/node_modules/@angular/cli/node_modules/node-sass/vendor
+	##echo "Updating npm..."
+	##npm install --quiet --loglevel warn -g npm > /dev/null
 
-	printSubHeader "Installing tools..."
-	$SUDO npm install --quiet --loglevel warn -g grunt-cli gulp-cli nodemon bower json http-server nodemon jshint eslint typescript > /dev/null
-	$SUDO npm install --quiet --unsafe-perm --loglevel warn -g @angular/cli > /dev/null
-	$SUDO npm install --quiet --loglevel warn -g ionic > /dev/null
+	## workarounds...
+	##mkdir -p ~/.node-gyp/8.9.1
+	##mkdir -p /usr/lib/node_modules/@angular/cli/node_modules/node-sass/vendor
+
+	#printSubHeader "Installing tools..."
+	#$SUDO npm install --quiet --loglevel warn -g grunt-cli gulp-cli nodemon bower json http-server nodemon jshint eslint typescript > /dev/null
+	#$SUDO npm install --quiet --unsafe-perm --loglevel warn -g @angular/cli > /dev/null
+	#$SUDO npm install --quiet --loglevel warn -g ionic > /dev/null
 }
 
 installRuby() {
