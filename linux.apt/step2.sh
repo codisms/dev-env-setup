@@ -70,7 +70,6 @@ installPackages() {
 		libncurses-dev tcl-dev \
 		curl libcurl4-openssl-dev clang ctags \
 		python python-dev python-pip python3 python3-dev python3-pip \
-		golang golang-golang-x-tools \
 		perl libperl-dev perl-modules \
 		libevent-2* libevent-dev \
 		libdbd-odbc-perl freetds-bin freetds-common freetds-dev
@@ -108,7 +107,7 @@ installLanguages() {
 
 	installNode
 	installRuby
-	setUpGo
+	installGo
 	updatePip
 }
 
@@ -167,18 +166,23 @@ installRuby() {
 	retry gem install bundler
 }
 
-setUpGo() {
+installGo() {
 	printHeader "Setting up Go..." "go"
+
+	curl https://dl.google.com/go/go1.10.2.linux-amd64.tar.gz > /tmp/go.tar.gz
+	$SUDO tar -C /usr/local -xzf /tmp/go.tar.gz
+	export PATH=$PATH:/usr/local/go/bin
+	echo "export PATH=\$PATH:/usr/local/go/bin" >> ~/.profile
 
 	printSubHeader "Setting up Go directory structure..."
 	mkdir -p ${MY_HOME}/go/bin
 	mkdir -p ${MY_HOME}/go/pkg
 	mkdir -p ${MY_HOME}/go/src/github.com
 
-	#printSubHeader "Downloading goimports..."
-	#cd ${MY_HOME}/go
-	#GOPATH=`pwd` go get golang.org/x/tools/cmd/goimports
-	#cd ${MY_HOME}
+	printSubHeader "Downloading goimports..."
+	cd ${MY_HOME}/go
+	GOPATH=`pwd` go get golang.org/x/tools/cmd/goimports
+	cd ${MY_HOME}
 }
 
 ############################################################################################################

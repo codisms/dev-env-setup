@@ -83,6 +83,11 @@ startMySql() {
 	$SUDO systemctl enable mysqld.service
 }
 
+finalCleanup() {
+	printHeader "Removing unused packages...", "autoremove"
+	apt_get_autoremove
+}
+
 finalConfigurations() {
 	printHeader "Making final configuration changes..." "final-config"
 	printSubHeader "Setting motd..."
