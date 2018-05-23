@@ -48,6 +48,10 @@ apt_get_update() {
 	retry_long $SUDO apt-get upgrade
 }
 
+apt_get_autoremove() {
+	retry_long $SUDO apt-get autoremove
+}
+
 apt_add_repository() {
 	retry_long $SUDO add-apt-repository -y "$1"
 	apt_get_update
