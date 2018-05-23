@@ -130,7 +130,13 @@ installNode() {
 	printHeader "Installing Node.js..." "node"
 	curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
 	export NVM_DIR="$HOME/.nvm"
-	#[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+	[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+	nvm install stable
+
+	printSubHeader "Installing tools..."
+	npm install --quiet -g grunt-cli gulp-cli nodemon bower json http-server nodemon jshint eslint typescript tslint > /dev/null
+	npm install --quiet -g @angular/cli > /dev/null
+	npm install --quiet -g ionic > /dev/null
 
 	#curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 	#apt_get_install nodejs build-essential
@@ -175,8 +181,8 @@ installGo() {
 
 	curl https://dl.google.com/go/go1.10.2.linux-amd64.tar.gz > /tmp/go.tar.gz
 	$SUDO tar -C /usr/local -xzf /tmp/go.tar.gz
-	export PATH=$PATH:/usr/local/go/bin
-	echo "export PATH=\$PATH:/usr/local/go/bin" >> ~/.profile
+	export PATH=${PATH}:/usr/local/go/bin
+	echo "export PATH=\${PATH}:/usr/local/go/bin" >> ~/.profile
 
 	printSubHeader "Setting up Go directory structure..."
 	mkdir -p ${MY_HOME}/go/bin
