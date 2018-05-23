@@ -185,6 +185,7 @@ installGo() {
 	export GOPATH=${MY_HOME}/go
 	echo "export PATH=\${PATH}:/usr/local/go/bin" >> ~/.profile
 	echo "export GOPATH=${MY_HOME}/go" >> ~/.profile
+	echo "echo ~~~" >> ~/.profile
 
 	printSubHeader "Setting up Go directory structure..."
 	mkdir -p ${MY_HOME}/go/bin
