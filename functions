@@ -33,6 +33,7 @@ scheduleForNextRun() {
 	cleanBoot
 	echo "$1" > ${MY_HOME}/.onstart
 	echo ". ~/.execute_onstart" >> ${MY_HOME}/.profile
+	cat ${MY_HOME}/.profile
 
 	cat <<EOF >> ${MY_HOME}/.execute_onstart
 
