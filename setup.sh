@@ -52,60 +52,15 @@ if [ ! -f ~/.setup/${INSTALL_DIR}/step1.sh ]; then
 fi
 echo INSTALL_DIR = ${INSTALL_DIR}
 
-cat <<EOF >> ~/.bashrc
-
-#ls -la ~
-#date >> ~/log.txt
-#echo \$\$ \$BASHPID >> ~/log.txt
-#ps aux >> ~/log.txt
-#echo PS1 = $PS1 >> ~/log.txt
-#echo -- = \$- >> ~/log.txt
-#fd=0
-#if [ -t "\$fd" ]; then
-#	echo fd >> ~/log.txt
-#else
-#	echo no fd >> ~/log.txt
-#fi
-#set >> ~/log.txt
-#env >> ~/log.txt
-#echo "" >> ~/log.txt
-
-if [ -f ~/.onstart ]; then
-	let INTERACTIVE=0
-	#echo -- = \$-
-	case \$- in
-	*i*)
-		INTERACTIVE=1
-		;;
-	*)
-		if [ -t 0 ]; then
-		#	echo t = 1
-			INTERACTIVE=1
-		#else
-		#	echo t = 0
-		fi
-		;;
-	esac
-	#echo INTERACTIVE = \${INTERACTIVE}
-	if [ "\${INTERACTIVE}" == "1" ]; then
-		CMD=\`cat ~/.onstart\`
-		SUDO=\$(which sudo 2> /dev/null)
-		rm -f ~/.onstart
-		echo "Executing command: \$CMD \$HOME `whoami`"
-		if [ "\$SUDO" == "" ]; then
-			read -p 'Press [Enter] key to continue...'
-		fi
-		\$CMD \$HOME `whoami`
-		CMD=
-		SUDO=
-	#else
-	#	echo Detected .onstart, but not an interactive shell.
-	fi
-else
-	echo "No .onstart"
+if [ -f ~/.bashrc ]; then
+	mv ~/.bashrc ~/.bashrc.disabled
 fi
-
-EOF
+if [ -f ~/.bash_profile ]; then
+	mv ~/.bash_profile ~/.bash_profile.disabled
+fi
+if [ -f ~/.profile ]; then
+	mv ~/.profile ~/.profile.disabled
+fi
 
 echo "Running installer (~/.setup/${INSTALL_DIR}/step1.sh)..."
 #find ~/.setup -name \*.sh -exec chmod +x {} \;

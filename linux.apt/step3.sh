@@ -135,6 +135,11 @@ git checkout -- zshrc
 printHeader "Resetting home directory owner..." "reset-perm"
 resetPermissions
 
+cleanBoot
+if [ -f ${MY_HOME}/.execute_onstart ]; then
+	rm ${MY_HOME}/.execute_onstart
+fi
+
 printHeader "Done.  \e[5mRebooting\e[25m for the final time..." "reboot"
 # read -p 'Press [Enter] to continue...'
 $SUDO reboot
