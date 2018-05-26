@@ -144,6 +144,8 @@ if [ -f ${MY_HOME}/.execute_onstart ]; then
 fi
 
 printHeader "Done.  \e[5mRebooting\e[25m for the final time..." "reboot"
+echo -ne '\007'
 # read -p 'Press [Enter] to continue...'
+
 $SUDO reboot
 

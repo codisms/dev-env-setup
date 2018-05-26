@@ -88,5 +88,7 @@ scheduleForNextRun "${MY_HOME}/.setup/linux.apt/step2.sh"
 #updateFileSystem
 
 printHeader "Finished step 1.  \e[5mRebooting\e[25m..." "reboot"
+echo -ne '\007'
 # read -p 'Press [Enter] to continue...'
+
 $SUDO reboot
