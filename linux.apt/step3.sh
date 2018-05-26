@@ -56,7 +56,7 @@ installPostgres() {
 installVim() {
 	printSubHeader "Installing vim..."
 	echo "~~~ PATH = ${PATH}"
-	$SUDO ${MY_HOME}/.codisms/bin/install-vim --pwd=${MY_HOME} --build
+	$SUDO PATH="${PATH}" ${MY_HOME}/.codisms/bin/install-vim --pwd=${MY_HOME} --build
 }
 
 installTmux() {
@@ -64,7 +64,7 @@ installTmux() {
 	apt_get_install libevent-2* libevent-dev
 
 	printSubHeader "Installing tmux..."
-	$SUDO ${MY_HOME}/.codisms/bin/install-tmux --version=2.6 --pwd=${MY_HOME} --build
+	$SUDO PATH="${PATH}" ${MY_HOME}/.codisms/bin/install-tmux --version=2.6 --pwd=${MY_HOME} --build
 }
 
 startServices() {
