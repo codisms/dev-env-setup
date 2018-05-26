@@ -142,6 +142,11 @@ cleanBoot() {
 	sed -i '/\. ~\/\.execute_onstart/d' ${MY_HOME}/.profile
 }
 
+reloadEnvironment() {
+	source /etc/profile
+	source ${MY_HOME}/.profile
+}
+
 resetPermissions
 cleanBoot
 

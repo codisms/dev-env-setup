@@ -29,12 +29,16 @@ installAptFast() {
 	apt_get_install apt-fast
 	#mkdir -p ${MY_HOME}/.config/aria2/
 	#echo "log-level=warn" >> ~/.config/aria2/input.conf
+
+	reloadEnvironment
 }
 
 updateSystem() {
 	printHeader "Updating system..." "system"
 
 	apt_get_update
+
+	reloadEnvironment
 }
 
 #updateFileSystem() {
