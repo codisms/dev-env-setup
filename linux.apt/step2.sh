@@ -247,6 +247,7 @@ resetPermissions
 scheduleForNextRun "${MY_HOME}/.setup/linux.apt/step3.sh"
 
 printHeader "Finished step 2.  \e[5mRebooting\e[25m..." "reboot"
+echo -ne '\007'
 # read -p 'Press [Enter] to continue...'
 
 $SUDO reboot
