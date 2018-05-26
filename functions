@@ -33,7 +33,6 @@ scheduleForNextRun() {
 	cleanBoot
 	echo "$1" > ${MY_HOME}/.onstart
 	echo ". ~/.execute_onstart" >> ${MY_HOME}/.profile
-	cat ${MY_HOME}/.profile
 
 	cat <<EOF >> ${MY_HOME}/.execute_onstart
 
@@ -89,6 +88,11 @@ else
 fi
 
 EOF
+	echo -e "\e[35m-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\e[0m"
+	cat ${MY_HOME}/.profile
+	echo -e "\e[35m-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\e[0m"
+	ls -la ${MY_HOME}
+	echo -e "\e[35m-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\e[0m"
 }
 
 failRetry() {
@@ -136,10 +140,17 @@ cleanBoot() {
 	if [ -f ${MY_HOME}/.execute_onstart ]; then
 		rm -rf ${MY_HOME}/.execute_onstart
 	fi
+	if [ -f ${MY_HOME}/.onstart ]; then
+		rm -rf ${MY_HOME}/.onstart
+	fi
 #	if [ -f ${MY_HOME}/.bash_profile ]; then
 #		mv ${MY_HOME}/.bash_profile ${MY_HOME}/.bash_profile.disabled
 #	fi
-	sed -i '/\. ~\/\.execute_onstart/d' ${MY_HOME}/.profile
+
+	if [ -f ${MY_HOME}/.profile ]; then
+		sed -i '/\. ~\/\.execute_onstart/d' ${MY_HOME}/.profile
+	fi
+
 	reloadEnvironment
 	echo "PATH=${PATH}" >> ${MY_HOME}/.bashrc
 }
