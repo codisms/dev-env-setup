@@ -152,7 +152,8 @@ cleanBoot() {
 	fi
 
 	reloadEnvironment
-	echo "PATH=${PATH}" >> ${MY_HOME}/.bashrc
+	#echo "PATH=${PATH}" >> ${MY_HOME}/.bashrc
+	echo ". ${MY_HOME}/.profile" > ${MY_HOME}/.bashrc
 }
 
 reloadEnvironment() {
