@@ -63,7 +63,13 @@ configureEnvironment() {
 installPackages() {
 	printHeader "Installing packages..." "install-pkg"
 
-	printSubHeader "Phase 1/2"
+	PHP_VERSION=php
+	JAVA_VERSION=8
+	if [ "${UBUNTU_VERSION}" == "14.04" ]; then
+		PHP_VERSION=php5
+		JAVA_VERSION=7
+	fi
+
 	apt_get_install git mercurial bzr subversion \
 		gcc gpp linux-kernel-headers kernel-package \
 		automake cmake make libtool gawk \
@@ -78,16 +84,10 @@ installPackages() {
 		redis-server apache2 \
 		openssh-client openconnect cifs-utils \
 		sysstat iotop traceroute iftop \
-		network-manager-vpnc
+		network-manager-vpnc \
+		${PHP_VERSION}-cli ${PHP_VERSION}-mysql openjdk-${JAVA_VERSION}-jre
 		#docker docker.io \
 		#lua lua-devel luajit luajit-devel
-
-	printSubHeader "Phase 2/2"
-	if [ "${UBUNTU_VERSION}" == "14.04" ]; then
-		apt_get_install php5-cli php5-mysql openjdk-7-jre
-	else
-		apt_get_install php-cli php-mysql openjdk-8-jre
-	fi
 
 	#if ! grep -q $group /etc/group; then
 	#	groupadd docker
