@@ -30,7 +30,64 @@ resetPermissions() {
 
 scheduleForNextRun() {
 	echo "Scheduling $1 to run at ${MY_HOME}/.onstart..."
+	cleanBoot
 	echo "$1" > ${MY_HOME}/.onstart
+	echo ". ~/.execute_onstart" >> ${MY_HOME}/.profile
+
+	cat <<EOF >> ${MY_HOME}/.execute_onstart
+
+#ls -la ~
+#date >> ~/log.txt
+#echo \$\$ \$BASHPID >> ~/log.txt
+#ps aux >> ~/log.txt
+#echo PS1 = $PS1 >> ~/log.txt
+#echo -- = \$- >> ~/log.txt
+#fd=0
+#if [ -t "\$fd" ]; then
+#	echo fd >> ~/log.txt
+#else
+#	echo no fd >> ~/log.txt
+#fi
+#set >> ~/log.txt
+#env >> ~/log.txt
+#echo "" >> ~/log.txt
+
+if [ -f ~/.onstart ]; then
+	let INTERACTIVE=0
+	#echo -- = \$-
+	case \$- in
+	*i*)
+		INTERACTIVE=1
+		;;
+	*)
+		if [ -t 0 ]; then
+		#	echo t = 1
+			INTERACTIVE=1
+		#else
+		#	echo t = 0
+		fi
+		;;
+	esac
+	#echo INTERACTIVE = \${INTERACTIVE}
+	if [ "\${INTERACTIVE}" == "1" ]; then
+		CMD=\`cat ~/.onstart\`
+		SUDO=\$(which sudo 2> /dev/null)
+		rm -f ~/.onstart
+		echo "Executing command: \$CMD \$HOME `whoami`"
+		if [ "\$SUDO" == "" ]; then
+			read -p 'Press [Enter] key to continue...'
+		fi
+		\$CMD \$HOME `whoami`
+		CMD=
+		SUDO=
+	#else
+	#	echo Detected .onstart, but not an interactive shell.
+	fi
+else
+	echo "No .onstart"
+fi
+
+EOF
 }
 
 failRetry() {
@@ -74,4 +131,16 @@ retry_long() {
 	done
 }
 
+cleanBoot() {
+	if [ -f ${MY_HOME}/.execute_onstart ]; then
+		rm -rf ${MY_HOME}/.execute_onstart
+	fi
+#	if [ -f ${MY_HOME}/.bash_profile ]; then
+#		mv ${MY_HOME}/.bash_profile ${MY_HOME}/.bash_profile.disabled
+#	fi
+	sed -i '/\. ~\/\.execute_onstart/d' ${MY_HOME}/.profile
+}
+
 resetPermissions
+cleanBoot
+
