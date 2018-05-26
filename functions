@@ -140,6 +140,8 @@ cleanBoot() {
 #		mv ${MY_HOME}/.bash_profile ${MY_HOME}/.bash_profile.disabled
 #	fi
 	sed -i '/\. ~\/\.execute_onstart/d' ${MY_HOME}/.profile
+	reloadEnvironment
+	echo "PATH=${PATH}" >> ${MY_HOME}/.bashrc
 }
 
 reloadEnvironment() {
