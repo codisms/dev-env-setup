@@ -55,9 +55,6 @@ installPostgres() {
 
 installVim() {
 	printSubHeader "Installing vim..."
-	echo ~~~ PATH = ${PATH}
-	echo ~~~ GOROOT = ${GOROOT}
-	echo ~~~ GOPATH = ${GOPATH}
 	$SUDO ${MY_HOME}/.codisms/bin/install-vim --pwd=${MY_HOME} --build
 }
 
