@@ -93,6 +93,8 @@ installPackages() {
 	#	groupadd docker
 	#fi
 	#usermod -aG docker ${MY_USER}
+
+	reloadEnvironment
 }
 
 installLanguages() {
@@ -117,13 +119,16 @@ updatePip() {
 	# ** Don't do this
 	#printSubHeader "Updating pip..."
 	#pip install --upgrade pip
+
+	reloadEnvironment
 }
 
 installNode() {
 	printHeader "Installing Node.js..." "node"
 	curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
-	export NVM_DIR="$HOME/.nvm"
-	[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+	reloadEnvironment
+	#export NVM_DIR="$HOME/.nvm"
+	#[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 	nvm install stable
 
 	printSubHeader "Installing tools..."
@@ -145,6 +150,8 @@ installNode() {
 	#$SUDO npm install --quiet --loglevel warn -g grunt-cli gulp-cli nodemon bower json http-server nodemon jshint eslint typescript > /dev/null
 	#$SUDO npm install --quiet --unsafe-perm --loglevel warn -g @angular/cli > /dev/null
 	#$SUDO npm install --quiet --loglevel warn -g ionic > /dev/null
+
+	reloadEnvironment
 }
 
 installRuby() {
@@ -158,15 +165,19 @@ installRuby() {
 	printSubHeader "Downloading GPG keys..."
 	retry gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
 	curl -sSL https://get.rvm.io | bash -s stable
-	source ${MY_HOME}/.rvm/scripts/rvm
+	reloadEnvironment
+	#source ${MY_HOME}/.rvm/scripts/rvm
 
 	printSubHeader "Downloading and installying Ruby..."
 	retry rvm install ruby-2.3
 	#source /etc/profile.d/rvm.sh
-	source ${MY_HOME}/.rvm/scripts/rvm
+	#source ${MY_HOME}/.rvm/scripts/rvm
+	reloadEnvironment
 
 	printSubHeader "Running bundler..."
 	retry gem install bundler
+
+	reloadEnvironment
 }
 
 installGo() {
@@ -174,10 +185,11 @@ installGo() {
 
 	curl https://dl.google.com/go/go1.10.2.linux-amd64.tar.gz > /tmp/go.tar.gz
 	$SUDO tar -C /usr/local -xzf /tmp/go.tar.gz
-	export PATH=${PATH}:/usr/local/go/bin
-	export GOPATH=${MY_HOME}/go
+	#export PATH=${PATH}:/usr/local/go/bin
+	#export GOPATH=${MY_HOME}/go
 	echo "export PATH=\${PATH}:/usr/local/go/bin" >> ~/.profile
 	echo "export GOPATH=${MY_HOME}/go" >> ~/.profile
+	reloadEnvironment
 
 	printSubHeader "Setting up Go directory structure..."
 	mkdir -p ${MY_HOME}/go/bin
@@ -188,6 +200,8 @@ installGo() {
 	cd ${MY_HOME}/go
 	GOPATH=`pwd` go get golang.org/x/tools/cmd/goimports
 	cd ${MY_HOME}
+
+	reloadEnvironment
 }
 
 ############################################################################################################
@@ -216,6 +230,8 @@ downloadRepos
 configureEnvironment
 installPackages
 installLanguages
+
+reloadEnvironment
 
 # echo
 # echo
