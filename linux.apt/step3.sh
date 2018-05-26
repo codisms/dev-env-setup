@@ -113,6 +113,8 @@ finalConfigurations() {
 # BEGIN
 ############################################################################################################
 
+reloadEnvironment
+
 installFonts
 installPackages
 finalConfigurations
