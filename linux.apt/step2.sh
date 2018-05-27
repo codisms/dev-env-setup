@@ -252,4 +252,4 @@ reloadEnvironment
 #
 #$SUDO reboot
 
-source "${MY_HOME}/.setup/linux.apt/step3.sh"
+"${MY_HOME}/.setup/linux.apt/step3.sh"
