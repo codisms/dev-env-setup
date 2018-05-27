@@ -1,17 +1,11 @@
 #!/bin/bash
 
-echo 'step2.sh'
-
-echo '*1'
 #set -e
-echo '*2'
 cd "$( dirname "${BASH_SOURCE[0]}" )"
-echo '*3'
 
 #. ./functions
 resetPermissions
 cleanBoot
-echo '*4'
 
 downloadRepos() {
 	printHeader "Downloading repos..." "dl-repos"
@@ -235,7 +229,6 @@ downloadRepos
 #-----------------------------------------------------------------------------------------------------------
 # Do it!
 
-echo '*5'
 configureEnvironment
 installPackages
 installLanguages
@@ -261,7 +254,5 @@ reloadEnvironment
 #
 #$SUDO reboot
 
-echo '---'
 source "${MY_HOME}/.setup/linux.apt/step3.sh"
-echo '---'
 

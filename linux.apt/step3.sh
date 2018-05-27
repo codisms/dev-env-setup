@@ -1,7 +1,5 @@
 #!/bin/bash
 
-echo 'step3.sh'
-
 #set -e
 cd "$( dirname "${BASH_SOURCE[0]}" )"
 
@@ -59,7 +57,6 @@ installPostgres() {
 
 installVim() {
 	printSubHeader "Installing vim..."
-	echo "~~~ PATH = ${PATH}"
 	$SUDO PATH="${PATH}" ${MY_HOME}/.codisms/bin/install-vim --pwd=${MY_HOME} --build
 }
 
@@ -123,18 +120,18 @@ installFonts
 installPackages
 finalConfigurations
 
-scheduleForNextRun '#!/bin/bash
-
-read -p "Download pre-defined code projects? (y/n) " -n 1 -r
-echo
-if [[ $REPLY =~ ^[Yy]$ ]]; then
-	printHeader "Downloading code..." "dl-code"
-	cd ~
-	~/.codisms/get-code.sh
-	#rsync -avzhe ssh --progress dev.codisms.com:/root/ /root/
-fi
-'
-chmod +x ${MY_HOME}/.onstart
+#scheduleForNextRun '#!/bin/bash
+#
+#read -p "Download pre-defined code projects? (y/n) " -n 1 -r
+#echo
+#if [[ $REPLY =~ ^[Yy]$ ]]; then
+#	printHeader "Downloading code..." "dl-code"
+#	cd ~
+#	~/.codisms/get-code.sh
+#	#rsync -avzhe ssh --progress dev.codisms.com:/root/ /root/
+#fi
+#'
+#chmod +x ${MY_HOME}/.onstart
 
 cd ${MY_HOME}/.codisms
 git checkout -- zshrc
