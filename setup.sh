@@ -61,7 +61,7 @@ fi
 if [ -f ~/.profile ]; then
 	mv ~/.profile ~/.profile.disabled
 fi
-touch ~/.profile
+echo "PATH=\${PATH}:~/.local/bin" > ~/.profile
 
 echo "Running installer (~/.setup/${INSTALL_DIR}/step1.sh)..."
 #find ~/.setup -name \*.sh -exec chmod +x {} \;
