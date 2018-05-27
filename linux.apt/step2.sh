@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo 'step2.sh'
+
 set -e
 cd "$( dirname "${BASH_SOURCE[0]}" )"
 
@@ -252,4 +254,7 @@ reloadEnvironment
 #
 #$SUDO reboot
 
+echo '---'
 "${MY_HOME}/.setup/linux.apt/step3.sh"
+echo '---'
+
