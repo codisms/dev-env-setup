@@ -6,6 +6,8 @@ cd "$( dirname "${BASH_SOURCE[0]}" )"
 . ./functions
 
 checkLowMemory() {
+	printHeader "Checking memory requirements", "mem"
+
 	# https://unix.stackexchange.com/a/233287
 	#FREE_MEMORY=$(free | awk -v RS="" '{ print $10 / 1024; }' | bc)
 	FREE_MEMORY=$(cat /proc/meminfo | grep -e '\(Swap\|Mem\)Free' | awk -v RS="" '{ print $2 + $5; }' | bc)
@@ -19,7 +21,7 @@ checkLowMemory() {
 		sudo chmod 600 /var/swapfile 
 		sudo mkswap /var/swapfile 
 		sudo mv /etc/fstab /etc/fstab.bak
-		echo "/var/swapfile none swap defaults 0 0" >> /etc/fstab 
+		echo /var/swapfile none swap defaults 0 0 | sudo tee -a /etc/fstab > /dev/null
 		sudo swapon -a
 	fi
 }
