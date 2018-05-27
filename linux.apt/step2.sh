@@ -3,12 +3,14 @@
 echo 'step2.sh'
 
 echo '*1'
-set -e
+#set -e
 echo '*2'
 cd "$( dirname "${BASH_SOURCE[0]}" )"
 echo '*3'
 
-. ./functions
+#. ./functions
+resetPermissions
+cleanBoot
 echo '*4'
 
 downloadRepos() {
