@@ -81,14 +81,16 @@ if [ -f /etc/sudoers ]; then
 	updateSudoers
 fi
 
-scheduleForNextRun "${MY_HOME}/.setup/linux.apt/step2.sh"
+#scheduleForNextRun "${MY_HOME}/.setup/linux.apt/step2.sh"
+#
+## This is a Joyent thing; not sure if it's needed
+##printHeader "Updating file system..."
+##updateFileSystem
+#
+#printHeader "Finished step 1.  \e[5mRebooting\e[25m..." "reboot"
+#echo -ne '\007'
+## read -p 'Press [Enter] to continue...'
+#
+#$SUDO reboot
 
-# This is a Joyent thing; not sure if it's needed
-#printHeader "Updating file system..."
-#updateFileSystem
-
-printHeader "Finished step 1.  \e[5mRebooting\e[25m..." "reboot"
-echo -ne '\007'
-# read -p 'Press [Enter] to continue...'
-
-$SUDO reboot
+source "${MY_HOME}/.setup/linux.apt/step2.sh"

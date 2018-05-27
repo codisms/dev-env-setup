@@ -241,13 +241,15 @@ reloadEnvironment
 # echo
 # #read -p 'Press [Enter] to continue...'
 
-printHeader "Resetting home directory owner..." "reset-perm"
-resetPermissions
+#printHeader "Resetting home directory owner..." "reset-perm"
+#resetPermissions
+#
+#scheduleForNextRun "${MY_HOME}/.setup/linux.apt/step3.sh"
+#
+#printHeader "Finished step 2.  \e[5mRebooting\e[25m..." "reboot"
+#echo -ne '\007'
+## read -p 'Press [Enter] to continue...'
+#
+#$SUDO reboot
 
-scheduleForNextRun "${MY_HOME}/.setup/linux.apt/step3.sh"
-
-printHeader "Finished step 2.  \e[5mRebooting\e[25m..." "reboot"
-echo -ne '\007'
-# read -p 'Press [Enter] to continue...'
-
-$SUDO reboot
+source "${MY_HOME}/.setup/linux.apt/step3.sh"
