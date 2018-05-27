@@ -93,7 +93,5 @@ fi
 #
 #$SUDO reboot
 
-echo '--'
 source "${MY_HOME}/.setup/linux.apt/step2.sh"
-echo '--'
 
