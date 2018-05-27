@@ -5,6 +5,25 @@ cd "$( dirname "${BASH_SOURCE[0]}" )"
 
 . ./functions
 
+checkLowMemory() {
+	# https://unix.stackexchange.com/a/233287
+	#FREE_MEMORY=$(free | awk -v RS="" '{ print $10 / 1024; }' | bc)
+	FREE_MEMORY=$(cat /proc/meminfo | grep -e '\(Swap\|Mem\)Free' | awk -v RS="" '{ print $2 + $5; }' | bc)
+	echo FREE_MEMORY = ${FREE_MEMORY}
+	if [ $FREE_MEMORY -lt 1048576 ]; then
+		echo -e "\e[31;5mLow memory detected; expanding swap...\e[0m"
+
+		# https://serverfault.com/questions/218750/why-dont-ec2-ubuntu-images-have-swap/279632#279632
+		# https://www.computerhope.com/unix/swapon.htm
+		sudo dd if=/dev/zero of=/var/swapfile bs=1M count=2048 
+		sudo chmod 600 /var/swapfile 
+		sudo mkswap /var/swapfile 
+		sudo mv /etc/fstab /etc/fstab.bak
+		echo "/var/swapfile none swap defaults 0 0" >> /etc/fstab 
+		sudo swapon -a
+	fi
+}
+
 setHostName() {
 	printHeader "Setting host name..." "hostname"
 
@@ -74,6 +93,7 @@ if [ "$1" != "" ]; then
 	setHostName $1
 fi
 
+checkLowMemory
 installAptFast
 updateSystem
 
