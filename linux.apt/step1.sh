@@ -10,7 +10,7 @@ checkLowMemory() {
 
 	# https://unix.stackexchange.com/a/233287
 	#FREE_MEMORY=$(free | awk -v RS="" '{ print $10 / 1024; }' | bc)
-	FREE_MEMORY=$(cat /proc/meminfo | grep -e '\(Swap\|Mem\)Free' | awk -v RS="" '{ print $2 + $5; }' | bc)
+	FREE_MEMORY=$(cat /proc/meminfo | grep -e '\(Swap\|Mem\)Free' | awk -v RS="" '{ print $2 + $5; }')
 	echo FREE_MEMORY = ${FREE_MEMORY}
 	if [ $FREE_MEMORY -lt 1048576 ]; then
 		echo -e "\e[31;5mLow memory detected; expanding swap...\e[0m"
