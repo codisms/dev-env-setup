@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo 'step3.sh'
+
 set -e
 cd "$( dirname "${BASH_SOURCE[0]}" )"
 
