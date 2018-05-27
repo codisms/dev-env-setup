@@ -20,7 +20,7 @@ checkLowMemory() {
 		sudo dd if=/dev/zero of=/var/swapfile bs=1M count=2048 
 		sudo chmod 600 /var/swapfile 
 		sudo mkswap /var/swapfile 
-		sudo mv /etc/fstab /etc/fstab.bak
+		sudo cp /etc/fstab /etc/fstab.bak
 		echo /var/swapfile none swap defaults 0 0 | sudo tee -a /etc/fstab > /dev/null
 		sudo swapon -a
 	fi
