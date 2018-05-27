@@ -2,10 +2,12 @@
 
 echo 'step3.sh'
 
-set -e
+#set -e
 cd "$( dirname "${BASH_SOURCE[0]}" )"
 
-. ./functions
+#. ./functions
+resetPermissions
+cleanBoot
 
 #-----------------------------------------------------------------------------------------------------------
 # Installations
