@@ -24,6 +24,10 @@ installFonts() {
 	#fc-cache -vf ~/.fonts/
 }
 
+installAwsCli() {
+	retry pip install awscli --upgrade --user
+}
+
 postInstall() {
 	$SUDO chmod 755 ${MY_HOME}
 	[ -d ${MY_HOME}/web ] && chown -R apache:apache ${MY_HOME}/web
@@ -109,6 +113,9 @@ finalConfigurations() {
 	set -e
 }
 
+installTools() {
+	installAwsCli
+}
 
 ############################################################################################################
 # BEGIN
@@ -117,6 +124,7 @@ finalConfigurations() {
 reloadEnvironment
 
 installFonts
+installTools
 installPackages
 finalConfigurations
 
