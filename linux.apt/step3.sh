@@ -24,6 +24,17 @@ installFonts() {
 	#fc-cache -vf ~/.fonts/
 }
 
+installTools() {
+	installAwsCli
+	installCertbot
+}
+
+installCertbot() {
+	$SUDO apt_add_repository ppa:certbot/certbot
+	$SUDO apt_get_update
+	$SUDO apt_get_install python-certbot-apache python-certbot-nginx
+}
+
 installAwsCli() {
 	retry pip install awscli --upgrade --user
 }
@@ -111,10 +122,6 @@ finalConfigurations() {
 		echo "5 5 * * 1 ${MY_HOME}/.codisms/bin/crontab-weekly"; \
 		echo "15 5 1 * * ${MY_HOME}/.codisms/bin/crontab-monthly") | crontab -u ${MY_USER} -
 	set -e
-}
-
-installTools() {
-	installAwsCli
 }
 
 ############################################################################################################
