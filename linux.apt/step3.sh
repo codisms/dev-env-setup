@@ -44,7 +44,7 @@ postInstall() {
 	[ -d ${MY_HOME}/web ] && chown -R apache:apache ${MY_HOME}/web
 
 	printSubHeader "Configuring apache modules"
-	$SUDO a2enmod proxy proxy_http proxy_wstunnel rewrite auth_basic proxy_balancer proxy_html proxy_connect ssl xml2enc
+	$SUDO a2enmod proxy proxy_http proxy_wstunnel rewrite auth_basic proxy_balancer proxy_html proxy_connect ssl xml2enc substitute
 
 	startServices
 }
