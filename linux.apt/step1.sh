@@ -18,7 +18,7 @@ checkForSwap() {
 	echo MAIN_MEMORY = ${MAIN_MEMORY}
 	echo SWAP_MEMORY = ${SWAP_MEMORY}
 	echo FREE_MEMORY = ${FREE_MEMORY}
-	if [ $FREE_MEMORY -lt 1048576 ]; then
+	if [ $FREE_MEMORY -lt 4194304 ]; then
 		echo -e "\e[31;5mLow memory detected; expanding swap...\e[0m"
 		SWAP_NEEDED=1
 	else
@@ -31,7 +31,7 @@ checkForSwap() {
 	if [ $SWAP_NEEDED -eq 1 ]; then
 		# https://serverfault.com/questions/218750/why-dont-ec2-ubuntu-images-have-swap/279632#279632
 		# https://www.computerhope.com/unix/swapon.htm
-		sudo dd if=/dev/zero of=/var/swapfile bs=1M count=2048
+		sudo dd if=/dev/zero of=/var/swapfile bs=1M count=4196
 		sudo chmod 600 /var/swapfile
 		sudo mkswap /var/swapfile
 		sudo cp /etc/fstab /etc/fstab.bak
