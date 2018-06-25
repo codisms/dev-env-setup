@@ -30,9 +30,9 @@ installTools() {
 }
 
 installCertbot() {
-	$SUDO apt_add_repository ppa:certbot/certbot
-	$SUDO apt_get_update
-	$SUDO apt_get_install python-certbot-apache python-certbot-nginx
+	apt_add_repository ppa:certbot/certbot
+	apt_get_update
+	apt_get_install python-certbot-apache python-certbot-nginx
 }
 
 installAwsCli() {
