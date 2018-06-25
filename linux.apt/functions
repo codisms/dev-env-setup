@@ -45,7 +45,7 @@ apt_get_install() {
 
 apt_get_update() {
 	retry_long $SUDO apt-get update
-	retry_long $SUDO apt-get upgrade
+	retry_long $SUDO apt-get upgrade -y
 }
 
 apt_get_autoremove() {
