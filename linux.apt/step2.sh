@@ -56,6 +56,7 @@ configureEnvironment() {
 	ln -s ${MY_HOME}/.codisms/ctags ${MY_HOME}/.ctags
 	ln -s ${MY_HOME}/.codisms/pgpass ${MY_HOME}/.pgpass
 	ln -s ${MY_HOME}/.codisms/eslintrc ${MY_HOME}/.eslintrc
+	ln -s ${MY_HOME}/.codisms/editorconfig ${MY_HOME}/.editorconfig
 	chmod 600 ${MY_HOME}/.pgpass
 	chmod 600 ${MY_HOME}/.codisms/pgpass
 }
