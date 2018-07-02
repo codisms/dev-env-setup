@@ -31,12 +31,12 @@ checkForSwap() {
 	if [ $SWAP_NEEDED -eq 1 ]; then
 		# https://serverfault.com/questions/218750/why-dont-ec2-ubuntu-images-have-swap/279632#279632
 		# https://www.computerhope.com/unix/swapon.htm
-		sudo dd if=/dev/zero of=/var/swapfile bs=1M count=4196
-		sudo chmod 600 /var/swapfile
-		sudo mkswap /var/swapfile
-		sudo cp /etc/fstab /etc/fstab.bak
-		echo /var/swapfile none swap defaults 0 0 | sudo tee -a /etc/fstab > /dev/null
-		sudo swapon -a
+		$SUDO dd if=/dev/zero of=/var/swapfile bs=1M count=4196
+		$SUDO chmod 600 /var/swapfile
+		$SUDO mkswap /var/swapfile
+		$SUDO cp /etc/fstab /etc/fstab.bak
+		echo /var/swapfile none swap defaults 0 0 | $SUDO tee -a /etc/fstab > /dev/null
+		$SUDO swapon -a
 	fi
 }
 
