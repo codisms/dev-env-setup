@@ -5,6 +5,10 @@ cd "$( dirname "${BASH_SOURCE[0]}" )"
 
 . ./functions
 
+if [ "$(which add-apt-repository 2> /dev/null)" == "" ]; then
+	$SUDO apt-get install software-properties-common python-software-properties
+fi
+
 checkForSwap() {
 	printHeader "Checking memory requirements", "mem"
 
