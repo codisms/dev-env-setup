@@ -5,10 +5,6 @@ cd "$( dirname "${BASH_SOURCE[0]}" )"
 
 . ./functions
 
-if [ "$(which add-apt-repository 2> /dev/null)" == "" ]; then
-	$SUDO apt-get install software-properties-common python-software-properties
-fi
-
 checkForSwap() {
 	printHeader "Checking memory requirements", "mem"
 
@@ -74,6 +70,10 @@ installAptFast() {
 
 updateSystem() {
 	printHeader "Updating system..." "system"
+
+	export LC_ALL="en_US.UTF-8"
+	export LC_CTYPE="en_US.UTF-8"
+	retry_long $SUDO dpkg-reconfigure locales
 
 	apt_get_update
 
