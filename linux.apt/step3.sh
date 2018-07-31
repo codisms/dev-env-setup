@@ -57,6 +57,7 @@ installPackages() {
 	installPostgres
 	installVim
 	installTmux
+	installChrome
 
 	postInstall
 }
@@ -78,7 +79,7 @@ installPostgres() {
 
 installVim() {
 	printSubHeader "Installing vim..."
-	$SUDO PATH="${PATH}" ${MY_HOME}/.codisms/bin/install-vim --pwd=${MY_HOME} --build
+	PATH="${PATH}" ${MY_HOME}/.codisms/bin/install-vim --pwd=${MY_HOME} --build
 }
 
 installTmux() {
@@ -86,7 +87,12 @@ installTmux() {
 	apt_get_install libevent-2* libevent-dev
 
 	printSubHeader "Installing tmux..."
-	$SUDO PATH="${PATH}" ${MY_HOME}/.codisms/bin/install-tmux --version=2.6 --pwd=${MY_HOME} --build
+	PATH="${PATH}" ${MY_HOME}/.codisms/bin/install-tmux --version=2.6 --pwd=${MY_HOME} --build
+}
+
+installChrome() {
+	printSubHeader "Installing Chrome..."
+	PATH="${PATH}" ${MY_HOME}/.codisms/bin/install-chrome
 }
 
 startServices() {
