@@ -138,7 +138,7 @@ installNode() {
 	printSubHeader "Installing tools..."
 	npm install --quiet -g npm > /dev/null
 	npm install --quiet -g nodemon \
-		grunt-cli gulp-cli webpack @angular/cli ionic bower \
+		grunt-cli gulp-cli webpack @angular/cli ionic bower webpack-bundle-analyzer \
 		jshint eslint typescript tslint \
 		json http-server pm2
 
