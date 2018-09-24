@@ -31,12 +31,12 @@ checkForSwap() {
 	if [ $SWAP_NEEDED -eq 1 ]; then
 		# https://serverfault.com/questions/218750/why-dont-ec2-ubuntu-images-have-swap/279632#279632
 		# https://www.computerhope.com/unix/swapon.htm
-		sudo dd if=/dev/zero of=/var/swapfile bs=1M count=4196
-		sudo chmod 600 /var/swapfile
-		sudo mkswap /var/swapfile
-		sudo cp /etc/fstab /etc/fstab.bak
-		echo /var/swapfile none swap defaults 0 0 | sudo tee -a /etc/fstab > /dev/null
-		sudo swapon -a
+		$SUDO dd if=/dev/zero of=/var/swapfile bs=1M count=4196
+		$SUDO chmod 600 /var/swapfile
+		$SUDO mkswap /var/swapfile
+		$SUDO cp /etc/fstab /etc/fstab.bak
+		echo /var/swapfile none swap defaults 0 0 | $SUDO tee -a /etc/fstab > /dev/null
+		$SUDO swapon -a
 	fi
 }
 
@@ -66,6 +66,17 @@ installAptFast() {
 	#echo "log-level=warn" >> ~/.config/aria2/input.conf
 
 	reloadEnvironment
+}
+
+fixLocale() {
+	if [ "$LC_CTYPE" == "" ] || [ "$LC_ALL" == "" ]; then
+		printHeader "Fixing locales...", "locale"
+
+		#export LC_ALL="en_US.UTF-8"
+		#export LC_CTYPE="en_US.UTF-8"
+		#retry_long $SUDO dpkg-reconfigure locales
+		apt_get_install locales language-pack-en
+	fi
 }
 
 updateSystem() {
@@ -109,6 +120,7 @@ if [ "$1" != "" ]; then
 	setHostName $1
 fi
 
+fixLocale
 checkForSwap
 installAptFast
 updateSystem
