@@ -136,9 +136,11 @@ installNode() {
 	nvm install stable
 
 	printSubHeader "Installing tools..."
-	npm install --quiet -g grunt-cli gulp-cli nodemon bower json http-server nodemon jshint eslint typescript tslint > /dev/null
-	npm install --quiet -g @angular/cli > /dev/null
-	npm install --quiet -g ionic > /dev/null
+	npm install --quiet -g npm > /dev/null
+	npm install --quiet -g nodemon \
+		grunt-cli gulp-cli webpack @angular/cli ionic bower webpack-bundle-analyzer \
+		jshint eslint typescript tslint \
+		json http-server pm2
 
 	#curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 	#apt_get_install nodejs build-essential
