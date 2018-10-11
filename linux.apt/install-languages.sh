@@ -95,7 +95,7 @@ installGo() {
 	printSubHeader "Downloading goimports..."
 	cd ${MY_HOME}/go
 	GOPATH=`pwd` go get golang.org/x/tools/cmd/goimports
-	cd ${MY_HOME}
+	cd ${SCRIPT_FOLDER}
 
 	reloadEnvironment
 }
