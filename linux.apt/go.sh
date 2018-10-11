@@ -9,7 +9,7 @@ if [ "$1" != "" ]; then
 	source ./set-host-name.sh $1
 fi
 
-source ./fix-local.sh
+source ./fix-locale.sh
 source ./check-for-swap.sh
 source ./install-ap-fast.sh
 source ./update-system.sh
