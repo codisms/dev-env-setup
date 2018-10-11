@@ -46,7 +46,7 @@ if [ "${INSTALL_DIR}" == "" ]; then
 	echo "Unknown operating system: $OSTYPE"
 	exit
 fi
-if [ ! -f ~/.setup/${INSTALL_DIR}/step1.sh ]; then
+if [ ! -f ~/.setup/${INSTALL_DIR}/go.sh ]; then
 	echo "Setup script not found: ${INSTALL_DIR}"
 	exit
 fi
@@ -63,7 +63,7 @@ if [ -f ~/.profile ]; then
 fi
 echo "PATH=\${PATH}:~/.local/bin" > ~/.profile
 
-echo "Running installer (~/.setup/${INSTALL_DIR}/step1.sh)..."
+echo "Running installer (~/.setup/${INSTALL_DIR}/go.sh)..."
 #find ~/.setup -name \*.sh -exec chmod +x {} \;
-~/.setup/${INSTALL_DIR}/step1.sh $HOME `whoami` $1
+~/.setup/${INSTALL_DIR}/go.sh $HOME `whoami` $1
 
