@@ -11,7 +11,7 @@ fi
 
 source ./fix-locale.sh
 source ./check-for-swap.sh
-source ./install-ap-fast.sh
+source ./install-apt-fast.sh
 source ./update-system.sh
 
 if [ -f /etc/sudoers ]; then
@@ -36,7 +36,7 @@ fi
 
 source ./configure-environment.sh
 source ./install-packages.sh
-source ./install-languages
+source ./install-languages.sh
 
 reloadEnvironment
 resetPermissions
