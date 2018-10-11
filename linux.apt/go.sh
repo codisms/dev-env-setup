@@ -34,7 +34,7 @@ if [ ! -f ${MY_HOME}/.ssh/id_rsa ]; then
 	source ./generate-ssh-key.sh
 fi
 
-source ./configure-environment.sh
+source ./config-environment.sh
 source ./install-packages.sh
 source ./install-languages.sh
 
