@@ -1,10 +1,3 @@
-printHeader "Installing packages..." "install-pkg"
-installPostgres
-installVim
-installTmux
-installChrome
-
-postInstall
 
 postInstall() {
 	$SUDO chmod 755 ${MY_HOME}
@@ -60,3 +53,11 @@ startMySql() {
 	$SUDO systemctl start mysqld.service
 	$SUDO systemctl enable mysqld.service
 }
+
+printHeader "Installing packages..." "install-pkg"
+installPostgres
+installVim
+installTmux
+installChrome
+
+postInstall
