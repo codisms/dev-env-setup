@@ -1,7 +1,9 @@
 #!/bin/bash
 
 set -e
-cd "$( dirname "${BASH_SOURCE[0]}" )"
+SCRIPT_FOLDER="$( dirname "${BASH_SOURCE[0]}" )"
+echo "SCRIPT_FOLDER = ${SCRIPT_FOLDER}"
+cd ${SCRIPT_FOLDER}
 
 . ./functions
 

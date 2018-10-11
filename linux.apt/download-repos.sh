@@ -28,7 +28,7 @@ retry git submodule update --init --recursive
 printSubHeader "Cloning db code..."
 retry git clone https://bitbucket.org/codisms/db.git ${MY_HOME}/db
 
-cd "$( dirname "${BASH_SOURCE[0]}" )"
+cd "$SCRIPT_FOLDER"
 
 printSubHeader "Resetting permissions..."
 resetPermissions
