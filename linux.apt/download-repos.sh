@@ -17,6 +17,7 @@ cd ${MY_HOME}/.ssh
 find ../.codisms/ssh/ -type f -exec ln -s {} \;
 #chown ${MY_USER}:${MY_USER} *
 chmod 600 *
+cd ${MY_HOME}
 
 sed -i s/codisms@// ${MY_HOME}/.codisms/.git/config
 
@@ -24,6 +25,7 @@ printSubHeader "Downloading submodules..."
 
 cd ${MY_HOME}/.codisms
 retry git submodule update --init --recursive
+cd ${MY_HOME}
 
 printSubHeader "Cloning db code..."
 retry git clone https://bitbucket.org/codisms/db.git ${MY_HOME}/db
