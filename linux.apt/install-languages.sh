@@ -1,10 +1,5 @@
 printHeader "Installing languages..." "install-lang"
 
-installNode
-installRuby
-installGo
-updatePip
-
 updatePip() {
 	printHeader "Setting up pip..." "pip"
 	if [ ! -d ~/.cache/pip ]; then
@@ -104,3 +99,8 @@ installGo() {
 
 	reloadEnvironment
 }
+
+installNode
+installRuby
+installGo
+updatePip

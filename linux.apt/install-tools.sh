@@ -1,6 +1,3 @@
-printHeader "Installing tools....", "tools"
-installAwsCli
-installCertbot
 
 installCertbot() {
 	printSubHeader "Installing certbot"
@@ -13,3 +10,7 @@ installAwsCli() {
 	printSubHeader "Installing aws-cli"
 	retry pip install awscli --upgrade --user
 }
+
+printHeader "Installing tools....", "tools"
+installAwsCli
+installCertbot
