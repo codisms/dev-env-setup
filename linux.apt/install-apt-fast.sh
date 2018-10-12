@@ -1,4 +1,4 @@
-printHeader "Installing apt-fast..." "apt-fast"
+echo "Installing apt-fast..."
 
 apt_add_repository ppa:apt-fast/stable
 apt_get_update

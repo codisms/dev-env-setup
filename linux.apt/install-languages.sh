@@ -1,7 +1,7 @@
-printHeader "Installing languages..." "install-lang"
+echo "Installing languages..."
 
 updatePip() {
-	printHeader "Setting up pip..." "pip"
+	printSubHeader "Setting up pip..." "pip"
 	if [ ! -d ~/.cache/pip ]; then
 		mkdir -p ~/.cache/pip
 		chmod 775 ~/.cache/pip
@@ -18,7 +18,7 @@ updatePip() {
 }
 
 installNode() {
-	printHeader "Installing Node.js..." "node"
+	printSubHeader "Installing Node.js..."
 	curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
 	echo 'export NVM_DIR="$HOME/.nvm"' >> ${MY_HOME}/.profile
 	echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm' >> ${MY_HOME}/.profile
@@ -51,7 +51,7 @@ installNode() {
 }
 
 installRuby() {
-	printHeader "Installing Ruby..." "ruby"
+	printSubHeader "Installing Ruby..."
 	apt_get_install software-properties-common
 	#apt_add_repository ppa:rael-gc/rvm
 	#apt_get_update
@@ -77,7 +77,7 @@ installRuby() {
 }
 
 installGo() {
-	printHeader "Setting up Go..." "go"
+	printSubHeader "Setting up Go..."
 
 	curl https://dl.google.com/go/go1.10.2.linux-amd64.tar.gz > /tmp/go.tar.gz
 	$SUDO tar -C /usr/local -xzf /tmp/go.tar.gz
