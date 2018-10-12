@@ -9,6 +9,11 @@ postInstall() {
 	startServices
 }
 
+installChrome() {
+	installPostgresprintSubHeader "Installing Chrome..."
+	installPostgresPATH="${PATH}" ${MY_HOME}/.codisms/bin/install-chrome
+}
+
 installPostgres() {
 	printSubHeader "Installing postgresql..."
 
