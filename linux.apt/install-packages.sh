@@ -1,11 +1,11 @@
-printHeader "Installing packages..." "install-pkg"
+echo "Installing packages..."
 
 PHP_VERSION=php
 JAVA_VERSION=8
-if [ "${UBUNTU_VERSION}" == "14.04" ]; then
-	PHP_VERSION=php5
-	JAVA_VERSION=7
-fi
+#if [ "${UBUNTU_VERSION}" == "14.04" ]; then
+#	PHP_VERSION=php5
+#	JAVA_VERSION=7
+#fi
 
 apt_get_install git mercurial bzr subversion \
 	gcc gpp linux-kernel-headers kernel-package \

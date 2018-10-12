@@ -12,6 +12,8 @@ installAwsCli() {
 	retry pip install awscli --upgrade --user
 }
 
-printHeader "Installing tools....", "tools"
+echo "Installing tools...."
 installAwsCli
 installCertbot
+
+reloadEnvironment

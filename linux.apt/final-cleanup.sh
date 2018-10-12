@@ -1,2 +1,4 @@
-printHeader "Removing unused packages...", "autoremove"
+echo "Removing unused packages..."
 apt_get_autoremove
+
+reloadEnvironment

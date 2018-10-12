@@ -1,4 +1,4 @@
-printHeader "Making final configuration changes..." "final-config"
+echo "Making final configuration changes..."
 printSubHeader "Setting motd..."
 [ -f /etc/motd ] && $SUDO mv /etc/motd /etc/motd.orig
 $SUDO ln -s ${MY_HOME}/.codisms/motd /etc/motd

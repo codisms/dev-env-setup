@@ -65,5 +65,5 @@ echo "PATH=\${PATH}:~/.local/bin" > ~/.profile
 
 echo "Running installer (~/.setup/${INSTALL_DIR}/go.sh)..."
 #find ~/.setup -name \*.sh -exec chmod +x {} \;
-~/.setup/${INSTALL_DIR}/go.sh $HOME `whoami` $1
+~/.setup/${INSTALL_DIR}/setup.sh $HOME `whoami` $1
 

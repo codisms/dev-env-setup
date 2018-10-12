@@ -1,5 +1,5 @@
 
-printHeader "Checking memory requirements", "mem"
+echo "Checking memory requirements"
 
 # https://unix.stackexchange.com/a/233287
 #FREE_MEMORY=$(free | awk -v RS="" '{ print $10 / 1024; }' | bc)

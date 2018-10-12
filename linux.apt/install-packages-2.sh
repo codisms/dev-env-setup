@@ -59,10 +59,12 @@ startMySql() {
 	$SUDO systemctl enable mysqld.service
 }
 
-printHeader "Installing packages..." "install-pkg"
+echo "Installing packages..."
 installPostgres
 installVim
 installTmux
 installChrome
+
+reloadEnvironment
 
 postInstall

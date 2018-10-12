@@ -1,5 +1,5 @@
 if [ "$LC_CTYPE" == "" ] || [ "$LC_ALL" == "" ]; then
-	printHeader "Fixing locales...", "locale"
+	echo "Fixing locales..."
 
 	#export LC_ALL="en_US.UTF-8"
 	#export LC_CTYPE="en_US.UTF-8"

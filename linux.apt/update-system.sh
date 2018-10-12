@@ -1,4 +1,4 @@
-printHeader "Updating system..." "system"
+echo "Updating system..."
 
 apt_get_update
 

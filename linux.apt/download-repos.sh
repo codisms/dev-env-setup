@@ -30,5 +30,4 @@ retry git clone https://bitbucket.org/codisms/db.git ${MY_HOME}/db
 
 cd "$SCRIPT_FOLDER"
 
-printSubHeader "Resetting permissions..."
 resetPermissions
