@@ -1,4 +1,4 @@
-printHeader "Downloading repos..." "dl-repos"
+echo "Downloading repos..."
 
 printSubHeader "Cloning dev-config..."
 echo 'Cloning .codisms; enter bitbucket.org password for "codisms":'
