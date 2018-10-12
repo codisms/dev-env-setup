@@ -46,7 +46,7 @@ cleanBoot
 
 source ./install-fonts.sh
 source ./install-tools.sh
-source ./install-packages.sh
+source ./install-packages-2.sh
 source ./final-configurations.sh
 source ./final-cleanup.sh
 
