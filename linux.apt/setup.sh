@@ -26,8 +26,6 @@ while IFS="" read -r line || [ -n "$line" ]; do
 	fi
 done < setup.apt.txt
 
-exit 1
-
 #read -p "Download pre-defined code projects? (y/n) " -n 1 -r
 #echo
 #if [[ $REPLY =~ ^[Yy]$ ]]; then
