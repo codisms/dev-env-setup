@@ -2,7 +2,7 @@ echo "Downloading repos..."
 
 printSubHeader "Cloning dev-config..."
 echo 'Cloning .codisms; enter bitbucket.org password for "codisms":'
-retry git clone https://codisms@bitbucket.org/codisms/dev-config.git ${MY_HOME}/.codisms
+retry git clone --depth=1 https://codisms@bitbucket.org/codisms/dev-config.git ${MY_HOME}/.codisms
 
 printSubHeader "Configuring security..."
 
@@ -26,7 +26,7 @@ cd ${MY_HOME}/.codisms
 retry git submodule update --init --recursive
 
 printSubHeader "Cloning db code..."
-retry git clone https://bitbucket.org/codisms/db.git ${MY_HOME}/db
+retry git clone --depth=1 https://bitbucket.org/codisms/db.git ${MY_HOME}/db
 
 cd "$SCRIPT_FOLDER"
 

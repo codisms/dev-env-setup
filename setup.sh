@@ -20,7 +20,7 @@ echo "Downloading setup scripts..."
 if [ -d ~/.setup ]; then
 	rm -rf ~/.setup
 fi
-git clone https://bitbucket.org/codisms/dev-setup.git ~/.setup
+git clone --depth=1 https://bitbucket.org/codisms/dev-setup.git ~/.setup
 chown -R `whoami`:`whoami` .setup
 
 INSTALL_DIR=
