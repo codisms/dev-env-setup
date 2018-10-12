@@ -10,8 +10,8 @@ postInstall() {
 }
 
 installChrome() {
-	installPostgresprintSubHeader "Installing Chrome..."
-	installPostgresPATH="${PATH}" ${MY_HOME}/.codisms/bin/install-chrome
+	printSubHeader "Installing Chrome..."
+	PATH="${PATH}" ${MY_HOME}/.codisms/bin/install-chrome
 }
 
 installPostgres() {
