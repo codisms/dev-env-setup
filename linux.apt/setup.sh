@@ -21,7 +21,7 @@ while IFS="" read -r line || [ -n "$line" ]; do
 	if [ "$line" != "" ] && [[ ! $line =~ ^# ]]; then
 		cd ${SCRIPT_FOLDER}
 
-		printHeader "Running script ${line}...", "${line}"
+		printHeader "Running script ${line}..." "${line}"
 		. ./${line}
 	fi
 done < setup.apt.txt
