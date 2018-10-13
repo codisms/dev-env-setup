@@ -103,7 +103,7 @@ else
 	MINUTES="${MINUTES}m "
 fi
 SECONDS=$(($SECONDS % 60))s
-echo "Script run time: ${$HOURS}${MINUTES}${SECONDS}"
+echo ie "\e[92mScript run time: ${$HOURS}${MINUTES}${SECONDS}\e[0m"
 
 printHeader "Done.  \e[5mRebooting\e[25m for the final time..." "reboot"
 echo -ne '\007'
