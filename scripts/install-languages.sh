@@ -19,7 +19,7 @@ updatePip() {
 
 installNode() {
 	printSubHeader "Installing Node.js..."
-	curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
+	curl -o- -sSL https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
 	echo 'export NVM_DIR="$HOME/.nvm"' >> ${HOME}/.profile
 	echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm' >> ${HOME}/.profile
 	reloadEnvironment
@@ -32,7 +32,7 @@ installNode() {
 		jshint eslint typescript tslint \
 		json http-server pm2
 
-	#curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+	#curl -o- -sSL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 	#apt_get_install nodejs build-essential
 
 	##echo "Updating npm..."
@@ -60,7 +60,7 @@ installRuby() {
 
 	printSubHeader "Downloading GPG keys..."
 	retry gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
-	curl -sSL https://get.rvm.io | bash -s stable
+	curl -o- -sSL https://get.rvm.io | bash -s stable
 	reloadEnvironment
 	#source ${HOME}/.rvm/scripts/rvm
 
@@ -79,7 +79,8 @@ installRuby() {
 installGo() {
 	printSubHeader "Setting up Go..."
 
-	curl https://dl.google.com/go/go1.10.2.linux-amd64.tar.gz > /tmp/go.tar.gz
+	#curl -o- -sSL https://dl.google.com/go/go1.10.2.linux-amd64.tar.gz > /tmp/go.tar.gz
+	aria2c --out=/tmp/go.tar.gz https://dl.google.com/go/go1.10.2.linux-amd64.tar.gz
 	$SUDO tar -C /usr/local -xzf /tmp/go.tar.gz
 	#export PATH=${PATH}:/usr/local/go/bin
 	#export GOPATH=${HOME}/go
