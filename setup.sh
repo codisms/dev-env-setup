@@ -47,7 +47,7 @@ if [ "${PACKAGE_MANAGER}" == "" ]; then
 	exit
 fi
 SCRIPTS_FOLDER="${HOME}/.setup/scripts"
-RIPT_FILE="${SCRIPTS_FOLDER}/setup.${PACKAGE_MANAGER}.txt"
+SCRIPT_FILE="${SCRIPTS_FOLDER}/setup.${PACKAGE_MANAGER}.txt"
 if [ ! -f ${SCRIPT_FILE} ]; then
 	echo "Setup script not found: ${SCRIPT_FILE}"
 	exit
