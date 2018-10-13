@@ -68,12 +68,12 @@ echo "PATH=\${PATH}:${HOME}/.local/bin" > ${HOME}/.profile
 
 MY_HOME=${HOME}
 MY_USER=$(whoami)
+echo "MY_HOME = ${MY_HOME}"
+echo "MY_USER = ${MY_USER}"
 
 cd ${SCRIPTS_FOLDER}
 . ./functions.${PACKAGE_MANAGER}
 
-echo "MY_HOME = ${MY_HOME}"
-echo "MY_USER = ${MY_USER}"
 
 #resetPermissions
 #cleanBoot
