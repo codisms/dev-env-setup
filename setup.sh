@@ -2,7 +2,6 @@
 
 #set -e
 
-START_TIME=`date +%s`
 SECONDS=0
 
 echo "Downloading setup scripts..."
@@ -44,7 +43,7 @@ if [ ! -f ${SCRIPT_FILE} ]; then
 	exit
 fi
 
-printHeader "Pre-install..." "pre-install"
+#printHeader "Pre-install..." "pre-install"
 
 [ -f ${HOME}/.bashrc ] && mv ${HOME}/.bashrc ${HOME}/.bashrc.disabled
 [ -f ${HOME}/.bash_profile ] && mv ${HOME}/.bash_profile ${HOME}/.bash_profile.disabled
@@ -91,9 +90,20 @@ cleanBoot
 printHeader "Downloading antigen modules..." "antigen"
 zsh -c "source ~/.zshrc"
 
-END_TIME=`date +%s`
-echo "Script ran from ${START_TIME} to ${END_TIME} = ${SECONDS}s"
-echo "$((END_TIME-START_TIME)) == $(($SECONDS / 3600))hrs $((($SECONDS / 60) % 60))min $(($SECONDS % 60))sec"
+HOURS=$(($SECONDS / 3600))
+if [ $HOURS -eq 0 ]; then
+	HOURS=
+else
+	HOURS="${HOURS}h "
+fi
+MINUTES=$((($SECONDS / 60) % 60))
+if [ $MINUTES -eq 0 ]; then
+	MINUTES=
+else
+	MINUTES="${MINUTES}m "
+fi
+SECONDS=$(($SECONDS % 60))s
+echo "Script run time: ${$HOURS}${MINUTES}${SECONDS}"
 
 printHeader "Done.  \e[5mRebooting\e[25m for the final time..." "reboot"
 echo -ne '\007'
