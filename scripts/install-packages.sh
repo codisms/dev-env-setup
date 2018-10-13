@@ -21,7 +21,7 @@ apt_get_install git mercurial bzr subversion \
 	redis-server apache2 \
 	openssh-client openconnect cifs-utils \
 	sysstat iotop traceroute iftop \
-	network-manager-vpnc \
+	network-manager-vpnc aria2 \
 	${PHP_VERSION}-cli ${PHP_VERSION}-mysql openjdk-${JAVA_VERSION}-jre
 	#docker docker.io \
 	#lua lua-devel luajit luajit-devel
