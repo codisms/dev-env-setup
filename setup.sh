@@ -78,7 +78,7 @@ cd ${SCRIPTS_FOLDER}
 #resetPermissions
 #cleanBoot
 
-HOST_NAME=$1
+NEW_HOST_NAME=$1
 echo "NEW_HOST_NAME = ${NEW_HOST_NAME}"
 
 echo "Running install script (${SCRIPT_FILE})..."
