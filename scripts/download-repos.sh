@@ -30,7 +30,7 @@ else
 	printSubHeader "Downloading submodules..."
 
 	cd ${HOME}/.codisms
-	retry git submodule update --init --recursive --depth=1
+	retry git submodule update --init --recursive
 
 	printSubHeader "Cloning db code..."
 	retry git clone --depth=1 https://bitbucket.org/codisms/db.git ${HOME}/db
