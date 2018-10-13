@@ -108,6 +108,8 @@ reloadEnvironment
 resetPermissions
 cleanBoot
 
+zsh -c "exit"
+
 printHeader "Done.  \e[5mRebooting\e[25m for the final time..." "reboot"
 echo -ne '\007'
 
