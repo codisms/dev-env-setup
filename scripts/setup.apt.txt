@@ -1,9 +1,9 @@
+update-sudoers.sh
 set-host-name.sh
 fix-locale.sh
 check-for-swap.sh
 install-apt-fast.sh
 update-system.sh
-update-sudoers.sh
 download-repos.sh
 #generate-ssh-key.sh
 config-environment.sh
@@ -15,7 +15,6 @@ install-chrome.sh
 install-postgres.sh
 install-vim.sh
 install-tmux.sh
-install-dev-env.sh
 final-configurations.sh
 final-cleanup.sh
 
