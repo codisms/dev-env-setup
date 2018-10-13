@@ -4,7 +4,7 @@ This script is to help create new instances of my dev environments.  Not intende
 
 To install:
 ```
-curl -sSL -H 'Cache-Control: no-cache' https://bitbucket.org/codisms/dev-setup/raw/master/setup.sh | bash -s [--host=<hostname>] [--debug]
+curl -sSL -H 'Cache-Control: no-cache' https://bitbucket.org/codisms/dev-setup/raw/master/setup.sh | bash -s [--host=<hostname>] [--debug] [--skip-repo] [--repo-password=<password>]
 ```
 
 For this script to work, you must have `curl` and `git` installed:

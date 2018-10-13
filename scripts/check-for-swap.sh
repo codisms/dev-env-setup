@@ -12,11 +12,11 @@ echo MAIN_MEMORY = ${MAIN_MEMORY}
 echo SWAP_MEMORY = ${SWAP_MEMORY}
 echo FREE_MEMORY = ${FREE_MEMORY}
 if [ $FREE_MEMORY -lt 4194304 ]; then
-	echo -e "\e[31;5mLow memory detected; expanding swap...\e[0m"
+	notice "Low memory detected; expanding swap..."
 	SWAP_NEEDED=1
 else
 	if [ $SWAP_MEMORY -eq 0 ]; then
-		echo -e "\e[31;5mNo swap detected; creating swap file...\e[0m"
+		notice "No swap detected; creating swap file..."
 		SWAP_NEEDED=1
 	fi
 fi
