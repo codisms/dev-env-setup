@@ -108,6 +108,7 @@ reloadEnvironment
 resetPermissions
 cleanBoot
 
+printHeader "Downloading antigen modules..." "antigen"
 zsh -c "source ~/.zshrc"
 
 printHeader "Done.  \e[5mRebooting\e[25m for the final time..." "reboot"
