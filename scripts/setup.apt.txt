@@ -11,7 +11,11 @@ install-packages.sh
 install-languages.sh
 install-fonts.sh
 install-tools.sh
-install-packages-2.sh
+install-chrome.sh
+install-postgres.sh
+install-vim.sh
+install-tmux.sh
+install-dev-env.sh
 final-configurations.sh
 final-cleanup.sh
 

@@ -1,33 +1,41 @@
-echo "Downloading repos..."
+SKIP_REPO=$(option_value skip-repo)
 
-printSubHeader "Cloning dev-config..."
-echo 'Cloning .codisms; enter bitbucket.org password for "codisms":'
-retry git clone --depth=1 https://codisms@bitbucket.org/codisms/dev-config.git ${HOME}/.codisms
+if [ $SKIP_REPO -eq 1 ]; then
+	notice "Skipping repo download!"
+else
+	echo "Downloading repos..."
 
-printSubHeader "Configuring security..."
+	REPO_PASSWORD=$(option_value repo-password)
 
-ln -s ${HOME}/.codisms/netrc ${HOME}/.netrc
-chmod 600 ${HOME}/.netrc
+	printSubHeader "Cloning dev-config..."
+	echo 'Cloning .codisms; enter bitbucket.org password for "codisms":'
+	retry git clone --depth=1 "https://codisms:${REPO_PASSWORD}@bitbucket.org/codisms/dev-config.git" ${HOME}/.codisms
 
-mkdir -p ${HOME}/.ssh
-chmod 700 ${HOME}/.ssh
-mkdir -p ${HOME}/.ssh/controlmasters
-cd ${HOME}/.ssh
-[ -f authorized_keys ] && mv authorized_keys authorized_keys.orig
-find ../.codisms/ssh/ -type f -exec ln -s {} \;
-#chown ${USER}:${USER} *
-chmod 600 *
+	printSubHeader "Configuring security..."
 
-sed -i s/codisms@// ${HOME}/.codisms/.git/config
+	ln -s ${HOME}/.codisms/netrc ${HOME}/.netrc
+	chmod 600 ${HOME}/.netrc
 
-printSubHeader "Downloading submodules..."
+	mkdir -p ${HOME}/.ssh
+	chmod 700 ${HOME}/.ssh
+	mkdir -p ${HOME}/.ssh/controlmasters
+	cd ${HOME}/.ssh
+	[ -f authorized_keys ] && mv authorized_keys authorized_keys.orig
+	find ../.codisms/ssh/ -type f -exec ln -s {} \;
+	#chown ${USER}:${USER} *
+	chmod 600 *
 
-cd ${HOME}/.codisms
-retry git submodule update --init --recursive
+	sed -i s/codisms@// ${HOME}/.codisms/.git/config
 
-printSubHeader "Cloning db code..."
-retry git clone --depth=1 https://bitbucket.org/codisms/db.git ${HOME}/db
+	printSubHeader "Downloading submodules..."
 
-cd "$SCRIPT_FOLDER"
+	cd ${HOME}/.codisms
+	retry git submodule update --init --recursive --depth=1
 
-resetPermissions
+	printSubHeader "Cloning db code..."
+	retry git clone --depth=1 https://bitbucket.org/codisms/db.git ${HOME}/db
+
+	cd "$SCRIPT_FOLDER"
+
+	resetPermissions
+fi

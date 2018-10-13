@@ -20,6 +20,7 @@ printSubHeader() {
 resetPermissions() {
 	printSubHeader "Reseting permissions (${USER}:${USER})"
 	$SUDO chown -R ${USER}:${USER} ${HOME}
+	[ -d ${HOME}/web ] && $SUDO chown -R apache:apache ${HOME}/web
 	#echo -e "\e[33mSkipping resetting of permissions\e[0m"
 }
 
@@ -219,7 +220,10 @@ function get_package_manager() {
 
 function debug() {
 	if [ $DEBUG -eq 1 ]; then
-		echo -e "\033[3;90m$@\033[0m"
+		echo -e "\e[3;90m$@\e[0m"
 	fi
 }
 
+function notice() {
+	echo -e "\e[31;5m$@\e[0m"
+}
