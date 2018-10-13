@@ -2,6 +2,15 @@
 
 #set -e
 
+START_TIME=`date +%s`
+
+echo "Downloading setup scripts..."
+if [ -d ${HOME}/.setup ]; then
+	rm -rf ${HOME}/.setup
+fi
+git clone --depth=1 https://bitbucket.org/codisms/dev-setup.git ${HOME}/.setup
+cd ${HOME}/.setup
+
 . ./functions
 
 PACKAGE_MANAGER=$(get_package_manager)
@@ -29,20 +38,12 @@ if [ "$(which git 2> /dev/null)" == "" ]; then
 	exit 1
 fi
 
-exit 1
-
-START_TIME=`date +%s`
-
-echo "Downloading setup scripts..."
-if [ -d ${HOME}/.setup ]; then
-	rm -rf ${HOME}/.setup
-fi
-git clone --depth=1 https://bitbucket.org/codisms/dev-setup.git ${HOME}/.setup
-
 if [ ! -f ${SCRIPT_FILE} ]; then
 	echo "Setup script not found: ${SCRIPT_FILE}"
 	exit
 fi
+
+printHeader "Pre-install..." "pre-install"
 
 [ -f ${HOME}/.bashrc ] && mv ${HOME}/.bashrc ${HOME}/.bashrc.disabled
 [ -f ${HOME}/.bash_profile ] && mv ${HOME}/.bash_profile ${HOME}/.bash_profile.disabled
