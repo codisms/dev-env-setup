@@ -2,31 +2,31 @@ echo "Downloading repos..."
 
 printSubHeader "Cloning dev-config..."
 echo 'Cloning .codisms; enter bitbucket.org password for "codisms":'
-retry git clone --depth=1 https://codisms@bitbucket.org/codisms/dev-config.git ${MY_HOME}/.codisms
+retry git clone --depth=1 https://codisms@bitbucket.org/codisms/dev-config.git ${HOME}/.codisms
 
 printSubHeader "Configuring security..."
 
-ln -s ${MY_HOME}/.codisms/netrc ${MY_HOME}/.netrc
-chmod 600 ${MY_HOME}/.netrc
+ln -s ${HOME}/.codisms/netrc ${HOME}/.netrc
+chmod 600 ${HOME}/.netrc
 
-mkdir -p ${MY_HOME}/.ssh
-chmod 700 ${MY_HOME}/.ssh
-mkdir -p ${MY_HOME}/.ssh/controlmasters
-cd ${MY_HOME}/.ssh
+mkdir -p ${HOME}/.ssh
+chmod 700 ${HOME}/.ssh
+mkdir -p ${HOME}/.ssh/controlmasters
+cd ${HOME}/.ssh
 [ -f authorized_keys ] && mv authorized_keys authorized_keys.orig
 find ../.codisms/ssh/ -type f -exec ln -s {} \;
-#chown ${MY_USER}:${MY_USER} *
+#chown ${USER}:${USER} *
 chmod 600 *
 
-sed -i s/codisms@// ${MY_HOME}/.codisms/.git/config
+sed -i s/codisms@// ${HOME}/.codisms/.git/config
 
 printSubHeader "Downloading submodules..."
 
-cd ${MY_HOME}/.codisms
+cd ${HOME}/.codisms
 retry git submodule update --init --recursive
 
 printSubHeader "Cloning db code..."
-retry git clone --depth=1 https://bitbucket.org/codisms/db.git ${MY_HOME}/db
+retry git clone --depth=1 https://bitbucket.org/codisms/db.git ${HOME}/db
 
 cd "$SCRIPT_FOLDER"
 

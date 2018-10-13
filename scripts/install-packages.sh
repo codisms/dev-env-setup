@@ -29,6 +29,6 @@ apt_get_install git mercurial bzr subversion \
 #if ! grep -q $group /etc/group; then
 #	groupadd docker
 #fi
-#usermod -aG docker ${MY_USER}
+#usermod -aG docker ${USER}
 
 reloadEnvironment
