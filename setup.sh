@@ -2,6 +2,8 @@
 
 #set -e
 
+START_TIME=`date +%s`
+
 SUDO=$(which sudo 2> /dev/null)
 #YUM=$(which yum 2> /dev/null)
 #APTGET=$(which apt-get 2> /dev/null)
@@ -110,6 +112,10 @@ cleanBoot
 
 printHeader "Downloading antigen modules..." "antigen"
 zsh -c "source ~/.zshrc"
+
+END_TIME=`date +%s`
+EXECUTION_TIME=$((end-start))
+echo "Script execution time: ${EXECUTION_TIME}"
 
 printHeader "Done.  \e[5mRebooting\e[25m for the final time..." "reboot"
 echo -ne '\007'
