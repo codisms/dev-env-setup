@@ -23,34 +23,37 @@ fi
 git clone --depth=1 https://bitbucket.org/codisms/dev-setup.git ~/.setup
 chown -R `whoami`:`whoami` .setup
 
-INSTALL_DIR=
+PACKAGE_MANAGER=
 case "$OSTYPE" in
-	solaris*) INSTALL_DIR=solaris ;;
+	solaris*) PACKAGE_MANAGER=solaris ;;
 	linux*)
 		if [ -f /etc/centos-release ]; then
-			INSTALL_DIR=linux.yum
+			PACKAGE_MANAGER=yum
 		elif [ -n "$(command -v apt-get)" ]; then
-			INSTALL_DIR=linux.apt
+			PACKAGE_MANAGER=apt
 		elif [ -n "$(command -v yum)" ]; then
-			INSTALL_DIR=linux.yum
+			PACKAGE_MANAGER=yum
 		fi
 
-		if [ "${INSTALL_DIR}" == "" ]; then
+		if [ "${PACKAGE_MANAGER}" == "" ]; then
 			echo "Unable to find yum or apt-get!"
 		fi
 		;;
-	darwin*) INSTALL_DIR=darwin ;;
-	bsd*) INSTALL_DIR=bsd ;;
+	darwin*) PACKAGE_MANAGER=darwin ;;
+	bsd*) PACKAGE_MANAGER=bsd ;;
 esac
-if [ "${INSTALL_DIR}" == "" ]; then
+if [ "${PACKAGE_MANAGER}" == "" ]; then
 	echo "Unknown operating system: $OSTYPE"
 	exit
 fi
-if [ ! -f ~/.setup/${INSTALL_DIR}/setup.sh ]; then
-	echo "Setup script not found: ${INSTALL_DIR}"
+SCRIPTS_FOLDER="~/.setup/scripts"
+SCRIPT_FILE="${SCRIPTS_FOLDER}/setup.${PACKAGE_MANAGER}.txt"
+if [ ! -f ${SCRIPT_FILE} ]; then
+	echo "Setup script not found: ${SCRIPT_FILE}"
 	exit
 fi
-echo INSTALL_DIR = ${INSTALL_DIR}
+echo "SCRIPTS_FOLDER = ${SCRIPTS_FOLDER}"
+echo "SCRIPT_FILE = ${SCRIPT_FILE}"
 
 if [ -f ~/.bashrc ]; then
 	mv ~/.bashrc ~/.bashrc.disabled
@@ -63,7 +66,50 @@ if [ -f ~/.profile ]; then
 fi
 echo "PATH=\${PATH}:~/.local/bin" > ~/.profile
 
-echo "Running installer (~/.setup/${INSTALL_DIR}/setup.sh)..."
-#find ~/.setup -name \*.sh -exec chmod +x {} \;
-~/.setup/${INSTALL_DIR}/setup.sh $HOME `whoami` $1
+MY_HOME=${HOME}
+MY_USER=$(whoami)
+
+cd ${SCRIPTS_FOLDER}
+. ./functions.${PACKAGE_MANAGER}
+
+echo "MY_HOME = ${MY_HOME}"
+echo "MY_USER = ${MY_USER}"
+
+#resetPermissions
+#cleanBoot
+
+HOST_NAME=$1
+echo "NEW_HOST_NAME = ${NEW_HOST_NAME}"
+
+echo "Running install script (${SCRIPT_FILE})..."
+while IFS="" read -r line || [ -n "$line" ]; do
+	#printf '%s\n' "$p"
+	if [ "$line" != "" ] && [[ ! $line =~ ^# ]]; then
+		cd ${SCRIPTS_FOLDER}
+
+		printHeader "Running script ${line}..." "${line}"
+		. ./${line}
+	fi
+done < setup.apt.txt
+
+#read -p "Download pre-defined code projects? (y/n) " -n 1 -r
+#echo
+#if [[ $REPLY =~ ^[Yy]$ ]]; then
+#	printHeader "Downloading code..." "dl-code"
+#	cd ~
+#	~/.codisms/get-code.sh
+#	#rsync -avzhe ssh --progress dev.codisms.com:/root/ /root/
+#fi
+
+cd ${MY_HOME}/.codisms
+git checkout -- zshrc
+
+reloadEnvironment
+resetPermissions
+cleanBoot
+
+printHeader "Done.  \e[5mRebooting\e[25m for the final time..." "reboot"
+echo -ne '\007'
+
+$SUDO reboot
 
