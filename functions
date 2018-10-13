@@ -20,7 +20,7 @@ printSubHeader() {
 resetPermissions() {
 	printSubHeader "Reseting permissions (${USER}:${USER})"
 	$SUDO chown -R ${USER}:${USER} ${HOME}
-	[ -d ${HOME}/web ] && $SUDO chown -R apache:apache ${HOME}/web
+	[ -d ${HOME}/web ] && $SUDO chown -R apache:apache ${HOME}/web || true
 	#echo -e "\e[33mSkipping resetting of permissions\e[0m"
 }
 
