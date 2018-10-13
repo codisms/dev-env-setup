@@ -1,17 +1,4 @@
 
-MY_HOME=$1
-if [ "$MY_HOME" == "" ]; then
-	echo "Must specify home directory and user"
-	exit 1
-fi
-shift
-MY_USER=$1
-if [ "$MY_USER" == "" ]; then
-	echo "Must specify user"
-	exit 1
-fi
-shift
-
 SUDO=$(which sudo 2> /dev/null)
 HEADER_LEADER=-
 
