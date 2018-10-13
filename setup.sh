@@ -3,6 +3,7 @@
 #set -e
 
 START_TIME=`date +%s`
+SECONDS=0
 
 echo "Downloading setup scripts..."
 if [ -d ${HOME}/.setup ]; then
@@ -91,8 +92,8 @@ printHeader "Downloading antigen modules..." "antigen"
 zsh -c "source ~/.zshrc"
 
 END_TIME=`date +%s`
-EXECUTION_TIME=$((end-start))
-echo "Script execution time: ${EXECUTION_TIME}"
+echo "Script ran from ${START_TIME} to ${END_TIME} = ${SECONDS}s"
+echo "$((END_TIME-START_TIME)) == $(($SECONDS / 3600))hrs $((($SECONDS / 60) % 60))min $(($SECONDS % 60))sec"
 
 printHeader "Done.  \e[5mRebooting\e[25m for the final time..." "reboot"
 echo -ne '\007'
