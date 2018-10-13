@@ -17,10 +17,10 @@ if [ "$(which git 2> /dev/null)" == "" ]; then
 fi
 
 echo "Downloading setup scripts..."
-if [ -d ~/.setup ]; then
-	rm -rf ~/.setup
+if [ -d ${HOME}/.setup ]; then
+	rm -rf ${HOME}/.setup
 fi
-git clone --depth=1 https://bitbucket.org/codisms/dev-setup.git ~/.setup
+git clone --depth=1 https://bitbucket.org/codisms/dev-setup.git ${HOME}/.setup
 chown -R `whoami`:`whoami` .setup
 
 PACKAGE_MANAGER=
@@ -46,8 +46,8 @@ if [ "${PACKAGE_MANAGER}" == "" ]; then
 	echo "Unknown operating system: $OSTYPE"
 	exit
 fi
-SCRIPTS_FOLDER="~/.setup/scripts"
-SCRIPT_FILE="${SCRIPTS_FOLDER}/setup.${PACKAGE_MANAGER}.txt"
+SCRIPTS_FOLDER="${HOME}/.setup/scripts"
+RIPT_FILE="${SCRIPTS_FOLDER}/setup.${PACKAGE_MANAGER}.txt"
 if [ ! -f ${SCRIPT_FILE} ]; then
 	echo "Setup script not found: ${SCRIPT_FILE}"
 	exit
@@ -55,16 +55,16 @@ fi
 echo "SCRIPTS_FOLDER = ${SCRIPTS_FOLDER}"
 echo "SCRIPT_FILE = ${SCRIPT_FILE}"
 
-if [ -f ~/.bashrc ]; then
-	mv ~/.bashrc ~/.bashrc.disabled
+if [ -f ${HOME}/.bashrc ]; then
+	mv ${HOME}/.bashrc ${HOME}/.bashrc.disabled
 fi
-if [ -f ~/.bash_profile ]; then
-	mv ~/.bash_profile ~/.bash_profile.disabled
+if [ -f ${HOME}/.bash_profile ]; then
+	mv ${HOME}/.bash_profile ${HOME}/.bash_profile.disabled
 fi
-if [ -f ~/.profile ]; then
-	mv ~/.profile ~/.profile.disabled
+if [ -f ${HOME}/.profile ]; then
+	mv ${HOME}/.profile ${HOME}/.profile.disabled
 fi
-echo "PATH=\${PATH}:~/.local/bin" > ~/.profile
+echo "PATH=\${PATH}:${HOME}/.local/bin" > ${HOME}/.profile
 
 MY_HOME=${HOME}
 MY_USER=$(whoami)
