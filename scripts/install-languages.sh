@@ -20,8 +20,8 @@ updatePip() {
 installNode() {
 	printSubHeader "Installing Node.js..."
 	curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
-	echo 'export NVM_DIR="$HOME/.nvm"' >> ${MY_HOME}/.profile
-	echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm' >> ${MY_HOME}/.profile
+	echo 'export NVM_DIR="$HOME/.nvm"' >> ${HOME}/.profile
+	echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm' >> ${HOME}/.profile
 	reloadEnvironment
 	nvm install stable
 
@@ -62,12 +62,12 @@ installRuby() {
 	retry gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
 	curl -sSL https://get.rvm.io | bash -s stable
 	reloadEnvironment
-	#source ${MY_HOME}/.rvm/scripts/rvm
+	#source ${HOME}/.rvm/scripts/rvm
 
 	printSubHeader "Downloading and installying Ruby..."
 	retry rvm install ruby-2.3
 	#source /etc/profile.d/rvm.sh
-	#source ${MY_HOME}/.rvm/scripts/rvm
+	#source ${HOME}/.rvm/scripts/rvm
 	reloadEnvironment
 
 	printSubHeader "Running bundler..."
@@ -82,18 +82,18 @@ installGo() {
 	curl https://dl.google.com/go/go1.10.2.linux-amd64.tar.gz > /tmp/go.tar.gz
 	$SUDO tar -C /usr/local -xzf /tmp/go.tar.gz
 	#export PATH=${PATH}:/usr/local/go/bin
-	#export GOPATH=${MY_HOME}/go
+	#export GOPATH=${HOME}/go
 	echo "export PATH=\${PATH}:/usr/local/go/bin" >> ~/.profile
-	echo "export GOPATH=${MY_HOME}/go" >> ~/.profile
+	echo "export GOPATH=${HOME}/go" >> ~/.profile
 	reloadEnvironment
 
 	printSubHeader "Setting up Go directory structure..."
-	mkdir -p ${MY_HOME}/go/bin
-	mkdir -p ${MY_HOME}/go/pkg
-	mkdir -p ${MY_HOME}/go/src/github.com
+	mkdir -p ${HOME}/go/bin
+	mkdir -p ${HOME}/go/pkg
+	mkdir -p ${HOME}/go/src/github.com
 
 	printSubHeader "Downloading goimports..."
-	cd ${MY_HOME}/go
+	cd ${HOME}/go
 	GOPATH=`pwd` go get golang.org/x/tools/cmd/goimports
 	cd ${SCRIPT_FOLDER}
 

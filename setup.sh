@@ -2,86 +2,61 @@
 
 #set -e
 
-START_TIME=`date +%s`
+. ./functions
 
-SUDO=$(which sudo 2> /dev/null)
-#YUM=$(which yum 2> /dev/null)
-#APTGET=$(which apt-get 2> /dev/null)
+PACKAGE_MANAGER=$(get_package_manager)
+SCRIPTS_FOLDER="${HOME}/.setup/scripts"
+SCRIPT_FILE="${SCRIPTS_FOLDER}/setup.${PACKAGE_MANAGER}.txt"
+NEW_HOST_NAME=$(option_value host)
+#DEBUG=${option_set debug}
+DEBUG=1
 
-#if [ "$(which git 2> /dev/null)" == "" ]; then
-#	echo "Installing git..."
-#	[ "${YUM}" != "" ] && $SUDO yum install -y -q git
-#	[ "${APTGET}" != "" ] && $SUDO apt-get install -y -q git
-#fi
+debug "DEBUG = ${DEBUG}"
+debug "HOME = ${HOME}"
+debug "USER = ${USER}"
+debug "PACKAGE_MANAGER = ${PACKAGE_MANAGER}"
+debug "SCRIPTS_FOLDER = ${SCRIPTS_FOLDER}"
+debug "SCRIPT_FILE = ${SCRIPT_FILE}"
+debug "NEW_HOST_NAME = ${NEW_HOST_NAME}"
+
+if [ "${PACKAGE_MANAGER}" == "" ]; then
+	echo "Unknown operating system: $OSTYPE"
+	exit
+fi
+
 if [ "$(which git 2> /dev/null)" == "" ]; then
 	echo "Could not find git!"
 	exit 1
 fi
+
+exit 1
+
+START_TIME=`date +%s`
 
 echo "Downloading setup scripts..."
 if [ -d ${HOME}/.setup ]; then
 	rm -rf ${HOME}/.setup
 fi
 git clone --depth=1 https://bitbucket.org/codisms/dev-setup.git ${HOME}/.setup
-chown -R `whoami`:`whoami` .setup
 
-PACKAGE_MANAGER=
-case "$OSTYPE" in
-	solaris*) PACKAGE_MANAGER=solaris ;;
-	linux*)
-		if [ -f /etc/centos-release ]; then
-			PACKAGE_MANAGER=yum
-		elif [ -n "$(command -v apt-get)" ]; then
-			PACKAGE_MANAGER=apt
-		elif [ -n "$(command -v yum)" ]; then
-			PACKAGE_MANAGER=yum
-		fi
-
-		if [ "${PACKAGE_MANAGER}" == "" ]; then
-			echo "Unable to find yum or apt-get!"
-		fi
-		;;
-	darwin*) PACKAGE_MANAGER=darwin ;;
-	bsd*) PACKAGE_MANAGER=bsd ;;
-esac
-if [ "${PACKAGE_MANAGER}" == "" ]; then
-	echo "Unknown operating system: $OSTYPE"
-	exit
-fi
-SCRIPTS_FOLDER="${HOME}/.setup/scripts"
-SCRIPT_FILE="${SCRIPTS_FOLDER}/setup.${PACKAGE_MANAGER}.txt"
 if [ ! -f ${SCRIPT_FILE} ]; then
 	echo "Setup script not found: ${SCRIPT_FILE}"
 	exit
 fi
-echo "SCRIPTS_FOLDER = ${SCRIPTS_FOLDER}"
-echo "SCRIPT_FILE = ${SCRIPT_FILE}"
 
-if [ -f ${HOME}/.bashrc ]; then
-	mv ${HOME}/.bashrc ${HOME}/.bashrc.disabled
-fi
-if [ -f ${HOME}/.bash_profile ]; then
-	mv ${HOME}/.bash_profile ${HOME}/.bash_profile.disabled
-fi
-if [ -f ${HOME}/.profile ]; then
-	mv ${HOME}/.profile ${HOME}/.profile.disabled
-fi
+[ -f ${HOME}/.bashrc ] && mv ${HOME}/.bashrc ${HOME}/.bashrc.disabled
+[ -f ${HOME}/.bash_profile ] && mv ${HOME}/.bash_profile ${HOME}/.bash_profile.disabled
+[ -f ${HOME}/.profile ] && mv ${HOME}/.profile ${HOME}/.profile.disabled
+
 echo "PATH=\${PATH}:${HOME}/.local/bin" > ${HOME}/.profile
 
-MY_HOME=${HOME}
-MY_USER=$(whoami)
-echo "MY_HOME = ${MY_HOME}"
-echo "MY_USER = ${MY_USER}"
+set -e
 
 cd ${SCRIPTS_FOLDER}
 . ./functions.${PACKAGE_MANAGER}
 
-
 #resetPermissions
 #cleanBoot
-
-NEW_HOST_NAME=$1
-echo "NEW_HOST_NAME = ${NEW_HOST_NAME}"
 
 echo "Running install script (${SCRIPT_FILE})..."
 while IFS="" read -r line || [ -n "$line" ]; do
@@ -103,7 +78,8 @@ done < setup.apt.txt
 #	#rsync -avzhe ssh --progress dev.codisms.com:/root/ /root/
 #fi
 
-cd ${MY_HOME}/.codisms
+printHeader "Resetting environment and permissions..." "reset"
+cd ${HOME}/.codisms
 git checkout -- zshrc
 
 reloadEnvironment

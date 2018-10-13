@@ -18,18 +18,18 @@ printSubHeader() {
 }
 
 resetPermissions() {
-	printSubHeader "Reseeting permissions (${MY_USER}:${MY_USER})"
-	$SUDO chown -R ${MY_USER}:${MY_USER} ${MY_HOME}
+	printSubHeader "Reseting permissions (${USER}:${USER})"
+	$SUDO chown -R ${USER}:${USER} ${HOME}
 	#echo -e "\e[33mSkipping resetting of permissions\e[0m"
 }
 
 #scheduleForNextRun() {
-#	echo "Scheduling $1 to run at ${MY_HOME}/.onstart..."
+#	echo "Scheduling $1 to run at ${HOME}/.onstart..."
 #	cleanBoot
-#	echo "$1" > ${MY_HOME}/.onstart
-#	echo ". ~/.execute_onstart" >> ${MY_HOME}/.profile
+#	echo "$1" > ${HOME}/.onstart
+#	echo ". ~/.execute_onstart" >> ${HOME}/.profile
 #
-#	cat <<EOF >> ${MY_HOME}/.execute_onstart
+#	cat <<EOF >> ${HOME}/.execute_onstart
 #
 ##ls -la ~
 ##date >> ~/log.txt
@@ -84,9 +84,9 @@ resetPermissions() {
 #
 #EOF
 ##	echo -e "\e[35m-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\e[0m"
-##	cat ${MY_HOME}/.profile
+##	cat ${HOME}/.profile
 ##	echo -e "\e[35m-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\e[0m"
-##	ls -la ${MY_HOME}
+##	ls -la ${HOME}
 ##	echo -e "\e[35m-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-\e[0m"
 #}
 
@@ -132,27 +132,94 @@ retry_long() {
 }
 
 cleanBoot() {
-	if [ -f ${MY_HOME}/.execute_onstart ]; then
-		rm -rf ${MY_HOME}/.execute_onstart
+	if [ -f ${HOME}/.execute_onstart ]; then
+		rm -rf ${HOME}/.execute_onstart
 	fi
-	if [ -f ${MY_HOME}/.onstart ]; then
-		rm -rf ${MY_HOME}/.onstart
+	if [ -f ${HOME}/.onstart ]; then
+		rm -rf ${HOME}/.onstart
 	fi
-#	if [ -f ${MY_HOME}/.bash_profile ]; then
-#		mv ${MY_HOME}/.bash_profile ${MY_HOME}/.bash_profile.disabled
+#	if [ -f ${HOME}/.bash_profile ]; then
+#		mv ${HOME}/.bash_profile ${HOME}/.bash_profile.disabled
 #	fi
 
-	if [ -f ${MY_HOME}/.profile ]; then
-		sed -i '/\. ~\/\.execute_onstart/d' ${MY_HOME}/.profile
+	if [ -f ${HOME}/.profile ]; then
+		sed -i '/\. ~\/\.execute_onstart/d' ${HOME}/.profile
 	fi
 
 	reloadEnvironment
-	#echo "PATH=${PATH}" >> ${MY_HOME}/.bashrc
-	echo ". ${MY_HOME}/.profile" > ${MY_HOME}/.bashrc
+	#echo "PATH=${PATH}" >> ${HOME}/.bashrc
+	echo ". ${HOME}/.profile" > ${HOME}/.bashrc
 }
 
 reloadEnvironment() {
 	source /etc/profile
-	source ${MY_HOME}/.profile
+	source ${HOME}/.profile
+}
+
+CMD_ARGS=()
+declare -A CMD_OPTIONS
+for arg in "$@"; do
+	#echo -- arg = ${arg} ------------------------------
+	if [ "${arg:0:2}" == "--" ]; then
+		arg="${arg:2}"
+		#echo ${arg}
+		key=$arg
+		val=1
+		if [[ "$arg" =~ .*=.* ]]; then
+			IFS='=' read -r -a array <<< "${arg}"
+			key="${array[0]}"
+			val="${array[1]}"
+		fi
+		CMD_OPTIONS[${key}]="${val}"
+	else
+		CMD_ARGS+=("${arg}")
+	fi
+done
+unset arg
+unset key
+unset val
+
+function option_value() {
+	echo "${CMD_OPTIONS[$1]}"
+}
+#   VAL=$(option_value KEY)
+
+function option_set() {
+	if [ "${CMD_OPTIONS[$1]}" != "" ] && [ ${CMD_OPTIONS[$1]} -eq 1 ]; then
+		return 1
+	else
+		return 0
+	fi
+}
+#   IS_SET=$(option_set KEY)
+#   if [ $IS_SET -eq 1 ]; then
+
+function get_package_manager() {
+	local PACKAGE_MANAGER=
+	case "$OSTYPE" in
+		solaris*) PACKAGE_MANAGER=solaris ;;
+		linux*)
+			if [ -f /etc/centos-release ]; then
+				PACKAGE_MANAGER=yum
+			elif [ -n "$(command -v apt-get)" ]; then
+				PACKAGE_MANAGER=apt
+			elif [ -n "$(command -v yum)" ]; then
+				PACKAGE_MANAGER=yum
+			fi
+
+			if [ "${PACKAGE_MANAGER}" == "" ]; then
+				echo "Unable to find yum or apt-get!"
+			fi
+			;;
+		darwin*) PACKAGE_MANAGER=darwin ;;
+		bsd*) PACKAGE_MANAGER=bsd ;;
+	esac
+	echo "${PACKAGE_MANAGER}"
+}
+
+function debug() {
+	if [ $DEBUG -eq 1 ]; then
+		echo -e "\033[3;90m$@\033[0m"
+	fi
 }
 

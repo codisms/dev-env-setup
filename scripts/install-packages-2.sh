@@ -1,7 +1,7 @@
 
 postInstall() {
-	$SUDO chmod 755 ${MY_HOME}
-	[ -d ${MY_HOME}/web ] && chown -R apache:apache ${MY_HOME}/web
+	$SUDO chmod 755 ${HOME}
+	[ -d ${HOME}/web ] && chown -R apache:apache ${HOME}/web
 
 	printSubHeader "Configuring apache modules"
 	$SUDO a2enmod proxy proxy_http proxy_wstunnel rewrite auth_basic proxy_balancer proxy_html proxy_connect ssl xml2enc substitute
@@ -11,7 +11,7 @@ postInstall() {
 
 installChrome() {
 	printSubHeader "Installing Chrome..."
-	PATH="${PATH}" ${MY_HOME}/.codisms/bin/install-chrome
+	PATH="${PATH}" ${HOME}/.codisms/bin/install-chrome
 }
 
 installPostgres() {
@@ -26,12 +26,12 @@ installPostgres() {
 	echo "To have PostgreSQL start on boot: systemctl enable postgresql.service"
 	echo ""
 
-	ln -s ${MY_HOME}/.codisms/psqlrc ${MY_HOME}/.psqlrc
+	ln -s ${HOME}/.codisms/psqlrc ${HOME}/.psqlrc
 }
 
 installVim() {
 	printSubHeader "Installing vim..."
-	PATH="${PATH}" ${MY_HOME}/.codisms/bin/install-vim --pwd=${MY_HOME} --build
+	PATH="${PATH}" ${HOME}/.codisms/bin/install-vim --pwd=${HOME} --build
 }
 
 installTmux() {
@@ -39,7 +39,7 @@ installTmux() {
 	apt_get_install libevent-2* libevent-dev
 
 	printSubHeader "Installing tmux..."
-	PATH="${PATH}" ${MY_HOME}/.codisms/bin/install-tmux --version=2.6 --pwd=${MY_HOME} --build
+	PATH="${PATH}" ${HOME}/.codisms/bin/install-tmux --version=2.6 --pwd=${HOME} --build
 }
 
 startServices() {

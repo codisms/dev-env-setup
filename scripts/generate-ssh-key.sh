@@ -1,4 +1,4 @@
-if [ ! -f ${MY_HOME}/.ssh/id_rsa ]; then
+if [ ! -f ${HOME}/.ssh/id_rsa ]; then
 
 	echo
 	echo -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
@@ -6,5 +6,5 @@ if [ ! -f ${MY_HOME}/.ssh/id_rsa ]; then
 	##read -p 'Press [Enter] to continue...'
 
 	echo
-	ssh-keygen -t rsa -N "" -f ${MY_HOME}/.ssh/id_rsa
+	ssh-keygen -t rsa -N "" -f ${HOME}/.ssh/id_rsa
 fi

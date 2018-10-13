@@ -1,14 +1,14 @@
 
-ln -s ${MY_HOME}/.codisms/repos/dircolors-solarized/dircolors.256dark ${MY_HOME}/.dircolors
-ln -s ${MY_HOME}/.codisms/zshrc ${MY_HOME}/.zshrc
-ln -s ${MY_HOME}/.codisms/gitconfig ${MY_HOME}/.gitconfig
-ln -s ${MY_HOME}/.codisms/elinks ${MY_HOME}/.elinks
-ln -s ${MY_HOME}/.codisms/muttrc ${MY_HOME}/.muttrc
-ln -s ${MY_HOME}/.codisms/ctags ${MY_HOME}/.ctags
-ln -s ${MY_HOME}/.codisms/pgpass ${MY_HOME}/.pgpass
-ln -s ${MY_HOME}/.codisms/eslintrc ${MY_HOME}/.eslintrc
-ln -s ${MY_HOME}/.codisms/editorconfig ${MY_HOME}/.editorconfig
-chmod 600 ${MY_HOME}/.pgpass
-chmod 600 ${MY_HOME}/.codisms/pgpass
+ln -s ${HOME}/.codisms/repos/dircolors-solarized/dircolors.256dark ${HOME}/.dircolors
+ln -s ${HOME}/.codisms/zshrc ${HOME}/.zshrc
+ln -s ${HOME}/.codisms/gitconfig ${HOME}/.gitconfig
+ln -s ${HOME}/.codisms/elinks ${HOME}/.elinks
+ln -s ${HOME}/.codisms/muttrc ${HOME}/.muttrc
+ln -s ${HOME}/.codisms/ctags ${HOME}/.ctags
+ln -s ${HOME}/.codisms/pgpass ${HOME}/.pgpass
+ln -s ${HOME}/.codisms/eslintrc ${HOME}/.eslintrc
+ln -s ${HOME}/.codisms/editorconfig ${HOME}/.editorconfig
+chmod 600 ${HOME}/.pgpass
+chmod 600 ${HOME}/.codisms/pgpass
 
 reloadEnvironment

@@ -1,6 +1,4 @@
 
-source ../functions
-
 #UBUNTU_VERSION=$(lsb_release -rs)
 #echo UBUNTU_VERSION = ${UBUNTU_VERSION}
 
