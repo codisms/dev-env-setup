@@ -102,10 +102,10 @@ if [ $MINUTES -eq 0 ]; then
 else
 	MINUTES="${MINUTES}m "
 fi
-SECONDS=$(($SECONDS % 60))s
-echo -e "\e[92mScript run time: ${HOURS}${MINUTES}${SECONDS}\e[0m"
+SECONDS=$(($SECONDS % 60))
 
 printHeader "Done.  \e[5mRebooting\e[25m for the final time..." "reboot"
+echo -e "\e[97mScript run time: ${HOURS}${MINUTES}${SECONDS}s\e[0m"
 echo -ne '\007'
 
 $SUDO reboot
