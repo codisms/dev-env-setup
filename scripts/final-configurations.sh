@@ -6,6 +6,14 @@ if hash ufw 2>/dev/null; then
 fi
 
 if [ -d ${HOME}/.codisms ]; then
+
+	if [ -f ${HOME}/.codisms/vimrc.dbext ]; then
+		if [ -L ${HOME}/.vim/vimrc.dbext ]; then
+			rm ${HOME}/.vim/vimrc.dbext
+		fi
+		ln -s ${HOME}/.codisms/vimrc.dbext ${HOME}/.vim/vimrc.dbext
+	fi
+
 	printSubHeader "Setting motd..."
 	[ -f /etc/motd ] && $SUDO mv /etc/motd /etc/motd.orig
 	$SUDO ln -s ${HOME}/.codisms/motd /etc/motd
