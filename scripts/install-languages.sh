@@ -80,7 +80,7 @@ installGo() {
 	printSubHeader "Setting up Go..."
 
 	#curl -o- -sSL https://dl.google.com/go/go1.10.2.linux-amd64.tar.gz > /tmp/go.tar.gz
-	aria2c --out=/tmp/go.tar.gz https://dl.google.com/go/go1.10.2.linux-amd64.tar.gz
+	aria2c --max-connection-per-server=4 --dir=/tmp --out=go.tar.gz https://dl.google.com/go/go1.10.2.linux-amd64.tar.gz
 	$SUDO tar -C /usr/local -xzf /tmp/go.tar.gz
 	#export PATH=${PATH}:/usr/local/go/bin
 	#export GOPATH=${HOME}/go
