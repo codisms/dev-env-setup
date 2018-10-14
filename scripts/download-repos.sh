@@ -1,4 +1,4 @@
-SKIP_REPO=$(option_value skip-repo)
+SKIP_REPO=$(option_set skip-repo)
 
 if [ $SKIP_REPO -eq 1 ]; then
 	notice "Skipping repo download!"
