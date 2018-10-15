@@ -15,7 +15,7 @@ else
 	printSubHeader "Configuring security..."
 
 	cd ${HOME}
-	ln -s ./.codisms/netrc /.netrc
+	ln -s ./.codisms/netrc .netrc
 	chmod 600 /.netrc
 
 	if [ -d .ssh ]; then
