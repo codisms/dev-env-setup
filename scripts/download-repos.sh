@@ -29,7 +29,6 @@ else
 	sed -i s/codisms@// ${HOME}/.codisms/.git/config
 
 	printSubHeader "Downloading submodules..."
-
 	cd ${HOME}/.codisms
 	retry git submodule update --init --recursive
 
@@ -40,12 +39,10 @@ fi
 echo "Downloading env-config..."
 
 printSubHeader "Cloning env-config..."
-echo 'Cloning .codisms; enter bitbucket.org password for "codisms":'
-retry git clone --depth=1 "https://codisms:${REPO_PASSWORD}@bitbucket.org/codisms/env-config.git" ${HOME}/.dotfiles
+retry git clone --depth=1 "https://github.com/codisms/env-config.git" ${HOME}/.dotfiles
 
 printSubHeader "Downloading submodules..."
-
-cd ${HOME}/.env-config
+cd ${HOME}/.dotfiles
 retry git submodule update --init --recursive
 
 cd "$SCRIPT_FOLDER"
