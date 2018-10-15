@@ -28,7 +28,7 @@ else
 
 	sed -i s/codisms@// ${HOME}/.codisms/.git/config
 
-	printSubHeader "Downloading submodules..."
+	printSubHeader "Downloading dev-config submodules..."
 	cd ${HOME}/.codisms
 	retry git submodule update --init --recursive
 
@@ -41,7 +41,7 @@ echo "Downloading env-config..."
 printSubHeader "Cloning env-config..."
 retry git clone --depth=1 "https://github.com/codisms/env-config.git" ${HOME}/.dotfiles
 
-printSubHeader "Downloading submodules..."
+printSubHeader "Downloading env-config submodules..."
 cd ${HOME}/.dotfiles
 retry git submodule update --init --recursive
 
