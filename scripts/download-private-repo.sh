@@ -2,9 +2,9 @@ SKIP_REPO=$(option_set skip-repo)
 debug "SKIP_REPO = ${SKIP_REPO}"
 
 if [ $SKIP_REPO -eq 1 ]; then
-	notice "Skipping repo download!"
+	notice "Skipping private repo download!"
 else
-	echo "Downloading dev-config..."
+	echo "Downloading private repo..."
 
 	REPO_PASSWORD=$(option_value repo-password)
 
@@ -39,17 +39,14 @@ else
 
 	printSubHeader "Cloning db code..."
 	retry git clone --depth=1 https://bitbucket.org/codisms/db.git ${HOME}/db
+
+	if [ -f ./.codisms/pgpass ]; then
+		ln -s ./.codisms/pgpass .pgpass
+
+		chmod 600 .pgpass
+		chmod 600 .codisms/pgpass
+	fi
 fi
 
-echo "Downloading env-config..."
-
-printSubHeader "Cloning env-config..."
-retry git clone --depth=1 "https://github.com/codisms/env-config.git" ${HOME}/.dotfiles
-
-printSubHeader "Downloading env-config submodules..."
-cd ${HOME}/.dotfiles
-retry git submodule update --init --recursive
-
-cd "$SCRIPT_FOLDER"
-
 resetPermissions
+reloadEnvironment
