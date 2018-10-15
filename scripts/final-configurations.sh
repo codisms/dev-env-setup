@@ -13,21 +13,19 @@ if [ -d ${HOME}/.codisms ]; then
 		fi
 		ln -s ${HOME}/.codisms/vimrc.dbext ${HOME}/.vim/vimrc.dbext
 	fi
-
-	printSubHeader "Setting motd..."
-	[ -f /etc/motd ] && $SUDO mv /etc/motd /etc/motd.orig
-	$SUDO ln -s ${HOME}/.codisms/motd /etc/motd
-
-	printSubHeader "Setting crontab jobs ${USER} ${HOME}..."
-	set +e
-	(crontab -u ${USER} -l 2>/dev/null; \
-		echo "0 5 * * * ${HOME}/.codisms/bin/crontab-daily"; \
-		echo "5 5 * * 1 ${HOME}/.codisms/bin/crontab-weekly"; \
-		echo "15 5 1 * * ${HOME}/.codisms/bin/crontab-monthly") | crontab -u ${USER} -
-	set -e
-else
-	notice "Skipping MOTD and crontab changes"
 fi
+
+printSubHeader "Setting motd..."
+[ -f /etc/motd ] && $SUDO mv /etc/motd /etc/motd.orig
+$SUDO ln -s ${HOME}/.dotfiles/motd /etc/motd
+
+printSubHeader "Setting crontab jobs ${USER} ${HOME}..."
+set +e
+(crontab -u ${USER} -l 2>/dev/null; \
+	echo "0 5 * * * ${HOME}/.dotfiles/bin/crontab-daily"; \
+	echo "5 5 * * 1 ${HOME}/.dotfiles/bin/crontab-weekly"; \
+	echo "15 5 1 * * ${HOME}/.dotfiles/bin/crontab-monthly") | crontab -u ${USER} -
+set -e
 
 printSubHeader "Setting zsh as default shell..."
 [ -f /etc/ptmp ] && $SUDO rm -f /etc/ptmp
