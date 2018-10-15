@@ -187,9 +187,9 @@ function option_value() {
 
 function option_set() {
 	if [ "${CMD_OPTIONS[$1]}" != "" ] && [ ${CMD_OPTIONS[$1]} -eq 1 ]; then
-		return 1
+		echo 1
 	else
-		return 0
+		echo 0
 	fi
 }
 #   IS_SET=$(option_set KEY)
