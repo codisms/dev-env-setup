@@ -16,7 +16,7 @@ else
 
 	cd ${HOME}
 	ln -s ./.codisms/netrc .netrc
-	chmod 600 /.netrc
+	chmod 600 .netrc
 
 	if [ -d .ssh ]; then
 		mkdir -p .ssh
