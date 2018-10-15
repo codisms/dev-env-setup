@@ -4,7 +4,7 @@ debug "SKIP_REPO = ${SKIP_REPO}"
 if [ $SKIP_REPO -eq 1 ]; then
 	notice "Skipping repo download!"
 else
-	echo "Downloading repos..."
+	echo "Downloading dev-config..."
 
 	REPO_PASSWORD=$(option_value repo-password)
 
@@ -35,8 +35,19 @@ else
 
 	printSubHeader "Cloning db code..."
 	retry git clone --depth=1 https://bitbucket.org/codisms/db.git ${HOME}/db
-
-	cd "$SCRIPT_FOLDER"
-
-	resetPermissions
 fi
+
+echo "Downloading env-config..."
+
+printSubHeader "Cloning env-config..."
+echo 'Cloning .codisms; enter bitbucket.org password for "codisms":'
+retry git clone --depth=1 "https://codisms:${REPO_PASSWORD}@bitbucket.org/codisms/env-config.git" ${HOME}/.dotfiles
+
+printSubHeader "Downloading submodules..."
+
+cd ${HOME}/.env-config
+retry git submodule update --init --recursive
+
+cd "$SCRIPT_FOLDER"
+
+resetPermissions
