@@ -5,14 +5,12 @@ if hash ufw 2>/dev/null; then
 	$SUDO ufw disable
 fi
 
-if [ -d ${HOME}/.codisms ]; then
-
-	if [ -f ${HOME}/.codisms/vimrc.dbext ]; then
-		if [ -L ${HOME}/.vim/vimrc.dbext ]; then
-			rm ${HOME}/.vim/vimrc.dbext
-		fi
-		ln -s ${HOME}/.codisms/vimrc.dbext ${HOME}/.vim/vimrc.dbext
+if [ -f ${HOME}/.codisms/vimrc.dbext ]; then
+	cd ${HOME}/.vim
+	if [ -L vimrc.dbext ]; then
+		rm vimrc.dbext
 	fi
+	ln -s ../.codisms/vimrc.dbext
 fi
 
 printSubHeader "Setting motd..."

@@ -14,13 +14,18 @@ else
 
 	printSubHeader "Configuring security..."
 
-	ln -s ${HOME}/.codisms/netrc ${HOME}/.netrc
-	chmod 600 ${HOME}/.netrc
+	cd ${HOME}
+	ln -s ./.codisms/netrc /.netrc
+	chmod 600 /.netrc
 
-	mkdir -p ${HOME}/.ssh
-	chmod 700 ${HOME}/.ssh
-	mkdir -p ${HOME}/.ssh/controlmasters
-	cd ${HOME}/.ssh
+	if [ -d .ssh ]; then
+		mkdir -p .ssh
+	fi
+	if [ -D .ssh/controlmasters ]; then
+		mkdir -p .ssh/controlmasters
+	fi
+	chmod -R 700 .ssh
+	cd .ssh
 	[ -f authorized_keys ] && mv authorized_keys authorized_keys.orig
 	find ../.codisms/ssh/ -type f -exec ln -s {} \;
 	#chown ${USER}:${USER} *
