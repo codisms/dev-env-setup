@@ -80,7 +80,7 @@ done < setup.apt.txt
 #fi
 
 printHeader "Resetting environment and permissions..." "reset"
-cd ${HOME}/.codisms
+cd ${HOME}/.dotfiles
 git checkout -- zshrc
 
 reloadEnvironment
