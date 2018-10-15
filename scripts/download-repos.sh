@@ -1,4 +1,5 @@
 SKIP_REPO=$(option_set skip-repo)
+debug "SKIP_REPO = ${SKIP_REPO}"
 
 if [ $SKIP_REPO -eq 1 ]; then
 	notice "Skipping repo download!"
