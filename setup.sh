@@ -87,9 +87,6 @@ reloadEnvironment
 resetPermissions
 cleanBoot
 
-printHeader "Downloading antigen modules..." "antigen"
-zsh -c "source ~/.zshrc"
-
 HOURS=$(($SECONDS / 3600))
 if [ $HOURS -eq 0 ]; then
 	HOURS=
