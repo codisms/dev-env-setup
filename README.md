@@ -1,5 +1,6 @@
 *Note:* This repository currently only supports Ubuntu 16.04 or above.   CentOS needs testing and updating.
 
+## Description
 This script is to help create new instances of my dev environments with the following:
 
 - Add current user to sudoers file
@@ -27,8 +28,6 @@ This script is to help create new instances of my dev environments with the foll
   - psql
 - Configures daily, weekly, monthly cron jobs to maintain the latest versions of vim and tmux while clearing tmux resurrect plugin files
 - Optionally downloads and installs another repo specified with the `--private-repo` parameter into `~/.dotfiles.private`
-
-----
 
 ## Installation
 ### Prerequisites
