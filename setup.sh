@@ -8,7 +8,7 @@ echo "Downloading setup scripts..."
 if [ -d ${HOME}/.setup ]; then
 	rm -rf ${HOME}/.setup
 fi
-git clone --depth=1 https://bitbucket.org/codisms/dev-setup.git ${HOME}/.setup
+git clone --depth=1 https://github.com/codisms/dev-env-setup.git ${HOME}/.setup
 cd ${HOME}/.setup
 
 . ./functions
