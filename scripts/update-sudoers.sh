@@ -7,7 +7,7 @@ if [ -f /etc/sudoers ]; then
 		echo "$USER ALL=(ALL:ALL) NOPASSWD: ALL" | $SUDO EDITOR='tee -a' visudo > /dev/null
 	else
 		echo "  User already exists"
-		grep $USER /etc/sudoers
+		$SUDO grep $USER /etc/sudoers
 	fi
 	#cat /etc/sudoers
 fi
