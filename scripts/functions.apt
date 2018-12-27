@@ -42,17 +42,17 @@ apt_get_install() {
 }
 
 apt_get_update() {
-	retry_long $SUDO apt-get update
-	retry_long $SUDO apt-get upgrade -y
+	retry_long $SUDO DEBIAN_FRONTEND=noninteractive apt-get update
+	retry_long $SUDO DEBIAN_FRONTEND=noninteractive apt-get upgrade -y
 }
 
 apt_get_autoremove() {
-	retry_long $SUDO apt-get autoremove
+	retry_long $SUDO DEBIAN_FRONTEND=noninteractive apt-get autoremove
 }
 
 apt_add_repository() {
 	if [ "$(which add-apt-repository 2> /dev/null)" == "" ]; then
-		retry_long $SUDO apt-get install software-properties-common python-software-properties
+		retry_long $SUDO DEBIAN_FRONTEND=noninteractive apt-get install software-properties-common python-software-properties
 	fi
 	retry_long $SUDO add-apt-repository -y "$1"
 	apt_get_update
