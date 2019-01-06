@@ -89,7 +89,7 @@ installGo() {
 	$SUDO tar -C /usr/local -xzf /tmp/go.tar.gz
 	#export PATH=${PATH}:/usr/local/go/bin
 	#export GOPATH=${HOME}/go
-	echo "export PATH=\${PATH}:/usr/local/go/bin" >> ~/.profile
+	echo "export PATH=\${PATH}:/usr/local/go/bin:~/go/bin" >> ~/.profile
 	echo "export GOPATH=${HOME}/go" >> ~/.profile
 	reloadEnvironment
 
