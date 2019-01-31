@@ -98,9 +98,15 @@ installGo() {
 	mkdir -p ${HOME}/go/pkg
 	mkdir -p ${HOME}/go/src/github.com
 
-	printSubHeader "Downloading goimports..."
 	cd ${HOME}/go
+
+	printSubHeader "Downloading goimports..."
 	GOPATH=`pwd` go get golang.org/x/tools/cmd/goimports
+
+	printSubHeader "Downloading go-wather..."
+	GOPATH=`pwd` go get github.com/canthefason/go-watcher
+	GOPATH=`pwd` go install github.com/canthefason/go-watcher/cmd/watcher
+
 	cd ${SCRIPT_FOLDER}
 
 	reloadEnvironment
