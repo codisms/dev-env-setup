@@ -107,6 +107,9 @@ installGo() {
 	printSubHeader "Downloading goimports..."
 	GOPATH=`pwd` go get golang.org/x/tools/cmd/goimports
 
+	printSubHeader "Downloading go tools..."
+	GOPATH=`pwd` go get -u golang.org/x/tools/...
+
 	printSubHeader "Downloading go-wather..."
 	GOPATH=`pwd` go get github.com/canthefason/go-watcher
 	GOPATH=`pwd` go install github.com/canthefason/go-watcher/cmd/watcher
