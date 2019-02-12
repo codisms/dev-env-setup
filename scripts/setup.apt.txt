@@ -10,6 +10,7 @@ disable-firewall.sh
 install-languages.sh
 install-fonts.sh
 install-tools.sh
+install-docker.sh
 install-chrome.sh
 install-postgres.sh
 install-vim.sh
