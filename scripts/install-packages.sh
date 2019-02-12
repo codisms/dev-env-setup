@@ -18,7 +18,7 @@ apt_get_install git mercurial bzr subversion \
 	libdbd-odbc-perl freetds-bin freetds-common freetds-dev \
 	man htop zsh wget unzip \
 	dnsutils mutt elinks telnet \
-	redis-server apache2 \
+	redis-server apache2 pv \
 	openssh-client openconnect cifs-utils \
 	sysstat iotop traceroute iftop \
 	network-manager-vpnc aria2 \
