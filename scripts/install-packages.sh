@@ -22,6 +22,7 @@ apt_get_install git mercurial bzr subversion \
 	openssh-client openconnect cifs-utils \
 	sysstat iotop traceroute iftop \
 	network-manager-vpnc aria2 \
+	figlet \
 	${PHP_VERSION}-cli ${PHP_VERSION}-mysql openjdk-${JAVA_VERSION}-jre
 	#docker docker.io \
 	#lua lua-devel luajit luajit-devel
