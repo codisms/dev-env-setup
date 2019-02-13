@@ -29,28 +29,20 @@ function createSymlink() {
 		mv ${NAME} ${NAME}.disabled
 	fi
 	ln -s ${TARGET} ${NAME}
+
+	if [ "$3" != "" ]; then
+		chmod $3 ${TARGET}
+		chmod $3 ${NAME}
+	fi
 }
 
 cd ${HOME}
 
 echo -e "\e[35mSetting up symlinks...\e[0m"
 
-if [ -f ./.dotfiles.private/netrc ]; then
-	createSymlink ./.dotfiles.private/netrc .netrc
-	chmod 600 .netrc
-fi
-
-if [ -f ./.dotfiles.private/aws ]; then
-	createSymlink ./.dotfiles.private/aws .aws
-	chmod 600 .aws
-fi
-
-if [ -f ./.dotfiles.private/pgpass ]; then
-	createSymlink ./.dotfiles.private/pgpass .pgpass
-
-	chmod 600 .pgpass
-	chmod 600 .dotfiles.private/pgpass
-fi
+createSymLink ./.dotfiles.private/netrc .netrc 600
+createSymLink ./.dotfiles.private/aws .aws 600
+createSymLink ./.dotfiles.private/pgpass .pgpass 600
 
 echo -e "\e[35mSetting ssh config...\e[0m"
 
@@ -61,24 +53,33 @@ if [ ! -d .ssh/controlmasters ]; then
 	mkdir -p .ssh/controlmasters
 fi
 chmod -R 700 .ssh
-cd .ssh
-if [ -f authorized_keys ] && [ ! -f authorized_keys.orig ]; then
-	mv authorized_keys authorized_keys.orig
+if [ -f ./.dotfiles.private/ssh/authorized_keys ]; then
+	cat ./.dotfiles.private/ssh/authorized_keys >> ${HOME}/.ssh/authorized_keys
 fi
-find ../.dotfiles.private/ssh/ -type f -exec ln -s {} \;
+if [ -f ./.dotfiles.private/ssh/config ]; then
+	cat ./.dotfiles.private/ssh/config >> ${HOME}/.ssh/config
+fi
 #chown ${USER}:${USER} *
+cd .ssh
 chmod 600 *
+cd ..
 
-echo -e "\e[35mDownloading private repo submodules...\e[0m"
-cd ${HOME}/.dotfiles.private
-git submodule update --init --recursive
+if [ -f ./.dotfiles.private/gitconfig ]; then
+	cat "[include]" >> ${HOME}/.gitconfig
+	cat "path = ~/.dotfiles.private/gitconfig" >> ${HOME}/.gitconfig
+fi
+
+#echo -e "\e[35mDownloading private repo submodules...\e[0m"
+#cd ${HOME}/.dotfiles.private
+#git submodule update --init --recursive
 
 echo -e "\e[35mFinishing up...\e[0m"
 
 sed -i s/codisms@// ${HOME}/.dotfiles.private/.git/config
 
-echo "export PATH=\${PATH}:~/.dotfiles.private/bin" >> ~/.profile
-
+if [ -d ./.dotfiles.private/bin ]; then
+	echo "export PATH=\${PATH}:~/.dotfiles.private/bin" >> ~/.profile
+fi
 
 resetPermissions
 reloadEnvironment
