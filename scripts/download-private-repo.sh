@@ -7,15 +7,21 @@ if [ "$PRIVATE_REPO" != "" ]; then
 
 	printSubHeader "Cloning private repo..."
 	retry git clone --depth=1 "${PRIVATE_REPO}" ${HOME}/.dotfiles.private
-
-	if [ -f ${HOME}/.dotfiles.private/install.sh ]; then
-		printSubHeader "Running install script..."
-		${HOME}/.dotfiles.private/install.sh
-	fi
 else
 	echo "Clone private repo template..."
 	retry git clone --depth=1 https://github.com/codisms/env-config-private-template ${HOME}/.dotfiles.private
-	rm -rf ${HOME}/.dotfiles.private/.git
+
+	cd ${HOME}/.dotfiles.private
+	rm -rf .git
+	git init
+	git add .
+	git commit -m "Initial"
+	cd ${HOME}
+fi
+
+if [ -f ${HOME}/.dotfiles.private/install.sh ]; then
+	printSubHeader "Running install script..."
+	${HOME}/.dotfiles.private/install.sh
 fi
 
 function createSymlink() {
