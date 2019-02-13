@@ -57,7 +57,7 @@ if [ -f ./.dotfiles.private/ssh/authorized_keys ]; then
 	cat ./.dotfiles.private/ssh/authorized_keys >> ${HOME}/.ssh/authorized_keys
 fi
 if [ -f ./.dotfiles.private/ssh/config ]; then
-	cat ./.dotfiles.private/ssh/config >> ${HOME}/.ssh/config
+	cat "Include ~/.dotfiles.private/ssh/config" >> ${HOME}/.ssh/config
 fi
 #chown ${USER}:${USER} *
 cd .ssh
