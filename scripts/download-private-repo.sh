@@ -40,9 +40,9 @@ cd ${HOME}
 
 echo -e "\e[35mSetting up symlinks...\e[0m"
 
-createSymLink ./.dotfiles.private/netrc .netrc 600
-createSymLink ./.dotfiles.private/aws .aws 600
-createSymLink ./.dotfiles.private/pgpass .pgpass 600
+createSymlink ./.dotfiles.private/netrc .netrc 600
+createSymlink ./.dotfiles.private/aws .aws 600
+createSymlink ./.dotfiles.private/pgpass .pgpass 600
 
 echo -e "\e[35mSetting ssh config...\e[0m"
 
