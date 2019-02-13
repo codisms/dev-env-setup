@@ -4,4 +4,4 @@
 ##read -p 'Press [Enter] to continue...'
 
 #echo
-ssh-keygen -t rsa -N "" -f ${HOME}/.ssh/id_rsa
+ssh-keygen -t rsa -N "" -C "$(hostname)" -f ${HOME}/.ssh/id_rsa
