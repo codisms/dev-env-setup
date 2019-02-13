@@ -4,7 +4,7 @@ fix-locale.sh
 check-for-swap.sh
 install-apt-fast.sh
 update-system.sh
-#generate-ssh-key.sh
+generate-ssh-key.sh
 install-packages.sh
 disable-firewall.sh
 install-languages.sh
