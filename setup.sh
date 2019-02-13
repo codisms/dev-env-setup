@@ -17,7 +17,7 @@ PACKAGE_MANAGER=$(get_package_manager)
 SCRIPTS_FOLDER="${HOME}/.setup/scripts"
 SCRIPT_FILE="${SCRIPTS_FOLDER}/setup.${PACKAGE_MANAGER}.txt"
 NEW_HOST_NAME=$(option_value host)
-USE_BASH=$(options_set bash)
+USE_BASH=$(option_set bash)
 #DEBUG=${option_set debug}
 DEBUG=1
 
