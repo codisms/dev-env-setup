@@ -57,7 +57,7 @@ if [ -f ./.dotfiles.private/ssh/authorized_keys ]; then
 	cat ./.dotfiles.private/ssh/authorized_keys >> ${HOME}/.ssh/authorized_keys
 fi
 if [ -f ./.dotfiles.private/ssh/config ]; then
-	cat "Include ~/.dotfiles.private/ssh/config" >> ${HOME}/.ssh/config
+	echo "Include ~/.dotfiles.private/ssh/config" >> ${HOME}/.ssh/config
 fi
 #chown ${USER}:${USER} *
 cd .ssh
@@ -65,8 +65,8 @@ chmod 600 *
 cd ..
 
 if [ -f ./.dotfiles.private/gitconfig ]; then
-	cat "[include]" >> ${HOME}/.gitconfig
-	cat "path = ~/.dotfiles.private/gitconfig" >> ${HOME}/.gitconfig
+	echo "[include]" >> ${HOME}/.gitconfig
+	echo "path = ~/.dotfiles.private/gitconfig" >> ${HOME}/.gitconfig
 fi
 
 #echo -e "\e[35mDownloading private repo submodules...\e[0m"
