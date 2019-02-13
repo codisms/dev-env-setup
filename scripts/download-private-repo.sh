@@ -15,7 +15,7 @@ else
 	rm -rf .git
 	git init
 	git add .
-	git commit -m "Initial"
+	#git commit -m "Initial"
 	cd ${HOME}
 fi
 
