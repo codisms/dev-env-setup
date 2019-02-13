@@ -75,7 +75,9 @@ fi
 
 echo -e "\e[35mFinishing up...\e[0m"
 
-sed -i s/codisms@// ${HOME}/.dotfiles.private/.git/config
+if [ -f ${HOME}/.dotfiles.private/.git/config ]; then
+	sed -i s/codisms@// ${HOME}/.dotfiles.private/.git/config
+fi
 
 if [ -d ./.dotfiles.private/bin ]; then
 	echo "export PATH=\${PATH}:~/.dotfiles.private/bin" >> ~/.profile
