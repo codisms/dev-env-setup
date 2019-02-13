@@ -2,9 +2,6 @@
 
 #set -e
 
-echo option for bash
-
-exit
 SECONDS=0
 
 echo "Downloading setup scripts..."
