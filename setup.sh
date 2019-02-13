@@ -2,6 +2,9 @@
 
 #set -e
 
+echo option for bash
+
+exit
 SECONDS=0
 
 echo "Downloading setup scripts..."
@@ -17,10 +20,12 @@ PACKAGE_MANAGER=$(get_package_manager)
 SCRIPTS_FOLDER="${HOME}/.setup/scripts"
 SCRIPT_FILE="${SCRIPTS_FOLDER}/setup.${PACKAGE_MANAGER}.txt"
 NEW_HOST_NAME=$(option_value host)
+USE_BASH=$(options_set bash)
 #DEBUG=${option_set debug}
 DEBUG=1
 
 debug "DEBUG = ${DEBUG}"
+debug "USE_BASH = ${USE_BASH}"
 debug "HOME = ${HOME}"
 debug "USER = ${USER}"
 debug "PACKAGE_MANAGER = ${PACKAGE_MANAGER}"
