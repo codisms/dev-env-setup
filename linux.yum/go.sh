@@ -1,3 +1,3 @@
 #!/bin/bash
 
-souce ./step1.sh
+source ./step1.sh
