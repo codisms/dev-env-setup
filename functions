@@ -149,7 +149,9 @@ cleanBoot() {
 
 	reloadEnvironment
 	#echo "PATH=${PATH}" >> ${HOME}/.bashrc
-	echo ". ${HOME}/.profile" >> ${HOME}/.bashrc
+	if [ ! -f ${HOME}/.bashrc ]; then
+		echo ". ${HOME}/.profile" > ${HOME}/.bashrc
+	fi
 }
 
 reloadEnvironment() {
