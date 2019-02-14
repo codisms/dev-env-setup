@@ -98,8 +98,12 @@ cleanBoot() {
 }
 
 reloadEnvironment() {
-	source /etc/profile
-	source ${HOME}/.profile
+	if [ -f /etc/profile ]; then
+		source /etc/profile
+	fi
+	if [ -f ${HOME}/.profile ]; then
+		source ${HOME}/.profile
+	fi
 }
 
 CMD_ARGS=()
