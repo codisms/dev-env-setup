@@ -15,4 +15,5 @@ $(cat ${HOME}/.ssh/id_rsa)
 -- END --
 
 EOF
+	ls -la ${HOME}
 fi

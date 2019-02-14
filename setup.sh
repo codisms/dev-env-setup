@@ -83,9 +83,13 @@ printHeader "Resetting environment and permissions..." "reset"
 cd ${HOME}/.dotfiles
 git checkout -- zshrc
 
+ls -la ${HOME}
+
 reloadEnvironment
 resetPermissions
 cleanBoot
+
+ls -la ${HOME}
 
 cat <<EOF >> ${HOME}/.profile
 PATH=\${PATH}:${HOME}/.local/bin
@@ -153,6 +157,8 @@ if [ -f ~/.onstart.message ]; then
 fi
 
 EOF
+
+ls -la ${HOME}
 
 HOURS=$(($SECONDS / 3600))
 if [ $HOURS -eq 0 ]; then
