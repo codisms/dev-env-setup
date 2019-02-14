@@ -51,7 +51,72 @@ fi
 [ -f ${HOME}/.bash_profile ] && mv ${HOME}/.bash_profile ${HOME}/.bash_profile.disabled
 [ -f ${HOME}/.profile ] && mv ${HOME}/.profile ${HOME}/.profile.disabled
 
-echo "PATH=\${PATH}:${HOME}/.local/bin" > ${HOME}/.profile
+cat <<EOF >> ${HOME}/.profile
+PATH=\${PATH}:${HOME}/.local/bin
+
+. ~/.execute_onstart
+
+EOF
+
+cat <<EOF >> ${HOME}/.execute_onstart
+
+#ls -la ~
+#date >> ~/log.txt
+#echo \$\$ \$BASHPID >> ~/log.txt
+#ps aux >> ~/log.txt
+#echo PS1 = $PS1 >> ~/log.txt
+#echo -- = \$- >> ~/log.txt
+#fd=0
+#if [ -t "\$fd" ]; then
+#	echo fd >> ~/log.txt
+#else
+#	echo no fd >> ~/log.txt
+#fi
+#set >> ~/log.txt
+#env >> ~/log.txt
+#echo "" >> ~/log.txt
+
+if [ -f ~/.onstart ]; then
+	let INTERACTIVE=0
+	#echo -- = \$-
+	case \$- in
+	*i*)
+		INTERACTIVE=1
+		;;
+	*)
+		if [ -t 0 ]; then
+		#	echo t = 1
+			INTERACTIVE=1
+		#else
+		#	echo t = 0
+		fi
+		;;
+	esac
+	#echo INTERACTIVE = \${INTERACTIVE}
+	if [ "\${INTERACTIVE}" == "1" ]; then
+		CMD=\`cat ~/.onstart\`
+		SUDO=\$(which sudo 2> /dev/null)
+		rm -f ~/.onstart
+		echo "Executing command: \$CMD \$HOME `whoami`"
+		if [ "\$SUDO" == "" ]; then
+			read -p 'Press [Enter] key to continue...'
+		fi
+		\$CMD \$HOME `whoami`
+		CMD=
+		SUDO=
+	#else
+	#	echo Detected .onstart, but not an interactive shell.
+	fi
+else
+	echo "No .onstart"
+fi
+
+if [ -f ~/.onstart.message ]; then
+	cat ~/.onstart.message
+	rm ~/.onstart.message
+fi
+
+EOF
 
 set -e
 
