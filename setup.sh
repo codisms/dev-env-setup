@@ -86,9 +86,14 @@ git checkout -- zshrc
 ls -la ${HOME}
 
 reloadEnvironment
+echo "*1"
+ls -la ${HOME}
 resetPermissions
+echo "*2"
+ls -la ${HOME}
 cleanBoot
 
+echo "*3"
 ls -la ${HOME}
 
 cat <<EOF >> ${HOME}/.profile
@@ -100,7 +105,7 @@ EOF
 
 cat <<EOF >> ${HOME}/.execute_onstart
 
-#ls -la ~
+ls -la ~
 #date >> ~/log.txt
 #echo \$\$ \$BASHPID >> ~/log.txt
 #ps aux >> ~/log.txt
@@ -154,6 +159,8 @@ fi
 if [ -f ~/.onstart.message ]; then
 	cat ~/.onstart.message
 	rm ~/.onstart.message
+else
+	echo "No .onstart.message"
 fi
 
 EOF
@@ -177,6 +184,8 @@ SECONDS=$(($SECONDS % 60))
 printHeader "Done.  \e[5mRebooting\e[25m for the final time..." "reboot"
 echo -e "\e[97mScript run time: ${HOURS}${MINUTES}${SECONDS}s\e[0m"
 echo -ne '\007'
+
+ls -la ${HOME}
 
 $SUDO reboot
 
