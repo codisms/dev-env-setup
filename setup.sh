@@ -83,18 +83,9 @@ printHeader "Resetting environment and permissions..." "reset"
 cd ${HOME}/.dotfiles
 git checkout -- zshrc
 
-ls -la ${HOME}
-
 reloadEnvironment
-echo "*1"
-ls -la ${HOME}
 resetPermissions
-echo "*2"
-ls -la ${HOME}
 cleanBoot
-
-echo "*3"
-ls -la ${HOME}
 
 cat <<EOF >> ${HOME}/.profile
 PATH=\${PATH}:${HOME}/.local/bin
@@ -105,7 +96,7 @@ EOF
 
 cat <<EOF >> ${HOME}/.execute_onstart
 
-ls -la ~
+#ls -la ~
 #date >> ~/log.txt
 #echo \$\$ \$BASHPID >> ~/log.txt
 #ps aux >> ~/log.txt
@@ -121,24 +112,24 @@ ls -la ~
 #env >> ~/log.txt
 #echo "" >> ~/log.txt
 
-if [ -f ~/.onstart ]; then
-	let INTERACTIVE=0
-	#echo -- = \$-
-	case \$- in
-	*i*)
+let INTERACTIVE=0
+#echo -- = \$-
+case \$- in
+*i*)
+	INTERACTIVE=1
+	;;
+*)
+	if [ -t 0 ]; then
+	#	echo t = 1
 		INTERACTIVE=1
-		;;
-	*)
-		if [ -t 0 ]; then
-		#	echo t = 1
-			INTERACTIVE=1
-		#else
-		#	echo t = 0
-		fi
-		;;
-	esac
-	#echo INTERACTIVE = \${INTERACTIVE}
-	if [ "\${INTERACTIVE}" == "1" ]; then
+	#else
+	#	echo t = 0
+	fi
+	;;
+esac
+#echo INTERACTIVE = \${INTERACTIVE}
+if [ "\${INTERACTIVE}" == "1" ]; then
+	if [ -f ~/.onstart ]; then
 		CMD=\`cat ~/.onstart\`
 		SUDO=\$(which sudo 2> /dev/null)
 		rm -f ~/.onstart
@@ -149,18 +140,16 @@ if [ -f ~/.onstart ]; then
 		\$CMD \$HOME `whoami`
 		CMD=
 		SUDO=
-	#else
-	#	echo Detected .onstart, but not an interactive shell.
+	else
+		#echo "No .onstart"
 	fi
-else
-	echo "No .onstart"
-fi
 
-if [ -f ~/.onstart.message ]; then
-	cat ~/.onstart.message
-	rm ~/.onstart.message
-else
-	echo "No .onstart.message"
+	if [ -f ~/.onstart.message ]; then
+		cat ~/.onstart.message
+		rm ~/.onstart.message
+	else
+		#echo "No .onstart.message"
+	fi
 fi
 
 EOF
