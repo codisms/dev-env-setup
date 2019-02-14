@@ -10,9 +10,8 @@ if [ ! -f ${HOME}/.ssh/id_rsa ]; then
 	cat <<EOF >> ${HOME}/.onstart.message
 
 Please make sure to use the following public SSH key wherever needed:
--- BEGIN --
-$(cat ${HOME}/.ssh/id_rsa)
--- END --
+
+$(cat ${HOME}/.ssh/id_rsa.pub)
 
 EOF
 fi
