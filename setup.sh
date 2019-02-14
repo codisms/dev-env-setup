@@ -174,7 +174,5 @@ printHeader "Done.  \e[5mRebooting\e[25m for the final time..." "reboot"
 echo -e "\e[97mScript run time: ${HOURS}${MINUTES}${SECONDS}s\e[0m"
 echo -ne '\007'
 
-ls -la ${HOME}
-
 $SUDO reboot
 
