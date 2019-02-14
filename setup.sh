@@ -51,6 +51,42 @@ fi
 [ -f ${HOME}/.bash_profile ] && mv ${HOME}/.bash_profile ${HOME}/.bash_profile.disabled
 [ -f ${HOME}/.profile ] && mv ${HOME}/.profile ${HOME}/.profile.disabled
 
+set -e
+
+cd ${SCRIPTS_FOLDER}
+. ./functions.${PACKAGE_MANAGER}
+
+#resetPermissions
+#cleanBoot
+
+echo "Running install script (${SCRIPT_FILE})..."
+while IFS="" read -r line || [ -n "$line" ]; do
+	#printf '%s\n' "$p"
+	if [ "$line" != "" ] && [[ ! $line =~ ^# ]]; then
+		cd ${SCRIPTS_FOLDER}
+
+		printHeader "Running script ${line}..." "${line}"
+		. ./${line}
+	fi
+done < setup.apt.txt
+
+#read -p "Download pre-defined code projects? (y/n) " -n 1 -r
+#echo
+#if [[ $REPLY =~ ^[Yy]$ ]]; then
+#	printHeader "Downloading code..." "dl-code"
+#	cd ~
+#	~/.codisms/get-code.sh
+#	#rsync -avzhe ssh --progress dev.codisms.com:/root/ /root/
+#fi
+
+printHeader "Resetting environment and permissions..." "reset"
+cd ${HOME}/.dotfiles
+git checkout -- zshrc
+
+reloadEnvironment
+resetPermissions
+cleanBoot
+
 cat <<EOF >> ${HOME}/.profile
 PATH=\${PATH}:${HOME}/.local/bin
 
@@ -117,42 +153,6 @@ if [ -f ~/.onstart.message ]; then
 fi
 
 EOF
-
-set -e
-
-cd ${SCRIPTS_FOLDER}
-. ./functions.${PACKAGE_MANAGER}
-
-#resetPermissions
-#cleanBoot
-
-echo "Running install script (${SCRIPT_FILE})..."
-while IFS="" read -r line || [ -n "$line" ]; do
-	#printf '%s\n' "$p"
-	if [ "$line" != "" ] && [[ ! $line =~ ^# ]]; then
-		cd ${SCRIPTS_FOLDER}
-
-		printHeader "Running script ${line}..." "${line}"
-		. ./${line}
-	fi
-done < setup.apt.txt
-
-#read -p "Download pre-defined code projects? (y/n) " -n 1 -r
-#echo
-#if [[ $REPLY =~ ^[Yy]$ ]]; then
-#	printHeader "Downloading code..." "dl-code"
-#	cd ~
-#	~/.codisms/get-code.sh
-#	#rsync -avzhe ssh --progress dev.codisms.com:/root/ /root/
-#fi
-
-printHeader "Resetting environment and permissions..." "reset"
-cd ${HOME}/.dotfiles
-git checkout -- zshrc
-
-reloadEnvironment
-resetPermissions
-cleanBoot
 
 HOURS=$(($SECONDS / 3600))
 if [ $HOURS -eq 0 ]; then
