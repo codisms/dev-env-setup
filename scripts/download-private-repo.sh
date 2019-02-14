@@ -70,9 +70,9 @@ cd .ssh
 chmod 600 *
 cd ..
 
-if [ -f ./.dotfiles.private/gitconfig ]; then
+if [ -f ${HOME}/.dotfiles.private/gitconfig ]; then
 	echo "[include]" >> ${HOME}/.gitconfig
-	echo "path = ~/.dotfiles.private/gitconfig" >> ${HOME}/.gitconfig
+	echo "	path = ~/.dotfiles.private/gitconfig" >> ${HOME}/.gitconfig
 fi
 
 #echo -e "\e[35mDownloading private repo submodules...\e[0m"
