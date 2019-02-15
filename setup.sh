@@ -154,8 +154,6 @@ fi
 
 EOF
 
-ls -la ${HOME}
-
 HOURS=$(($SECONDS / 3600))
 if [ $HOURS -eq 0 ]; then
 	HOURS=

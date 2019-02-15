@@ -9,7 +9,7 @@ if [ ! -f ${HOME}/.ssh/id_rsa ]; then
 
 	cat <<EOF >> ${HOME}/.onstart.message
 
-Please make sure to use the following public SSH key wherever needed:
+[35mPlease make sure to use the following public SSH key wherever needed:[0m
 
 $(cat ${HOME}/.ssh/id_rsa.pub)
 
