@@ -142,6 +142,7 @@ if [ "\${INTERACTIVE}" == "1" ]; then
 		SUDO=
 	else
 		#echo "No .onstart"
+		:
 	fi
 
 	if [ -f ~/.onstart.message ]; then
@@ -149,6 +150,7 @@ if [ "\${INTERACTIVE}" == "1" ]; then
 		rm ~/.onstart.message
 	else
 		#echo "No .onstart.message"
+		:
 	fi
 fi
 
