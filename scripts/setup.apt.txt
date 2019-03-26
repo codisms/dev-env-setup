@@ -6,7 +6,7 @@ install-apt-fast.sh
 update-system.sh
 generate-ssh-key.sh
 install-packages.sh
-install-postfix.sh
+#install-postfix.sh
 disable-firewall.sh
 install-languages.sh
 install-fonts.sh
