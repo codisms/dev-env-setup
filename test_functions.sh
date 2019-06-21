@@ -13,10 +13,6 @@ USE_BASH=$(option_set bash)
 #DEBUG=${option_set debug}
 DEBUG=1
 VERBOSE=${option_set verbose}
-echo "verbose = $VERBOSE"
-if [ $VERBOSE -eq 1 ]; then
-	set -x
-fi
 
 debug "DEBUG = ${DEBUG}"
 debug "VERBOSE = ${VERBOSE}"
