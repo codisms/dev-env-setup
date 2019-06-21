@@ -51,7 +51,7 @@ retry() {
 				echo "!!! Command failed. Attempt $n/$max; sleeping for ${delay}s !!!"
 				sleep $delay;
 			else
-				fail "!!! The command has failed after $n attempts !!!"
+				failRetry "!!! The command has failed after $n attempts !!!"
 			fi
 		}
 	done

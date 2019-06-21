@@ -9,7 +9,9 @@ wait_for_apt() {
 	while true; do
 		[ ! -f /var/lib/dpkg/lock ] && break || {
 			echo "!!! dpkg is locked !!!"
+			set +e
 			$SUDO lsof -e /run/user/1000/gvfs /var/lib/dpkg/lock
+			set -e
 			if [[ $n -lt $max ]]; then
 				((n++))
 				echo "!!! Attempt $n/$max; sleeping for ${delay}s !!!"
@@ -20,13 +22,17 @@ wait_for_apt() {
 			# We've hit our retry max; try killing apt-get and aptitude
 			# https://askubuntu.com/questions/15433/unable-to-lock-the-administration-directory-var-lib-dpkg-is-another-process/315791#315791
 			echo "!!! Max wait time reached.  Forcing dpkg to unlock !!!"
+			set +e
 			$SUDO killall apt-get
 			$SUDO killall aptitude
 			$SUDO dkpg --configure -a
+			set -e
 
 			if [ -f /var/lib/dpkg/lock ]; then
-				fail "!!! dpkg locked after $n attempts !!!"
-				$SUDO lsof /var/lib/dpkg/lock
+				failRetry "!!! dpkg locked after $n attempts !!!"
+				set +e
+				$SUDO lsof -e /run/user/1000/gvfs /var/lib/dpkg/lock
+				set -e
 			fi
 		}
 	done
