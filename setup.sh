@@ -1,7 +1,6 @@
 #!/bin/bash
 
 #set -e
-set -x
 
 SECONDS=0
 
@@ -21,6 +20,10 @@ NEW_HOST_NAME=$(option_value host)
 USE_BASH=$(option_set bash)
 #DEBUG=${option_set debug}
 DEBUG=1
+VERBOSE=${option_set verbose}
+if [ $VERBOSE -eq 1 ]; then
+	set -x
+fi
 
 debug "DEBUG = ${DEBUG}"
 debug "USE_BASH = ${USE_BASH}"
