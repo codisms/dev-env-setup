@@ -83,6 +83,7 @@ done < setup.apt.txt
 #	#rsync -avzhe ssh --progress dev.codisms.com:/root/ /root/
 #fi
 
+echo "Finished running scripts"
 printHeader "Resetting environment and permissions..." "reset"
 cd ${HOME}/.dotfiles
 git checkout -- zshrc
