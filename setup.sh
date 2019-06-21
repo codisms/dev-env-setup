@@ -81,6 +81,7 @@ while IFS="" read -r line || [ -n "$line" ]; do
 		printHeader "Running script ${line}..." "${line}"
 		. ./${line}
 	fi
+	cat setup.apt.txt
 done < setup.apt.txt
 
 #read -p "Download pre-defined code projects? (y/n) " -n 1 -r
