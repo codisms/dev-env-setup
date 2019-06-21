@@ -8,7 +8,7 @@ echo "Downloading setup scripts..."
 if [ -d ${HOME}/.setup ]; then
 	rm -rf ${HOME}/.setup
 fi
-git clone --depth=1 https://github.com/codisms/dev-env-setup.git ${HOME}/.setup
+git clone https://github.com/codisms/dev-env-setup.git ${HOME}/.setup
 cd ${HOME}/.setup
 
 . ./functions
@@ -56,7 +56,7 @@ fi
 if [ "${BRANCH}" != "" ]; then
 	pwd
 	git status
-	get branch -vv
+	git branch -vv
 	git checkout "${BRANCH}"
 fi
 
