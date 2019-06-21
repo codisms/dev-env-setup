@@ -72,7 +72,7 @@ cd ${SCRIPTS_FOLDER}
 #cleanBoot
 
 echo "Running install script (${SCRIPT_FILE})..."
-cd ${SCRIPTS_FOLDER}
+cat setup.apt.txt
 while IFS="" read -r line || [ -n "$line" ]; do
 	#printf '%s\n' "$p"
 	if [ "$line" != "" ] && [[ ! $line =~ ^# ]]; then
@@ -81,7 +81,6 @@ while IFS="" read -r line || [ -n "$line" ]; do
 		printHeader "Running script ${line}..." "${line}"
 		. ./${line}
 	fi
-	cd ${SCRIPTS_FOLDER}
 done < setup.apt.txt
 
 #read -p "Download pre-defined code projects? (y/n) " -n 1 -r
