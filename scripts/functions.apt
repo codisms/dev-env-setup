@@ -10,7 +10,7 @@ wait_for_apt() {
 		[ ! -f /var/lib/dpkg/lock ] && break || {
 			echo "!!! dpkg is locked !!!"
 			set +e
-			$SUDO lsof -e /run/user/1000/gvfs /var/lib/dpkg/lock
+			$SUDO lsof /var/lib/dpkg/lock 2>/dev/null
 			set -e
 			if [[ $n -lt $max ]]; then
 				((n++))
@@ -31,7 +31,7 @@ wait_for_apt() {
 			if [ -f /var/lib/dpkg/lock ]; then
 				failRetry "!!! dpkg locked after $n attempts !!!"
 				set +e
-				$SUDO lsof -e /run/user/1000/gvfs /var/lib/dpkg/lock
+				$SUDO lsof /var/lib/dpkg/lock 2>/dev/null
 				set -e
 			fi
 		}
