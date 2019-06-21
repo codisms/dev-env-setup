@@ -33,6 +33,7 @@ wait_for_apt() {
 }
 
 apt_get_install() {
+	wait_for_apt
 	if [ "$(which apt-fast 2> /dev/null)" == "" ]; then
 		APT_GET=apt-get
 	else
@@ -42,15 +43,18 @@ apt_get_install() {
 }
 
 apt_get_update() {
+	wait_for_apt
 	retry_long $SUDO DEBIAN_FRONTEND=noninteractive apt-get update
 	retry_long $SUDO DEBIAN_FRONTEND=noninteractive apt-get upgrade -y
 }
 
 apt_get_autoremove() {
+	wait_for_apt
 	retry_long $SUDO DEBIAN_FRONTEND=noninteractive apt-get autoremove
 }
 
 apt_add_repository() {
+	wait_for_apt
 	if [ "$(which add-apt-repository 2> /dev/null)" == "" ]; then
 		retry_long $SUDO DEBIAN_FRONTEND=noninteractive apt-get install software-properties-common python-software-properties
 	fi
