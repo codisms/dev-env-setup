@@ -54,6 +54,9 @@ if [ $VERBOSE -eq 1 ]; then
 fi
 
 if [ "${BRANCH}" != "" ]; then
+	pwd
+	git status
+	get branch -vv
 	git checkout "${BRANCH}"
 fi
 
