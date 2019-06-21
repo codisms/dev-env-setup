@@ -53,6 +53,10 @@ if [ $VERBOSE -eq 1 ]; then
 	set -x
 fi
 
+if [ "${BRANCH}" != "" ]; then
+	git checkout "${BRANCH}"
+fi
+
 #printHeader "Pre-install..." "pre-install"
 
 [ -f ${HOME}/.bashrc ] && mv ${HOME}/.bashrc ${HOME}/.bashrc.disabled
