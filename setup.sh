@@ -50,8 +50,8 @@ if [ ! -f ${SCRIPT_FILE} ]; then
 fi
 
 if [ $VERBOSE -eq 1 ]; then
-	set -x
 	export PS4='$0.$LINENO+ '
+	set -x
 fi
 
 if [ "${BRANCH}" != "" ]; then
