@@ -73,12 +73,13 @@ cd ${SCRIPTS_FOLDER}
 #cleanBoot
 
 SCRIPT_NAMES=()
-while IFS="" read -r line || [ -n "$line" ]; do
+while read -r line; do
 	if [ "$line" != "" ] && [[ ! $line =~ ^# ]]; then
 		SCRIPT_NAMES+=("${line}")
 	fi
 done < setup.apt.txt
 echo "Loaded ${#SCRIPT_NAMES[@]} scripts"
+exit
 
 echo "Running install script (${SCRIPT_FILE})..."
 for script_name in ${SCRIPT_NAMES[@]}; do
