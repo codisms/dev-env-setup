@@ -78,7 +78,7 @@ while read -r line; do
 		SCRIPT_NAMES+=("${line}")
 	fi
 done < setup.apt.txt
-echo "Loaded ${#SCRIPT_NAMES[@]} scripts"
+echo "~~~ Loaded ${#SCRIPT_NAMES[@]} scripts"
 exit
 
 echo "Running install script (${SCRIPT_FILE})..."
