@@ -86,7 +86,9 @@ for script_name in ${SCRIPT_NAMES[@]}; do
 
 	printHeader "Running script ${script_name}..." "${script_name}"
 	. ./${script_name}
+	echo "~~~1"
 done
+echo "~~~2"
 
 #read -p "Download pre-defined code projects? (y/n) " -n 1 -r
 #echo
