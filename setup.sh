@@ -51,6 +51,7 @@ fi
 
 if [ $VERBOSE -eq 1 ]; then
 	set -x
+	export PS4='$0.$LINENO+ '
 fi
 
 if [ "${BRANCH}" != "" ]; then
