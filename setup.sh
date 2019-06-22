@@ -77,8 +77,6 @@ SCRIPT_NAMES=()
 while read -r line; do
 	if [ "$line" != "" ] && [[ ! $line =~ ^# ]]; then
 		SCRIPT_NAMES+=(${line})
-	else
-		echo "!!! Skipping ${line}"
 	fi
 done < ${SCRIPT_FILE}
 echo "Loaded ${#SCRIPT_NAMES[@]} scripts"
@@ -88,8 +86,6 @@ for script_name in ${SCRIPT_NAMES[@]}; do
 
 	printHeader "Running script ${script_name}..." "${script_name}"
 	. ./${script_name}
-	echo "!!! ${script_name}"
-	echo "~~~ ${SCRIPT_NAMES[@]} ~~~"
 done
 
 #read -p "Download pre-defined code projects? (y/n) " -n 1 -r
