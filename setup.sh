@@ -2,6 +2,8 @@
 
 #set -e
 
+. ./functions
+
 if [ "$(which git 2> /dev/null)" == "" ]; then
 	echo "Could not find git!"
 	exit 1
