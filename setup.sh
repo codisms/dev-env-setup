@@ -50,6 +50,7 @@ if [ ! -f ${SCRIPT_FILE} ]; then
 fi
 
 if [ $VERBOSE -eq 1 ]; then
+	export PS4='$0.$LINENO+ '
 	set -x
 fi
 
@@ -71,16 +72,27 @@ cd ${SCRIPTS_FOLDER}
 #resetPermissions
 #cleanBoot
 
-echo "Running install script (${SCRIPT_FILE})..."
-while IFS="" read -r line || [ -n "$line" ]; do
-	#printf '%s\n' "$p"
+echo "Loading install script (${SCRIPT_FILE})..."
+SCRIPT_NAMES=()
+while read -r line; do
+	echo "line = ${line}"
 	if [ "$line" != "" ] && [[ ! $line =~ ^# ]]; then
-		cd ${SCRIPTS_FOLDER}
-
-		printHeader "Running script ${line}..." "${line}"
-		. ./${line}
+		SCRIPT_NAMES+=(${line})
+	else
+		echo "!!! Skipping ${line}"
 	fi
-done < setup.apt.txt
+done < ${SCRIPT_FILE}
+echo "~~~ Loaded ${#SCRIPT_NAMES[@]} scripts"
+exit
+
+for script_name in ${SCRIPT_NAMES[@]}; do
+	cd ${SCRIPTS_FOLDER}
+
+	printHeader "Running script ${script_name}..." "${script_name}"
+	. ./${script_name}
+	echo "!!! ${script_name}"
+	echo "~~~ ${SCRIPT_NAMES[@]} ~~~"
+done
 
 #read -p "Download pre-defined code projects? (y/n) " -n 1 -r
 #echo

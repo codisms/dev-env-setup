@@ -10,7 +10,7 @@ wait_for_apt() {
 		[ ! -f /var/lib/dpkg/lock ] && break || {
 			echo "!!! dpkg is locked !!!"
 			set +e
-			$SUDO lsof -e /run/user/1000/gvfs /var/lib/dpkg/lock
+			$SUDO lsof /var/lib/dpkg/lock 2>/dev/null
 			set -e
 			if [[ $n -lt $max ]]; then
 				((n++))
@@ -29,17 +29,16 @@ wait_for_apt() {
 			set -e
 
 			if [ -f /var/lib/dpkg/lock ]; then
-				failRetry "!!! dpkg locked after $n attempts !!!"
 				set +e
-				$SUDO lsof -e /run/user/1000/gvfs /var/lib/dpkg/lock
+				$SUDO lsof /var/lib/dpkg/lock 2>/dev/null
 				set -e
+				echo "!!! dpkg locked after $n attempts !!!"
 			fi
 		}
 	done
 }
 
 apt_get_install() {
-	wait_for_apt
 	if [ "$(which apt-fast 2> /dev/null)" == "" ]; then
 		APT_GET=apt-get
 	else
@@ -49,18 +48,15 @@ apt_get_install() {
 }
 
 apt_get_update() {
-	wait_for_apt
 	retry_long $SUDO DEBIAN_FRONTEND=noninteractive apt-get update
 	retry_long $SUDO DEBIAN_FRONTEND=noninteractive apt-get upgrade -y
 }
 
 apt_get_autoremove() {
-	wait_for_apt
 	retry_long $SUDO DEBIAN_FRONTEND=noninteractive apt-get autoremove
 }
 
 apt_add_repository() {
-	wait_for_apt
 	if [ "$(which add-apt-repository 2> /dev/null)" == "" ]; then
 		retry_long $SUDO DEBIAN_FRONTEND=noninteractive apt-get install software-properties-common python-software-properties
 	fi
