@@ -80,14 +80,17 @@ while read -r line; do
 	fi
 done < ${SCRIPT_FILE}
 echo "Loaded ${#SCRIPT_NAMES[@]} scripts"
-
+set +e
 for script_name in ${SCRIPT_NAMES[@]}; do
+	set -e
 	cd ${SCRIPTS_FOLDER}
 
 	printHeader "Running script ${script_name}..." "${script_name}"
 	. ./${script_name}
 	echo "~~~1"
+	set +e
 done
+set -e
 echo "~~~2"
 
 #read -p "Download pre-defined code projects? (y/n) " -n 1 -r
