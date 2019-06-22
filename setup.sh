@@ -14,11 +14,6 @@ fi
 git clone https://github.com/codisms/dev-env-setup.git ${HOME}/.setup
 cd ${HOME}/.setup
 
-if [ $VERBOSE -eq 1 ]; then
-	export PS4='$0.$LINENO+ '
-	set -x
-fi
-
 if [ "${BRANCH}" != "" ]; then
 	git checkout "${BRANCH}"
 fi
