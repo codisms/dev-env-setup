@@ -53,7 +53,9 @@ apt_get_update() {
 }
 
 apt_get_autoremove() {
+	set +e
 	retry_long $SUDO DEBIAN_FRONTEND=noninteractive apt-get autoremove -y
+	set -e
 }
 
 apt_add_repository() {
