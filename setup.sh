@@ -64,7 +64,7 @@ fi
 [ -f ${HOME}/.bash_profile ] && mv ${HOME}/.bash_profile ${HOME}/.bash_profile.disabled
 [ -f ${HOME}/.profile ] && mv ${HOME}/.profile ${HOME}/.profile.disabled
 
-set -e
+#set -e
 
 cd ${SCRIPTS_FOLDER}
 . ./functions.${PACKAGE_MANAGER}
@@ -80,17 +80,13 @@ while read -r line; do
 	fi
 done < ${SCRIPT_FILE}
 echo "Loaded ${#SCRIPT_NAMES[@]} scripts"
-set +e
 for script_name in ${SCRIPT_NAMES[@]}; do
-	set -e
 	cd ${SCRIPTS_FOLDER}
 
 	printHeader "Running script ${script_name}..." "${script_name}"
 	. ./${script_name}
-	echo "~~~1"
-	set +e
+	echo "~~~1 ${script_name} ${SCRIPT_NAMES[@]}"
 done
-set -e
 echo "~~~2"
 
 #read -p "Download pre-defined code projects? (y/n) " -n 1 -r
