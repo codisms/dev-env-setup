@@ -72,16 +72,18 @@ cd ${SCRIPTS_FOLDER}
 #resetPermissions
 #cleanBoot
 
+echo "Loading install script (${SCRIPT_FILE})..."
 SCRIPT_NAMES=()
 while read -r line; do
 	if [ "$line" != "" ] && [[ ! $line =~ ^# ]]; then
 		SCRIPT_NAMES+=("${line}")
+	else
+		echo "!!! Skipping ${line}"
 	fi
-done < setup.apt.txt
+done < ${SCRIPT_FILE}
 echo "~~~ Loaded ${#SCRIPT_NAMES[@]} scripts"
 exit
 
-echo "Running install script (${SCRIPT_FILE})..."
 for script_name in ${SCRIPT_NAMES[@]}; do
 	cd ${SCRIPTS_FOLDER}
 
