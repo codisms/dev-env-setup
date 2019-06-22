@@ -75,8 +75,9 @@ cd ${SCRIPTS_FOLDER}
 echo "Loading install script (${SCRIPT_FILE})..."
 SCRIPT_NAMES=()
 while read -r line; do
+	echo "line = ${line}"
 	if [ "$line" != "" ] && [[ ! $line =~ ^# ]]; then
-		SCRIPT_NAMES+=("${line}")
+		SCRIPT_NAMES+=(${line})
 	else
 		echo "!!! Skipping ${line}"
 	fi
