@@ -71,18 +71,21 @@ cd ${SCRIPTS_FOLDER}
 #resetPermissions
 #cleanBoot
 
-echo "Running install script (${SCRIPT_FILE})..."
-cat setup.apt.txt
+SCRIPT_NAMES=()
 while IFS="" read -r line || [ -n "$line" ]; do
-	#printf '%s\n' "$p"
 	if [ "$line" != "" ] && [[ ! $line =~ ^# ]]; then
-		cd ${SCRIPTS_FOLDER}
-
-		printHeader "Running script ${line}..." "${line}"
-		. ./${line}
+		SCRIPT_NAMES+=("${line}")
 	fi
-	cat setup.apt.txt
 done < setup.apt.txt
+echo "Loaded ${#SCRIPT_NAMES[@]} scripts"
+
+echo "Running install script (${SCRIPT_FILE})..."
+for script_name in ${SCRIPT_NAMES[@]}; do
+	cd ${SCRIPTS_FOLDER}
+
+	printHeader "Running script ${script_name}..." "${script_name}"
+	. ./${script_name}
+done
 
 #read -p "Download pre-defined code projects? (y/n) " -n 1 -r
 #echo
