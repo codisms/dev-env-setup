@@ -19,11 +19,11 @@ updatePip() {
 
 installNode() {
 	printSubHeader "Installing Node.js..."
-	curl -o- -sSL https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
+	curl -o- -sSL https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash
 	echo 'export NVM_DIR="$HOME/.nvm"' >> ${HOME}/.profile
 	echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm' >> ${HOME}/.profile
 	reloadEnvironment
-	nvm install stable
+	nvm install node
 
 	printSubHeader "Installing tools..."
 	npm install --quiet -g npm > /dev/null
