@@ -3,6 +3,7 @@
 #set -e
 
 SECONDS=0
+cd ${HOME}/.setup
 
 . ./functions
 
