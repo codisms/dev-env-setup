@@ -134,7 +134,7 @@ case \$- in
 	;;
 esac
 #echo INTERACTIVE = \${INTERACTIVE}
-if [ "\${INTERACTIVE}" == "1" ]; then
+if [ "\${INTERACTIVE}" = "1" ]; then
 	if [ -f ~/.onstart ]; then
 		CMD=\`cat ~/.onstart\`
 		SUDO=\$(which sudo 2> /dev/null)
