@@ -28,9 +28,11 @@ installNode() {
 	printSubHeader "Installing tools..."
 	npm install --quiet -g npm > /dev/null
 	npm install --quiet -g nodemon \
-		grunt-cli gulp-cli webpack @angular/cli ionic bower webpack-bundle-analyzer \
+		grunt-cli gulp-cli webpack ionic bower webpack-bundle-analyzer \
 		jshint eslint typescript tslint \
 		json http-server pm2
+	# Angular 8+ prompts if CI is not "true"
+	CI=true npm install --quier -g @angular/cli
 
 	#curl -o- -sSL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 	#apt_get_install nodejs build-essential
