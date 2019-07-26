@@ -16,4 +16,6 @@ echo "Installing tools...."
 installAwsCli
 installCertbot
 
+retry pip install pillow imgcat
+
 reloadEnvironment
