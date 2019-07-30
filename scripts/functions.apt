@@ -49,6 +49,9 @@ apt_get_install() {
 
 apt_get_update() {
 	retry_long $SUDO DEBIAN_FRONTEND=noninteractive apt-get update
+}
+
+apt_get_upgrade() {
 	retry_long $SUDO DEBIAN_FRONTEND=noninteractive apt-get upgrade -y
 }
 

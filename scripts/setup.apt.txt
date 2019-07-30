@@ -1,9 +1,10 @@
 update-sudoers.sh
 set-host-name.sh
+update-system.sh
 fix-locale.sh
 check-for-swap.sh
 install-apt-fast.sh
-update-system.sh
+upgrade-system.sh
 generate-ssh-key.sh
 install-packages.sh
 #install-postfix.sh
