@@ -9,7 +9,7 @@ JAVA_VERSION=8
 
 apt_get_install git mercurial bzr subversion \
 	gcc gpp linux-kernel-headers kernel-package \
-	automake cmake make libtool gawk \
+	automake cmake make libtool gawk gdb mdb \
 	libncurses-dev tcl-dev \
 	curl libcurl4-openssl-dev clang ctags \
 	python python-dev python-pip python3 python3-dev python3-pip \
@@ -22,7 +22,7 @@ apt_get_install git mercurial bzr subversion \
 	openssh-client openconnect cifs-utils \
 	sysstat iotop traceroute iftop \
 	network-manager-vpnc aria2 \
-	figlet \
+	figlet rename \
 	${PHP_VERSION}-cli ${PHP_VERSION}-mysql openjdk-${JAVA_VERSION}-jre
 	#docker docker.io \
 	#lua lua-devel luajit luajit-devel
