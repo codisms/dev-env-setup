@@ -1,9 +1,9 @@
 echo "Installing languages..."
 
 updatePython() {
-	update-alternatives --install /usr/bin/python python /usr/bin/python3 1
-	update-alternatives --install /usr/bin/python python /usr/bin/python2 2
-	update-alternatives --install /usr/bin/python python /usr/bin/pip3 1
+	$SUDO update-alternatives --install /usr/bin/python python /usr/bin/python3 1
+	$SUDO update-alternatives --install /usr/bin/python python /usr/bin/python2 2
+	$SUDO update-alternatives --install /usr/bin/python python /usr/bin/pip3 1
 
 	printSubHeader "Setting up pip..." "pip"
 	if [ ! -d ~/.cache/pip ]; then
