@@ -126,6 +126,8 @@ installGo() {
 	reloadEnvironment
 }
 
+ssh-keyscan -H github.com >> ~/.ssh/known_hosts
+
 updatePython
 installNode
 installRuby
