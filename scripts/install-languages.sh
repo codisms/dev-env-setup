@@ -72,7 +72,7 @@ installRuby() {
 	source ${HOME}/.rvm/scripts/rvm
 
 	printSubHeader "Downloading and installying Ruby..."
-	retry rvm install ruby-2.3
+	retry rvm install ruby-2.7
 	#source /etc/profile.d/rvm.sh
 	#source ${HOME}/.rvm/scripts/rvm
 	reloadEnvironment
