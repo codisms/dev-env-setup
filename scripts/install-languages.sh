@@ -3,7 +3,8 @@ echo "Installing languages..."
 updatePython() {
 	$SUDO update-alternatives --install /usr/bin/python python /usr/bin/python3 1
 	$SUDO update-alternatives --install /usr/bin/python python /usr/bin/python2 2
-	$SUDO update-alternatives --install /usr/bin/python python /usr/bin/pip3 1
+	$SUDO update-alternatives --install /usr/bin/pip pip /usr/bin/pip3 1
+	#$SUDO update-alternatives --set python /usr/bin/python3
 
 	printSubHeader "Setting up pip..." "pip"
 	if [ ! -d ~/.cache/pip ]; then
@@ -129,5 +130,4 @@ updatePython
 installNode
 installRuby
 installGo
-echo '~~~'
 
