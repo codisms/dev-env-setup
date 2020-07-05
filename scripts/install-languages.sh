@@ -102,7 +102,7 @@ installGo() {
 	##export PATH=${PATH}:/usr/local/go/bin
 	##export GOPATH=${HOME}/go
 	apt_get_install golang-1.14
-	echo "export PATH=\${PATH}:/usr/local/go/bin:~/go/bin" >> ~/.profile
+	echo "export PATH=\${PATH}:/usr/lib/go-1.14/bin:~/go/bin" >> ~/.profile
 	echo "export GOPATH=${HOME}/go" >> ~/.profile
 	reloadEnvironment
 
