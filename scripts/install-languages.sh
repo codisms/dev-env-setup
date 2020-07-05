@@ -101,7 +101,7 @@ installGo() {
 	#$SUDO tar -C /usr/local -xzf /tmp/go.tar.gz
 	##export PATH=${PATH}:/usr/local/go/bin
 	##export GOPATH=${HOME}/go
-	${SUDO} apt-get install golang-1.14
+	apt_get_install golang-1.14
 	echo "export PATH=\${PATH}:/usr/local/go/bin:~/go/bin" >> ~/.profile
 	echo "export GOPATH=${HOME}/go" >> ~/.profile
 	reloadEnvironment
