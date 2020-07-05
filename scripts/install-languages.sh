@@ -92,15 +92,16 @@ installRuby() {
 installGo() {
 	printSubHeader "Setting up Go..."
 
-	GOURLREGEX='https://dl.google.com/go/go[0-9\.]+\.linux-amd64.tar.gz'
-	echo "Finding latest version of Go for AMD64..."
-	url="$(wget -qO- https://golang.org/dl/ | grep -oP 'https:\/\/dl\.google\.com\/go\/go([0-9\.]+)\.linux-amd64\.tar\.gz' | head -n 1 )"
-	latest="$(echo $url | /bin/grep -oP 'go[0-9\.]+' | grep -oP '[0-9\.]+' | head -c -2 )"
-	echo "Downloading latest Go for AMD64: ${latest}"
-	aria2c --max-connection-per-server=4 --dir=/tmp --out=go.tar.gz "${url}"
-	$SUDO tar -C /usr/local -xzf /tmp/go.tar.gz
-	#export PATH=${PATH}:/usr/local/go/bin
-	#export GOPATH=${HOME}/go
+	#GOURLREGEX='https://dl.google.com/go/go[0-9\.]+\.linux-amd64.tar.gz'
+	#echo "Finding latest version of Go for AMD64..."
+	#url="$(wget -qO- https://golang.org/dl/ | grep -oP 'https:\/\/dl\.google\.com\/go\/go([0-9\.]+)\.linux-amd64\.tar\.gz' | head -n 1 )"
+	#latest="$(echo $url | /bin/grep -oP 'go[0-9\.]+' | grep -oP '[0-9\.]+' | head -c -2 )"
+	#echo "Downloading latest Go for AMD64: ${latest}"
+	#aria2c --max-connection-per-server=4 --dir=/tmp --out=go.tar.gz "${url}"
+	#$SUDO tar -C /usr/local -xzf /tmp/go.tar.gz
+	##export PATH=${PATH}:/usr/local/go/bin
+	##export GOPATH=${HOME}/go
+	${SUDO} apt-get install golang-1.14
 	echo "export PATH=\${PATH}:/usr/local/go/bin:~/go/bin" >> ~/.profile
 	echo "export GOPATH=${HOME}/go" >> ~/.profile
 	reloadEnvironment
