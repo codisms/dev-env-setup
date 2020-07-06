@@ -24,12 +24,13 @@ updatePython() {
 }
 
 installNode() {
-	printSubHeader "Installing Node.js..."
+	NODE_VERSION=$1
+	printSubHeader "Installing Node.js v${NODE_VERSION}..."
 	curl -o- -sSL https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash
 	echo 'export NVM_DIR="$HOME/.nvm"' >> ${HOME}/.profile
 	echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm' >> ${HOME}/.profile
 	reloadEnvironment
-	nvm install node
+	nvm install ${NODE_VERSION}
 
 	printSubHeader "Installing tools..."
 	npm install --quiet -g npm > /dev/null
@@ -59,7 +60,8 @@ installNode() {
 }
 
 installRuby() {
-	printSubHeader "Installing Ruby..."
+	RUBY_VERSION=$1
+	printSubHeader "Installing Ruby v${RUBY_VERSION}..."
 	apt_get_install software-properties-common
 	#apt_add_repository ppa:rael-gc/rvm
 	#apt_get_update
@@ -77,8 +79,8 @@ installRuby() {
 	reloadEnvironment
 	source ${HOME}/.rvm/scripts/rvm
 
-	printSubHeader "Downloading and installying Ruby..."
-	retry rvm install ruby-2.7
+	printSubHeader "Downloading and installing Ruby..."
+	retry rvm install ruby-${RUBY_VERSION}
 	#source /etc/profile.d/rvm.sh
 	#source ${HOME}/.rvm/scripts/rvm
 	reloadEnvironment
@@ -90,7 +92,8 @@ installRuby() {
 }
 
 installGo() {
-	printSubHeader "Setting up Go..."
+	GO_VERSION=$1
+	printSubHeader "Installing Go v${GO_VERSION}..."
 
 	#GOURLREGEX='https://dl.google.com/go/go[0-9\.]+\.linux-amd64.tar.gz'
 	#echo "Finding latest version of Go for AMD64..."
@@ -98,11 +101,15 @@ installGo() {
 	#latest="$(echo $url | /bin/grep -oP 'go[0-9\.]+' | grep -oP '[0-9\.]+' | head -c -2 )"
 	#echo "Downloading latest Go for AMD64: ${latest}"
 	#aria2c --max-connection-per-server=4 --dir=/tmp --out=go.tar.gz "${url}"
-	#$SUDO tar -C /usr/local -xzf /tmp/go.tar.gz
-	##export PATH=${PATH}:/usr/local/go/bin
-	##export GOPATH=${HOME}/go
-	apt_get_install golang-1.14
-	echo "export PATH=\${PATH}:/usr/lib/go-1.14/bin:~/go/bin" >> ~/.profile
+
+	url=https://golang.org/dl/go${GO_VERSION}.linux-amd64.tar.gz
+	aria2c --max-connection-per-server=4 --dir=/tmp --out=go.tar.gz "${url}"
+	$SUDO tar -C /usr/local -xzf /tmp/go.tar.gz
+	#export PATH=${PATH}:/usr/local/go/bin
+	#export GOPATH=${HOME}/go
+	echo "export PATH=\${PATH}:/usr/local/go/bin:~/go/bin" >> ~/.profile
+	#apt_get_install golang-1.14
+	#echo "export PATH=\${PATH}:/usr/lib/go-1.14/bin:~/go/bin" >> ~/.profile
 	echo "export GOPATH=${HOME}/go" >> ~/.profile
 	reloadEnvironment
 
@@ -131,7 +138,7 @@ installGo() {
 ssh-keyscan -H github.com >> ~/.ssh/known_hosts
 
 updatePython
-installNode
-installRuby
-installGo
+installNode 12
+installRuby 2.7
+installGo 1.14.4
 
