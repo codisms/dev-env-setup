@@ -22,4 +22,5 @@ install-env.sh
 config-motd.sh
 config-crontab.sh
 final-cleanup.sh
+show-versions.sh
 
