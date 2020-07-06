@@ -19,4 +19,3 @@ tmux: $(tmux -V)
 Git: $(git --version)
 
 EOF
-fi
