@@ -17,7 +17,7 @@ apt_get_install git mercurial bzr subversion \
 	libevent-2* libevent-dev \
 	libdbd-odbc-perl freetds-bin freetds-common freetds-dev \
 	man htop zsh wget unzip \
-	dnsutils mutt elinks telnet \
+	net-tools dnsutils mutt elinks telnet \
 	redis-server apache2 pv \
 	openssh-client openconnect cifs-utils \
 	sysstat iotop traceroute iftop \
