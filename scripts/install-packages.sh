@@ -9,15 +9,16 @@ JAVA_VERSION=8
 
 apt_get_install git mercurial bzr subversion \
 	gcc gpp linux-kernel-headers kernel-package \
-	automake cmake make libtool gawk gdb mdb \
+	automake cmake make libtool gawk gdb \
 	libncurses-dev tcl-dev \
 	curl libcurl4-openssl-dev clang ctags \
-	python python-dev python-pip python3 python3-dev python3-pip \
+	python3 python3-dev python3-pip \
 	perl libperl-dev perl-modules \
 	libevent-2* libevent-dev \
 	libdbd-odbc-perl freetds-bin freetds-common freetds-dev \
 	man htop glances zsh wget unzip \
-	dnsutils mutt elinks telnet \
+	net-tools dnsutils mutt elinks telnet \
+	apt-transport-https gnupg2 \
 	redis-server apache2 pv \
 	openssh-client openconnect cifs-utils \
 	sysstat iotop traceroute iftop \
@@ -35,5 +36,5 @@ apt_get_install git mercurial bzr subversion \
 reloadEnvironment
 
 printSubHeader "Configuring apache modules"
-$SUDO a2enmod proxy proxy_http proxy_wstunnel rewrite auth_basic proxy_balancer proxy_html proxy_connect ssl xml2enc substitute macro include
+$SUDO a2enmod proxy proxy_http proxy_wstunnel rewrite auth_basic proxy_balancer proxy_html proxy_connect ssl xml2enc substitute macro include headers
 

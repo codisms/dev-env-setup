@@ -13,6 +13,8 @@ install-languages.sh
 install-fonts.sh
 install-tools.sh
 install-docker.sh
+install-terraform.sh
+install-kubernetes.sh
 install-chrome.sh
 install-postgres.sh
 install-vim.sh
@@ -22,4 +24,5 @@ install-env.sh
 config-motd.sh
 config-crontab.sh
 final-cleanup.sh
+show-versions.sh
 
