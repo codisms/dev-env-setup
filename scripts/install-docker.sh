@@ -1,4 +1,4 @@
-apt_get_install apt-transport-https ca-certificates curl gnupg2 software-properties-common
+apt_get_install ca-certificates software-properties-common
 
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | $SUDO apt-key add -
 
