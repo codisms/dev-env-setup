@@ -16,7 +16,7 @@ apt_get_install git mercurial bzr subversion \
 	perl libperl-dev perl-modules \
 	libevent-2* libevent-dev \
 	libdbd-odbc-perl freetds-bin freetds-common freetds-dev \
-	man htop zsh wget unzip \
+	man htop glances zsh wget unzip \
 	dnsutils mutt elinks telnet \
 	redis-server apache2 pv \
 	openssh-client openconnect cifs-utils \
