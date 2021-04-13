@@ -1,4 +1,4 @@
-*Note:* This repository currently only supports Ubuntu 16.04 or above.   CentOS needs testing and updating.
+*Note:* This repository currently only supports Ubuntu 20.04 or above.  (Ubuntu 16.04 and 18.04 might work.) CentOS currently is not enabled.
 
 ## Description
 This script is to help create new instances of my dev environments with the following:
@@ -11,11 +11,11 @@ This script is to help create new instances of my dev environments with the foll
   - apt-fast
   - Build tools: make, automake, gcc, gpp, cmake, clang, ctags
   - Languages: perl, python, python3, Go, Ruby, Node, PHP, OpenJDK
-  - Database drives: FreeTDS (Microsoft SQL)
-  - Tools: zsh, unzip, htop, sysstat, iotop, certbot, aws-cli
+  - Database drivers: FreeTDS (Microsoft SQL)
+  - Tools: zsh, unzip, htop, sysstat, iotop, certbot, aws-cli, glances, rename, Terraform, Docker, Kubernetes
   - Servers: apache2, redis, postgresql
   - Network tools: Google Chrome, openconnect, dnsutils, mutt, elinks, telnet, wget, traceroute, iftop, network-manager-vpnc, aria2
-- Apache modules enabled: proxy, proxy_http, proxy_wstunnel, rewrite, auth_basic, proxy_balancer, proxy_html, proxy_connect, ssl, xml2enc, substitute
+- Apache modules enabled: proxy, proxy_http, proxy_wstunnel, rewrite, auth_basic, proxy_balancer, proxy_html, proxy_connect, ssl, xml2enc, substitute, macro, include, headers
 - Most recent builds of vim and tmux with my configurations ([vim](https://github.com/codisms/vim-config), [tmux](https://github.com/codisms/tmux-config))
 - My settings for the following (from [env-config](https://github.com/codisms/env-config)):
   - zsh
@@ -51,20 +51,8 @@ Where:
 
 ## Other notes
 
-### Enable SSH (Ubuntu 16.04):
-```
-sudo apt-get install openssh-server
-sudo service ssh status
-mkdir ~/.ssh
-vi .ssh/authorized_keys
-
-<paste in public key; exit>
-
-chmod 700 ~/.ssh
-chmod 600 ~/.ssh/authorized_keys
-```
-
 ### Installing Parallels tools:
+For virtualized environments.
 ```
 mkdir -p /media/cdrom
 mount -o exec /dev/cdrom /media/cdrom
