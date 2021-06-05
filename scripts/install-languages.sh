@@ -34,10 +34,8 @@ installNode() {
 
 	printSubHeader "Installing tools..."
 	npm install --quiet -g npm > /dev/null
-	npm install --quiet -g nodemon \
-		grunt-cli gulp-cli webpack ionic bower webpack-bundle-analyzer \
-		jshint eslint typescript tslint \
-		json http-server pm2
+	npm install --quiet -g nodemon ionic eslint typescript tslint json http-server pm2
+	#	grunt-cli gulp-cli webpack bower jshint \
 	# Angular 8+ prompts if CI is not "true"
 	CI=true npm install --quier -g @angular/cli
 
