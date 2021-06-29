@@ -6,6 +6,6 @@ apt_add_repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
 	$(lsb_release -cs) stable"
 
 apt_get_update
-apt_get_install docker-ce
+apt_get_install docker-ce docker-compose
 
 ${SUDO} usermod -aG docker ${USER}
