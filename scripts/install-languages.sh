@@ -125,8 +125,8 @@ installGo() {
 	GOPATH=`pwd` go get -u golang.org/x/tools/...
 
 	printSubHeader "Downloading go-watcher..."
-	GOPATH=`pwd` go get github.com/canthefason/go-watcher
-	GOPATH=`pwd` go install github.com/canthefason/go-watcher/cmd/watcher
+	GOPATH=`pwd` go get github.com/canthefason/go-watcher@latest
+	GOPATH=`pwd` go install github.com/canthefason/go-watcher/cmd/watcher@latest
 
 	cd ${SCRIPT_FOLDER}
 
