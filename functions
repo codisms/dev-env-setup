@@ -59,9 +59,9 @@ retry() {
 
 retry_long() {
 	local n=1
-	# retry for 5 minutes at 5-second intervals
-	local max=60
-	local delay=5
+	# retry for 5 minutes at 10-second intervals
+	local max=30
+	local delay=10
 	while true; do
 		"$@" && break || {
 			if [[ $n -lt $max ]]; then
