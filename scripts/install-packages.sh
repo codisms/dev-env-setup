@@ -1,7 +1,7 @@
 echo "Installing packages..."
 
 PHP_VERSION=php
-JAVA_VERSION=8
+JAVA_VERSION=11
 #if [ "${UBUNTU_VERSION}" == "14.04" ]; then
 #	PHP_VERSION=php5
 #	JAVA_VERSION=7
@@ -23,8 +23,9 @@ apt_get_install git mercurial bzr subversion \
 	openssh-client openconnect cifs-utils \
 	sysstat iotop traceroute iftop \
 	network-manager-vpnc aria2 \
-	figlet rename cowsay \
-	${PHP_VERSION}-cli ${PHP_VERSION}-mysql openjdk-${JAVA_VERSION}-jre
+	figlet rename cowsaw \
+	${PHP_VERSION}-cli ${PHP_VERSION}-mysql \
+	openjdk-${JAVA_VERSION}-jre maven
 	#docker docker.io \
 	#lua lua-devel luajit luajit-devel
 
