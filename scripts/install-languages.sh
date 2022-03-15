@@ -91,16 +91,10 @@ installRuby() {
 
 installGo() {
 	GO_VERSION=$1
+	GO_VERSION=$(curl https://go.dev/dl/ | grep -oE '/dl/go[0-9]\.[0-9]+(\.[0-9]+)?.linux-amd64.tar.gz' | grep -oE '[0-9]\.[0-9]+(\.[0-9]+)' | head -n 1)
 	printSubHeader "Installing Go v${GO_VERSION}..."
 
-	#GOURLREGEX='https://dl.google.com/go/go[0-9\.]+\.linux-amd64.tar.gz'
-	#echo "Finding latest version of Go for AMD64..."
-	#url="$(wget -qO- https://golang.org/dl/ | grep -oP 'https:\/\/dl\.google\.com\/go\/go([0-9\.]+)\.linux-amd64\.tar\.gz' | head -n 1 )"
-	#latest="$(echo $url | /bin/grep -oP 'go[0-9\.]+' | grep -oP '[0-9\.]+' | head -c -2 )"
-	#echo "Downloading latest Go for AMD64: ${latest}"
-	#aria2c --max-connection-per-server=4 --dir=/tmp --out=go.tar.gz "${url}"
-
-	url=https://golang.org/dl/go${GO_VERSION}.linux-amd64.tar.gz
+	url=https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz
 	aria2c --max-connection-per-server=4 --dir=/tmp --out=go.tar.gz "${url}"
 	$SUDO tar -C /usr/local -xzf /tmp/go.tar.gz
 	#export PATH=${PATH}:/usr/local/go/bin
@@ -138,5 +132,5 @@ ssh-keyscan -H github.com >> ~/.ssh/known_hosts
 updatePython
 installNode 12
 installRuby 2.7
-installGo 1.16.6
+installGo 1.18
 
