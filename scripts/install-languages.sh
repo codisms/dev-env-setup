@@ -116,7 +116,7 @@ installGo() {
 	GOPATH=`pwd` go install golang.org/x/tools/cmd/goimports@latest
 
 	printSubHeader "Downloading go tools..."
-	GOPATH=`pwd` go get -u golang.org/x/tools/...
+	GOPATH=`pwd` go install golang.org/x/tools/...@latest
 
 	printSubHeader "Downloading go-watcher..."
 	GOPATH=`pwd` go install github.com/canthefason/go-watcher@latest
