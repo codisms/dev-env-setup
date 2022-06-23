@@ -17,6 +17,7 @@ cd ${HOME}/.setup
 . ./functions
 
 BRANCH=$(option_value branch)
+echo "BRANCH = ${BRANCH}"
 if [ "${BRANCH}" != "" ]; then
 	git checkout "${BRANCH}"
 fi
