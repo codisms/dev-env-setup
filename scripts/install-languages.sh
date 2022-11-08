@@ -130,7 +130,7 @@ installGo() {
 ssh-keyscan -H github.com >> ~/.ssh/known_hosts
 
 updatePython
-installNode 12
+installNode 18
 installRuby 2.7
 installGo 1.18
 
