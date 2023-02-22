@@ -13,9 +13,16 @@ installAwsCli() {
 	retry pip install awscli --upgrade --user
 }
 
+installDBMate() {
+	printSubHeader "Installing dbmate"
+	$SUDO curl -fsSL -o /usr/local/bin/dbmate https://github.com/amacneil/dbmate/releases/latest/download/dbmate-linux-amd64
+	$SUDO chmod +x /usr/local/bin/dbmate
+}
+
 echo "Installing tools...."
 installAwsCli
 installCertbot
+installDBMate
 
 retry pip install pillow imgcat
 
