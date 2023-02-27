@@ -132,6 +132,6 @@ ssh-keyscan -H github.com >> ~/.ssh/known_hosts
 
 updatePython
 installNode 18
-installRuby 2.7
+installRuby 3.2
 installGo 1.18
 
