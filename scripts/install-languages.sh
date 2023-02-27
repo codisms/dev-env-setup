@@ -3,7 +3,7 @@ echo "Installing languages..."
 updatePython() {
 	printSubHeader "Configuring python..." "python"
 	$SUDO update-alternatives --install /usr/bin/python python /usr/bin/python3 1
-	$SUDO update-alternatives --install /usr/bin/python python /usr/bin/python2 2
+	# $SUDO update-alternatives --install /usr/bin/python python /usr/bin/python2 2
 	$SUDO update-alternatives --install /usr/bin/pip pip /usr/bin/pip3 1
 	$SUDO update-alternatives --set python /usr/bin/python3
 
