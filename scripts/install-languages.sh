@@ -55,6 +55,8 @@ installNode() {
 	#$SUDO npm install --quiet --unsafe-perm --loglevel warn -g @angular/cli > /dev/null
 	#$SUDO npm install --quiet --loglevel warn -g ionic > /dev/null
 
+	echo fs.inotify.max_user_watches=288 | $SUDO tee -a /etc/sysctl.conf && sudo sysctl -p
+	
 	reloadEnvironment
 }
 
