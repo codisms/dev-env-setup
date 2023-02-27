@@ -8,10 +8,10 @@ JAVA_VERSION=11
 #fi
 
 apt_get_install git mercurial bzr subversion \
-	gcc gpp linux-kernel-headers kernel-package \
+	gcc gpp linux-kernel-headers \
 	automake cmake make libtool gawk gdb \
 	libncurses-dev tcl-dev \
-	curl libcurl4-openssl-dev clang ctags \
+	curl libcurl4-openssl-dev clang \
 	python3 python3-dev python3-pip \
 	perl libperl-dev perl-modules \
 	libevent-2* libevent-dev \
@@ -26,6 +26,7 @@ apt_get_install git mercurial bzr subversion \
 	figlet rename cowsay \
 	${PHP_VERSION}-cli ${PHP_VERSION}-mysql \
 	openjdk-${JAVA_VERSION}-jre maven
+	# kernel-package ctags
 	#docker docker.io \
 	#lua lua-devel luajit luajit-devel
 
