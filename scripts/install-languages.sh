@@ -26,7 +26,7 @@ updatePython() {
 installNode() {
 	NODE_VERSION=$1
 	printSubHeader "Installing Node.js v${NODE_VERSION}..."
-	curl -o- -sSL https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash
+	curl -o- -sSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
 	echo 'export NVM_DIR="$HOME/.nvm"' >> ${HOME}/.profile
 	echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm' >> ${HOME}/.profile
 	reloadEnvironment
