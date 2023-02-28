@@ -1,7 +1,7 @@
 echo "Installing packages..."
 
 PHP_VERSION=php
-JAVA_VERSION=11
+JAVA_VERSION=19
 #if [ "${UBUNTU_VERSION}" == "14.04" ]; then
 #	PHP_VERSION=php5
 #	JAVA_VERSION=7
