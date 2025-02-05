@@ -14,7 +14,7 @@ install-fonts.sh
 install-tools.sh
 install-docker.sh
 install-terraform.sh
-install-kubernetes.sh
+#install-kubernetes.sh
 install-gcloud.sh
 install-chrome.sh
 install-postgres.sh
