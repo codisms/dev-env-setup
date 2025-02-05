@@ -1,5 +1,6 @@
 echo "Installing fonts..."
 #retry pip install --user powerline-status
+apt_get_install python3-powerline
 
 ## https://gist.github.com/renshuki/3cf3de6e7f00fa7e744a
 #mkdir -p ~/.fonts
