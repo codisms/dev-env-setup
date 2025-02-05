@@ -10,7 +10,11 @@ installCertbot() {
 
 installAwsCli() {
 	printSubHeader "Installing aws-cli"
-	retry pip install awscli --upgrade --user
+	#retry pip install awscli --upgrade --user
+	curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+	unzip awscliv2.zip
+	$SUDO ./aws/install
+ 	rm -rf awscliv2.zip aws
 }
 
 installDBMate() {
@@ -24,6 +28,6 @@ installAwsCli
 installCertbot
 installDBMate
 
-retry pip install pillow imgcat
+#retry pip install pillow imgcat
 
 reloadEnvironment
